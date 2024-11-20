@@ -70,3 +70,16 @@ class Context(object):
         temp_directory = os.path.join(customize_path, _temp_path,
                                       "platform", "update")
         return temp_directory
+
+    @property
+    def project_path(self):
+        """
+        项目文件路径
+        :return:
+        """
+        _target_path = self.__context['path']['target_path']
+        # 目标文件
+        target_directory = os.path.join(_target_path,
+                                        self.__context['filename'],
+                                        )
+        return target_directory

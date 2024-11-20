@@ -33,20 +33,26 @@ run_args = {
                 "EFFECT_APP": "0",
                 "RESTART_FANTOM": "1"
             }
-        }
+        },
+        "sh": {
+            "appsh3": {
+                "start_write_line": "bash /home/fantom/apps/secvisual/bin/recover_icon/chown_copyright_logo.sh &>/dev/null",
+                "cmd": []
+            }
+        },
     },
     "path": {
-        "sip_mather_path": "D:\\sangfor\\new\\sip-master-new",
-        "customize_path": "D:\\sangfor\\sip-customize",
+        "sip_master_path": "D:\\sangfor\\new\\sip-master-new",
+        "sip_customize_path": "D:\\sangfor\\sip-customize",
         "temp_path": "template\\custom_template\\SIP",
         "target_path": "source\\SIP\\SIP3.0.90"
     },
-    "branch": {
-        "customize_branch": "dev-SIP-2024060301-liantong-v90"
-    },
-    "sh": {
-        "app3": {}
-    },
+    "branch":  "dev-SIP-2024060301-liantong-v90",
     "cmd": [],
-    "user": "中国联通"
+    "filename": "liantong",
+    "user": "中国联通",
+    "first": True,
+    "template_commit_message": "",
+    "base_commit_message": "",
+    "commit_message": ""
 }

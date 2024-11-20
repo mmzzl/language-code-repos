@@ -10,4 +10,5 @@ class SipSyncFile(AppBase):
 
 
 if __name__ == '__main__':
-    SipSyncFile(run_args)
+    syncfile = SipSyncFile(run_args)
+    syncfile.run_action()
