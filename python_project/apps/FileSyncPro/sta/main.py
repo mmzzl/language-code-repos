@@ -7,11 +7,11 @@ from app import AppBase
 from package import run_args
 
 
-class SipSyncFile(AppBase):
+class StaSyncFile(AppBase):
     def __init__(self, *args, **kwargs):
-        super(SipSyncFile, self).__init__(*args, **kwargs)
+        super(StaSyncFile, self).__init__(*args, **kwargs)
 
 
 if __name__ == '__main__':
-    syncfile = SipSyncFile(run_args)
+    syncfile = StaSyncFile(run_args)
     syncfile.run_action()

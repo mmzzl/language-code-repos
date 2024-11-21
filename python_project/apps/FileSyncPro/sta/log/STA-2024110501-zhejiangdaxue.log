@@ -1,0 +1,603 @@
+2024-11-11 15:35:29,492 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:36:00,190 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:36:13,736 - app.logger - INFO - 当前分支为: master
+2024-11-11 15:36:15,682 - app.logger - ERROR - error: Cmd('git') failed due to: exit code(1)
+  cmdline: git branch -D dev-STA-2024110501-zhejiangdaxue-v78
+  stderr: 'error: branch 'dev-STA-2024110501-zhejiangdaxue-v78' not found.'
+2024-11-11 15:36:15,682 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 15:36:34,508 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 15:36:34,510 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\SIP3.0.78\zhejiangdaxue
+2024-11-11 15:36:34,603 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:36:34,607 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\SIP3.0.78\\zhejiangdaxue\\source\\sta-master\\update\\package.conf'
+
+2024-11-11 15:36:34,607 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:38:24,645 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:38:34,513 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-11 15:38:34,513 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:38:34,515 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-11 15:38:34,517 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:41:26,397 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:41:35,834 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:41:46,772 - app.logger - INFO - 当前分支为: master
+2024-11-11 15:41:48,326 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 15:42:02,950 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 15:42:02,950 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\SIP3.0.78\zhejiangdaxue
+2024-11-11 15:42:02,997 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:42:02,998 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\SIP3.0.78\\zhejiangdaxue\\source\\sta-master\\update\\package.conf'
+
+2024-11-11 15:42:02,998 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:54:22,268 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:54:31,662 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:54:42,706 - app.logger - INFO - 当前分支为: master
+2024-11-11 15:54:44,885 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 15:54:58,832 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 15:54:58,832 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\source\sta-master
+2024-11-11 15:54:58,887 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:54:58,888 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 29, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\source\\sta-master\\update\\package.conf'
+
+2024-11-11 15:54:58,889 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:56:36,556 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:56:46,611 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:56:57,894 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:56:57,902 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 47, in initialization
+    self.customize_repo.git.checkout('master')
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 639, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 1184, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 984, in execute
+    raise GitCommandError(redacted_command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git checkout master
+  stderr: 'fatal: unable to write new index file'
+
+2024-11-11 15:56:57,902 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:57:15,623 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:57:24,868 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:57:35,663 - app.logger - INFO - 当前分支为: master
+2024-11-11 15:57:37,220 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 15:57:52,263 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 15:57:52,264 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 15:57:52,323 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 15:57:52,324 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 29, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\update\\package.conf'
+
+2024-11-11 15:57:52,324 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 15:59:39,390 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 15:59:48,486 - app.logger - INFO - 切换分支到master.....
+2024-11-11 15:59:58,955 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:00:01,010 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:00:15,479 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:00:15,479 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master\source
+2024-11-11 16:00:15,536 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:00:15,537 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 29, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\source\\update\\package.conf'
+
+2024-11-11 16:00:15,537 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:02:47,418 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:02:56,391 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:03:07,671 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:03:09,829 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:03:24,495 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:03:24,495 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master\source
+2024-11-11 16:03:24,544 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:03:24,545 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\source\\update\\package.conf'
+
+2024-11-11 16:03:24,545 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:06:23,754 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:06:33,351 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:06:44,562 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:06:46,008 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:07:01,382 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:07:01,386 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 72, in initialization
+    self.customize_repo.git.checkout(self.ctx.branch)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 639, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 1184, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 984, in execute
+    raise GitCommandError(redacted_command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git checkout dev-STA-2024110501-zhejiangdaxue-v78
+  stderr: 'fatal: unable to write new index file'
+
+2024-11-11 16:07:01,387 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:07:11,698 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:07:21,123 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:07:32,601 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:07:34,239 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:07:48,559 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:07:48,559 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 16:07:48,611 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:07:48,612 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 80, in initialization
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\source\\update\\package.conf'
+
+2024-11-11 16:07:48,613 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:09:13,388 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:09:22,662 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:09:33,982 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:09:35,682 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:09:50,118 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:09:50,119 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 16:09:50,171 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:09:50,172 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 193, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 82, in initialization
+    self.file_modifier.modify_sh()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 74, in modify_sh
+    with open(update_filepath, "r", encoding="utf-8") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\source\\update\\appsh3'
+
+2024-11-11 16:09:50,172 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:12:06,727 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:12:15,515 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:12:26,460 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:12:27,795 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:12:41,998 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:12:41,998 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 16:13:29,569 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 16:13:34,122 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 16:13:34,122 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 16:14:38,185 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 16:14:42,038 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:14:42,038 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 195, in run_action
+    self.source_code_commit()
+  File "D:\sangfor\filesyncpro\app\base.py", line 180, in source_code_commit
+    os.remove(os.path.join(self.ctx.dst_path, delete_path))
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\source/shared/oldarch/lib/libcl_ev.so.0.0.'
+
+2024-11-11 16:14:42,039 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:16:46,603 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:16:55,726 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-11 16:16:55,727 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 16:16:55,727 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 196, in run_action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-11 16:16:55,728 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 16:18:24,113 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:18:33,859 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:18:44,794 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:18:47,072 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:19:02,084 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:19:02,085 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 16:19:50,458 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 16:19:53,261 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 16:19:53,261 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 16:26:34,549 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 16:27:31,050 - app.logger - INFO - commit message: [ADD]浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 16:27:41,607 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:41:58,107 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:42:09,577 - app.logger - INFO - 切换分支到master.....
+2024-11-11 16:42:21,178 - app.logger - INFO - 当前分支为: master
+2024-11-11 16:42:23,600 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 16:42:38,357 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:42:38,357 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 16:43:28,264 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 16:43:31,508 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 16:43:31,509 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 16:43:44,637 - app.logger - INFO - modified file: .gitignore
+2024-11-11 16:43:44,639 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod
+2024-11-11 16:43:44,647 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon
+2024-11-11 16:43:44,654 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh
+2024-11-11 16:43:44,659 - app.logger - INFO - modified file: source/kernel/oldarch/net/core/cpu_deliver.c
+2024-11-11 16:43:44,666 - app.logger - INFO - modified file: source/package/sh/build
+2024-11-11 16:43:44,670 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon
+2024-11-11 16:43:44,674 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local
+2024-11-11 16:43:44,674 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh
+2024-11-11 16:43:44,675 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c
+2024-11-11 16:43:44,677 - app.logger - INFO - modified file: source/shared/inc/proto.h
+2024-11-11 16:44:38,780 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 16:45:33,729 - app.logger - INFO - commit message: [ADD]浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 16:45:37,675 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:54:54,162 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:55:16,637 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:55:16,637 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 16:55:16,638 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 16:55:27,489 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 16:55:37,509 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 16:55:39,111 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:56:35,106 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 16:56:55,979 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 16:56:56,798 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 16:56:56,798 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 16:56:57,389 - app.logger - INFO - modified file: source/kernel/include/linux/mid_packet.h
+2024-11-11 16:57:52,415 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 16:58:50,593 - app.logger - INFO - commit message: [ADD]浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 16:58:54,397 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:17:17,864 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:17:30,406 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:17:42,606 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:17:46,622 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:18:01,013 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:18:01,338 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:18:01,338 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:18:11,130 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:18:21,176 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:18:24,416 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:19:06,926 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:19:16,324 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:19:28,046 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:19:30,014 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:19:44,954 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:19:45,217 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:19:45,217 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:19:55,174 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:20:05,251 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:20:08,217 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:22:09,191 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:22:18,668 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:22:29,877 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:22:31,882 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:22:45,989 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:22:46,302 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:22:46,302 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:22:56,187 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:23:05,999 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 17:23:08,275 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:24:21,023 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:24:31,347 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:24:44,800 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:24:46,940 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:25:02,467 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 17:25:02,475 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 211, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\sta\main.py", line 13, in action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 72, in initialization
+    self.customize_repo.git.checkout(self.ctx.branch)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 639, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 1184, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 984, in execute
+    raise GitCommandError(redacted_command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git checkout dev-STA-2024110501-zhejiangdaxue-v78
+  stderr: 'fatal: unable to write new index file'
+
+2024-11-11 17:25:02,476 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 17:25:11,340 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:25:21,711 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:25:34,018 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:25:35,280 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:25:51,010 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:25:54,157 - app.logger - INFO - modified file list: ['.gitignore', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh', 'source/kernel/oldarch/net/core/cpu_deliver.c', 'source/package/sh/build', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh', 'source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c', 'source/shared/inc/proto.h']
+2024-11-11 17:25:54,157 - app.logger - INFO - delete file list: ['source/shared/oldarch/lib/libcl_ev.so.0.0.']
+2024-11-11 17:25:54,157 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:25:54,157 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:26:08,259 - app.logger - INFO - modified file: .gitignore
+2024-11-11 17:26:08,261 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod
+2024-11-11 17:26:08,266 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon
+2024-11-11 17:26:08,269 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh
+2024-11-11 17:26:08,272 - app.logger - INFO - modified file: source/kernel/oldarch/net/core/cpu_deliver.c
+2024-11-11 17:26:08,276 - app.logger - INFO - modified file: source/package/sh/build
+2024-11-11 17:26:08,280 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon
+2024-11-11 17:26:08,282 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local
+2024-11-11 17:26:08,283 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh
+2024-11-11 17:26:08,283 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c
+2024-11-11 17:26:08,285 - app.logger - INFO - modified file: source/shared/inc/proto.h
+2024-11-11 17:27:04,862 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 17:28:05,872 - app.logger - INFO - commit message: [ADD]sta-master浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 17:28:10,109 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:29:01,415 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:29:11,520 - app.logger - INFO - 切换分支到master.....
+2024-11-11 17:29:23,637 - app.logger - INFO - 当前分支为: master
+2024-11-11 17:29:25,645 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 17:29:40,768 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:29:44,289 - app.logger - INFO - modified file list: ['.gitignore', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh', 'source/kernel/oldarch/net/core/cpu_deliver.c', 'source/package/sh/build', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh', 'source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c', 'source/shared/inc/proto.h']
+2024-11-11 17:29:44,289 - app.logger - INFO - delete file list: ['source/shared/oldarch/lib/libcl_ev.so.0.0.']
+2024-11-11 17:29:44,289 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:29:44,289 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:29:55,315 - app.logger - INFO - modified file: .gitignore
+2024-11-11 17:29:55,317 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod
+2024-11-11 17:29:55,329 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon
+2024-11-11 17:29:55,337 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh
+2024-11-11 17:29:55,344 - app.logger - INFO - modified file: source/kernel/oldarch/net/core/cpu_deliver.c
+2024-11-11 17:29:55,355 - app.logger - INFO - modified file: source/package/sh/build
+2024-11-11 17:29:55,362 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon
+2024-11-11 17:29:55,369 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local
+2024-11-11 17:29:55,369 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh
+2024-11-11 17:29:55,370 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c
+2024-11-11 17:29:55,373 - app.logger - INFO - modified file: source/shared/inc/proto.h
+2024-11-11 17:30:55,187 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 17:31:55,796 - app.logger - INFO - commit message: [ADD]sta-master浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 17:32:01,215 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:38:07,753 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 17:38:30,791 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 17:38:31,793 - app.logger - INFO - modified file list: ['source/kernel/include/linux/mid_packet.h']
+2024-11-11 17:38:31,793 - app.logger - INFO - delete file list: []
+2024-11-11 17:38:31,793 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 17:38:31,794 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 17:38:34,475 - app.logger - INFO - modified file: source/kernel/include/linux/mid_packet.h
+2024-11-11 17:39:26,110 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 17:40:18,391 - app.logger - INFO - commit message: [ADD]alpp_sta浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 17:40:23,813 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:03:30,626 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:03:51,238 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:04:03,039 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:04:09,653 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:04:25,696 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:04:25,696 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:04:25,759 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:04:25,761 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 209, in action
+    self.custom_template_commit()
+  File "D:\sangfor\filesyncpro\app\base.py", line 133, in custom_template_commit
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\update\\package.conf'
+
+2024-11-11 19:04:25,761 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:08:18,331 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:08:28,512 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-11 19:08:28,513 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:08:28,515 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-11 19:08:28,516 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:08:43,870 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:08:53,905 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:09:05,647 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:09:07,282 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:09:21,565 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:09:21,565 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source\update 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:09:21,610 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:09:21,612 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 209, in action
+    self.custom_template_commit()
+  File "D:\sangfor\filesyncpro\app\base.py", line 133, in custom_template_commit
+    self.file_modifier.modify_config_ini()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 30, in modify_config_ini
+    with open(update_filepath, 'r', encoding='utf-8') as configfile:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\update\\package.conf'
+
+2024-11-11 19:09:21,612 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:10:49,690 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:10:58,954 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:11:10,108 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:11:11,426 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:11:25,819 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:11:25,820 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:11:25,858 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:11:25,859 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 209, in action
+    self.custom_template_commit()
+  File "D:\sangfor\filesyncpro\app\base.py", line 137, in custom_template_commit
+    self.file_modifier.rename_file()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 107, in rename_file
+    os.rename(rename_filepath, user_filepath)
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\重命名为客户中文名称' -> 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\sta-master\\浙江大学'
+
+2024-11-11 19:11:25,859 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:15:06,929 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:15:16,090 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:15:27,563 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:15:29,262 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:15:43,317 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:15:43,318 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:15:43,359 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:15:43,360 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 209, in action
+    self.custom_template_commit()
+  File "D:\sangfor\filesyncpro\app\base.py", line 137, in custom_template_commit
+    self.file_modifier.rename_file()
+  File "D:\sangfor\filesyncpro\app\modifier.py", line 106, in rename_file
+    os.rename(rename_filepath, user_filepath)
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。: 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\update\\重命名为客户中文名称' -> 'D:\\sangfor\\sip-customize\\source\\STA\\STA3.0.78\\zhejiangdaxue\\update\\浙江大学'
+
+2024-11-11 19:15:43,360 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:20:58,410 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:21:08,521 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:21:19,358 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:21:21,473 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:21:36,840 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:21:36,840 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:22:26,847 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 19:22:31,546 - app.logger - INFO - modified file list: ['.gitignore', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh', 'source/kernel/oldarch/net/core/cpu_deliver.c', 'source/package/sh/build', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh', 'source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c', 'source/shared/inc/proto.h']
+2024-11-11 19:22:31,546 - app.logger - INFO - delete file list: ['source/shared/oldarch/lib/libcl_ev.so.0.0.']
+2024-11-11 19:22:31,546 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 19:22:31,546 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 19:22:46,742 - app.logger - INFO - modified file: .gitignore
+2024-11-11 19:22:46,744 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod
+2024-11-11 19:22:46,753 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon
+2024-11-11 19:22:46,757 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh
+2024-11-11 19:22:46,759 - app.logger - INFO - modified file: source/kernel/oldarch/net/core/cpu_deliver.c
+2024-11-11 19:22:46,764 - app.logger - INFO - modified file: source/package/sh/build
+2024-11-11 19:22:46,770 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon
+2024-11-11 19:22:46,773 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local
+2024-11-11 19:22:46,774 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh
+2024-11-11 19:22:46,774 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c
+2024-11-11 19:22:46,777 - app.logger - INFO - modified file: source/shared/inc/proto.h
+2024-11-11 19:23:37,009 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 19:24:31,222 - app.logger - INFO - commit message: [ADD]sta-master浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 19:24:36,843 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:25:50,705 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:25:59,974 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:26:11,329 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:26:13,951 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:26:28,250 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:26:28,250 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\alpp_sta
+2024-11-11 19:27:16,461 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 19:27:17,636 - app.logger - INFO - modified file list: ['source/kernel/include/linux/mid_packet.h']
+2024-11-11 19:27:17,636 - app.logger - INFO - delete file list: []
+2024-11-11 19:27:17,637 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 19:27:17,637 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 19:27:20,658 - app.logger - INFO - modified file: source/kernel/include/linux/mid_packet.h
+2024-11-11 19:28:08,973 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 19:28:57,008 - app.logger - INFO - commit message: [ADD]alpp_sta浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 19:28:59,850 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:30:06,479 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:30:15,939 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-11 19:30:15,939 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:30:15,942 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-11 19:30:15,942 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:30:55,354 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:31:04,616 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-11 19:31:04,617 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 19:31:04,618 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-11 19:31:04,618 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 19:44:38,991 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:44:52,639 - app.logger - INFO - 切换分支到master.....
+2024-11-11 19:45:02,972 - app.logger - INFO - 当前分支为: master
+2024-11-11 19:45:05,893 - app.logger - INFO - 拉取最新代码.....
+2024-11-11 19:45:19,640 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:45:19,640 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:46:08,540 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-11 19:46:12,001 - app.logger - INFO - modified file list: ['.gitignore', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon', 'source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh', 'source/kernel/oldarch/net/core/cpu_deliver.c', 'source/package/sh/build', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local', 'source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh', 'source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c', 'source/shared/inc/proto.h']
+2024-11-11 19:46:12,001 - app.logger - INFO - delete file list: ['source/shared/oldarch/lib/libcl_ev.so.0.0.']
+2024-11-11 19:46:12,001 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 19:46:12,001 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 19:46:25,497 - app.logger - INFO - modified file: .gitignore
+2024-11-11 19:46:25,502 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S06loadmod
+2024-11-11 19:46:25,532 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/S20startdeamon
+2024-11-11 19:46:25,540 - app.logger - INFO - modified file: source/FW-INSTALLROOT/oldarch/etc/rc2.d/sinfor_start.sh
+2024-11-11 19:46:25,544 - app.logger - INFO - modified file: source/kernel/oldarch/net/core/cpu_deliver.c
+2024-11-11 19:46:25,553 - app.logger - INFO - modified file: source/package/sh/build
+2024-11-11 19:46:25,560 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S20startdeamon
+2024-11-11 19:46:25,563 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/S99local
+2024-11-11 19:46:25,564 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/FW-INSTALLROOT/etc/rc2.d/sinfor_start.sh
+2024-11-11 19:46:25,565 - app.logger - INFO - modified file: source/platform/x86_64-gentoo/kernel/net/core/cpu_deliver.c
+2024-11-11 19:46:25,587 - app.logger - INFO - modified file: source/shared/inc/proto.h
+2024-11-11 19:47:19,238 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 19:48:17,825 - app.logger - INFO - commit message: [ADD]sta-master浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 19:48:22,441 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:53:10,700 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 19:53:31,780 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 19:53:31,781 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\sta-master
+2024-11-11 19:53:42,940 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 19:53:44,044 - app.logger - INFO - modified file list: ['source/kernel/include/linux/mid_packet.h']
+2024-11-11 19:53:44,044 - app.logger - INFO - delete file list: []
+2024-11-11 19:53:44,044 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 19:53:44,044 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 19:53:46,736 - app.logger - INFO - modified file: source/kernel/include/linux/mid_packet.h
+2024-11-11 19:54:34,185 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 19:55:23,379 - app.logger - INFO - commit message: [ADD]alpp_sta浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 19:55:27,560 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 20:03:10,302 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 20:03:35,238 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-11 20:03:35,244 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\sangfor\filesyncpro\app\base.py", line 216, in run_action
+    self.action()
+  File "D:\sangfor\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\sangfor\filesyncpro\app\base.py", line 41, in initialization
+    self.customize_repo.git.checkout(self.ctx.branch)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 639, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 1184, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 984, in execute
+    raise GitCommandError(redacted_command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git checkout dev-STA-2024110501-zhejiangdaxue-v78
+  stderr: 'fatal: unable to write new index file'
+
+2024-11-11 20:03:35,244 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-11 20:04:26,465 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-11 20:04:47,224 - app.logger - INFO - 当前分支为: dev-STA-2024110501-zhejiangdaxue-v78
+2024-11-11 20:04:47,226 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\STA\source 到目标文件夹D:\sangfor\sip-customize\source\STA\STA3.0.78\zhejiangdaxue\alpp_sta
+2024-11-11 20:04:58,704 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-11 20:05:00,174 - app.logger - INFO - modified file list: ['source/kernel/include/linux/mid_packet.h']
+2024-11-11 20:05:00,175 - app.logger - INFO - delete file list: []
+2024-11-11 20:05:00,175 - app.logger - INFO - 基线代码开始提交.....
+2024-11-11 20:05:00,175 - app.logger - INFO - stash  message: 浙江大学临时保存的定制信息
+2024-11-11 20:05:02,726 - app.logger - INFO - modified file: source/kernel/include/linux/mid_packet.h
+2024-11-11 20:05:52,483 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-11 20:06:43,442 - app.logger - INFO - commit message: [ADD]alpp_sta浙江大学定制迁移,解析带有三层vlan标签的流量
+2024-11-11 20:06:45,777 - app.logger - INFO - 代码提交成功: dev-STA-2024110501-zhejiangdaxue-v78

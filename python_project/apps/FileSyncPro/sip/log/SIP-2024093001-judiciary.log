@@ -1,0 +1,8 @@
+2024-11-15 17:44:49,923 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 17:45:49,744 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 17:45:49,746 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 17:46:57,694 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-15 17:47:01,032 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-15 17:47:01,043 - app.logger - INFO - delete file list: []
+2024-11-15 17:47:15,426 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-15 17:47:20,629 - app.logger - INFO - 代码提交成功: dev-SIP-2024060301-judiciary-v92
