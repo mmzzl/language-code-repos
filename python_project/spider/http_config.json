@@ -1,0 +1,20 @@
+{
+  "tencent": {
+    "m5": {
+      "url": "",
+      "method": "GET",
+      "param": "",
+      "json": "",
+      "response": {"":  ""}
+    }
+  },
+  "eastmoney": {
+    "m5": {
+      "url": "",
+      "method": "",
+      "param": "",
+      "json": "",
+      "response": {"w": ""}
+    }
+  }
+}
