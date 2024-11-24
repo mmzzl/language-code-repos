@@ -1,0 +1,46 @@
+2024-11-15 14:51:31,667 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 14:52:05,041 - app.logger - INFO - 切换分支到master.....
+2024-11-15 14:52:32,793 - app.logger - INFO - 当前分支为: master
+2024-11-15 14:52:34,763 - app.logger - ERROR - error: Cmd('git') failed due to: exit code(1)
+  cmdline: git branch -D dev-SIP-2024060301-judiciary-v92
+  stderr: 'error: branch 'dev-SIP-2024060301-judiciary-v92' not found.'
+2024-11-15 14:52:34,763 - app.logger - INFO - 拉取最新代码.....
+2024-11-15 14:53:03,734 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 14:53:03,737 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 14:56:24,600 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-15 14:56:26,903 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-15 14:56:26,903 - app.logger - INFO - delete file list: []
+2024-11-15 14:56:26,911 - app.logger - INFO - 基线代码开始提交.....
+2024-11-15 14:56:26,912 - app.logger - INFO - stash  message: Judiciary临时保存的定制信息
+2024-11-15 14:56:35,141 - app.logger - INFO - modified file: apps/infoshare/appserver/models/Snmp_setting_model.php
+2024-11-15 14:56:35,153 - app.logger - INFO - modified file: apps/infoshare/bin/snmp/open_all_oid.py
+2024-11-15 14:59:11,364 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-15 15:03:04,141 - app.logger - INFO - commit message: [ADD]开放snmp V3的所有OID
+2024-11-15 15:03:08,317 - app.logger - INFO - 代码提交成功: dev-SIP-2024060301-judiciary-v92
+2024-11-15 15:43:59,018 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 15:45:04,041 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 15:45:04,051 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 15:45:26,608 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-15 15:45:29,253 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-15 15:45:29,253 - app.logger - INFO - delete file list: []
+2024-11-15 15:48:22,029 - app.logger - INFO - commit message: [ADD]修复配置丢失
+2024-11-15 15:48:26,659 - app.logger - INFO - 代码提交成功: dev-SIP-2024060301-judiciary-v92
+2024-11-15 16:19:43,616 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 16:20:32,660 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 16:20:32,662 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 16:34:19,587 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 16:35:02,692 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 16:35:02,694 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 16:37:57,059 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-15 16:37:59,275 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-15 16:37:59,275 - app.logger - INFO - delete file list: []
+2024-11-15 16:38:21,622 - app.logger - INFO - 当前分支干净，无需提交
+2024-11-15 16:38:25,894 - app.logger - INFO - 代码提交成功: dev-SIP-2024060301-judiciary-v92
+2024-11-15 16:52:22,959 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-15 16:53:12,912 - app.logger - INFO - 当前分支为: dev-SIP-2024060301-judiciary-v92
+2024-11-15 16:53:12,918 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\judiciary
+2024-11-15 16:55:52,106 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-15 16:55:54,548 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-15 16:55:54,548 - app.logger - INFO - delete file list: []
+2024-11-15 16:58:42,489 - app.logger - INFO - commit message: [ADD]修复单词大小写错误
+2024-11-15 16:58:46,808 - app.logger - INFO - 代码提交成功: dev-SIP-2024060301-judiciary-v92

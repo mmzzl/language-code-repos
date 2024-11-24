@@ -1,0 +1,75 @@
+2024-11-18 09:51:09,353 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 09:51:37,577 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-18 09:51:37,596 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 218, in run_action
+    self.action()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 41, in initialization
+    self.customize_repo.git.checkout(self.ctx.branch)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 639, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 1184, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\git\cmd.py", line 984, in execute
+    raise GitCommandError(redacted_command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(1)
+  cmdline: git checkout dev-SIP-2024111501-zhongguoyidong_hebei-v83
+  stderr: 'error: pathspec 'dev-SIP-2024111501-zhongguoyidong_hebei-v83' did not match any file(s) known to git'
+
+2024-11-18 09:51:37,602 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-18 09:52:17,001 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 09:53:03,341 - app.logger - INFO - 当前分支为: dev-SIP-2024111501-zhongguoyidong_hebei-v83
+2024-11-18 09:53:03,344 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.83\zhongguo_yidonghebei
+2024-11-18 09:56:12,063 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-18 09:56:14,385 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-18 09:56:14,385 - app.logger - INFO - delete file list: []
+2024-11-18 09:59:32,633 - app.logger - INFO - commit message: [ADD]开放所有oid
+2024-11-18 09:59:37,111 - app.logger - INFO - 代码提交成功: dev-SIP-2024111501-zhongguoyidong_hebei-v83
+2024-11-18 11:22:00,189 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 11:22:35,222 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-18 11:22:35,224 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-18 11:22:35,227 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 218, in run_action
+    self.action()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-18 11:22:35,227 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-18 11:24:13,035 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 11:24:42,720 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-18 11:24:42,725 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-18 11:24:42,730 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 218, in run_action
+    self.action()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-18 11:24:42,731 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-18 11:25:13,124 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 11:25:35,894 - app.logger - INFO - 当前分支不干净，请先提交代码，再执行该脚本
+2024-11-18 11:25:35,897 - app.logger - WARNING - ==================================================报错信息如下：
+2024-11-18 11:25:35,917 - app.logger - WARNING - Traceback (most recent call last):
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 218, in run_action
+    self.action()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 208, in action
+    self.initialization()
+  File "D:\Users\User\Desktop\河北移动\filesyncpro\app\base.py", line 38, in initialization
+    raise AssertionError("当前分支不干净，未新增、删除、修改文件")
+AssertionError: 当前分支不干净，未新增、删除、修改文件
+
+2024-11-18 11:25:35,921 - app.logger - WARNING - ==================================================请检查错误并修改后重新执行！
+2024-11-18 11:29:13,956 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-18 11:29:49,798 - app.logger - INFO - 当前分支为: dev-SIP-2024111501-zhongguoyidong_hebei-v83
+2024-11-18 11:29:49,802 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.83\zhongguo_yidonghebei
+2024-11-18 11:32:09,484 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-18 11:32:13,076 - app.logger - INFO - modified file list: ['apps/infoshare/appserver/models/Snmp_setting_model.php', 'apps/infoshare/bin/snmp/open_all_oid.py']
+2024-11-18 11:32:13,077 - app.logger - INFO - delete file list: []
+2024-11-18 11:34:20,943 - app.logger - INFO - commit message: [ADD]修复执行命令报错
+2024-11-18 11:34:25,937 - app.logger - INFO - 代码提交成功: dev-SIP-2024111501-zhongguoyidong_hebei-v83

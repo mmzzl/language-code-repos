@@ -1,0 +1,19 @@
+2024-11-19 15:52:42,065 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-19 15:53:22,886 - app.logger - INFO - 检测当前分支是否干净.....
+2024-11-19 15:53:48,808 - app.logger - INFO - 切换分支到master.....
+2024-11-19 15:54:12,939 - app.logger - INFO - 当前分支为: master
+2024-11-19 15:54:14,793 - app.logger - ERROR - error: Cmd('git') failed due to: exit code(1)
+  cmdline: git branch -D dev-SIP-2024111501-haiguangxingxi-v92
+  stderr: 'error: branch 'dev-SIP-2024111501-haiguangxingxi-v92' not found.'
+2024-11-19 15:54:14,794 - app.logger - INFO - 拉取最新代码.....
+2024-11-19 15:55:06,196 - app.logger - INFO - 当前分支为: dev-SIP-2024111501-haiguangxingxi-v92
+2024-11-19 15:55:06,196 - app.logger - INFO - 复制模板文件D:\sangfor\sip-customize\template\custom_template\SIP 到目标文件夹D:\sangfor\sip-customize\source\SIP\SIP3.0.92\haiguangxingxi
+2024-11-19 15:56:26,224 - app.logger - INFO - commit message: [ADD]定制模板
+2024-11-19 15:56:28,491 - app.logger - INFO - modified file list: ['apps/agent2/default/parser/sangfor-atrust_331.cfg']
+2024-11-19 15:56:28,492 - app.logger - INFO - delete file list: []
+2024-11-19 15:56:28,497 - app.logger - INFO - 基线代码开始提交.....
+2024-11-19 15:56:28,500 - app.logger - INFO - stash  message: 海光信息技术股份有限公司临时保存的定制信息
+2024-11-19 15:56:37,133 - app.logger - INFO - modified file: apps/agent2/default/parser/sangfor-atrust_331.cfg
+2024-11-19 15:58:23,068 - app.logger - INFO - commit message: ADD]基线代码提交
+2024-11-19 15:59:20,454 - app.logger - INFO - commit message: [ADD]海光信息技术股份有限公司atrust日志解析
+2024-11-19 15:59:24,360 - app.logger - INFO - 代码提交成功: dev-SIP-2024111501-haiguangxingxi-v92

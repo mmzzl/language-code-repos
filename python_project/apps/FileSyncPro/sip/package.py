@@ -5,7 +5,7 @@ run_args = {
             "package.conf": [
                 {
                     "extra": {
-                        "multiplate": "true"
+                        "multiplat": "true"
                     }
                 },
                 {
@@ -16,7 +16,7 @@ run_args = {
                 },
                 {
                     "package_info": {
-                        "pkg_id": "20240827"
+                        "pkg_id": "20241119"
                     }
                 }
             ]
@@ -27,8 +27,9 @@ run_args = {
                 "MAJORVER": "3",
                 "MINORVER": "0.92",
                 "RVERSION": "",
-                "CUSTOMER_NAME": "XFF",
-                "CUSTOM_NUMBER": "SIP-20240827",
+                "CUSTOMER_NAME": "haiguangxingxi",
+                "CUSTOM_NUMBER": "SIP-2024111501",
+                "RESTRICT_APPVERSION": "SIS3.0.92.0  Build20240726",
                 "PACKAGE_AUTHOR": "gxs",
                 "EFFECT_APP": "0",
                 "RESTART_FANTOM": "1"
@@ -45,14 +46,15 @@ run_args = {
         "sip_master_path": "D:\\sangfor\\new\\sip-master-new",
         "sip_customize_path": "D:\\sangfor\\sip-customize",
         "temp_path": "template\\custom_template\\SIP",
-        "target_path": "source\\SIP\\SIP3.0.90"
+        "target_path": "source\\SIP\\SIP3.0.92"
     },
-    "branch":  "dev-SIP-2024060301-liantong-v90",
+    "branch":  "dev-SIP-2024111501-haiguangxingxi-v92",
     "cmd": [],
-    "filename": "liantong",
-    "user": "中国联通",
+    "filename": "haiguangxingxi",
+    "user": "海光信息技术股份有限公司",
     "first": True,
-    "template_commit_message": "",
-    "base_commit_message": "",
-    "commit_message": ""
+    "version": "sip-master-new",
+    "template_commit_message": "[ADD]定制模板",
+    "base_commit_message": "ADD]基线代码提交",
+    "commit_message": "[ADD]海光信息技术股份有限公司atrust日志解析"
 }
