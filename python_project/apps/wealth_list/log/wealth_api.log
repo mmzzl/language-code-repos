@@ -1,0 +1,7 @@
+2024-11-27 10:20:10,401 E 22696 D:\new_apps\language-code-repos\python_project\apps\wealth_list\main.py:48 (<module>)	| Traceback (most recent call last):
+  File "D:\new_apps\language-code-repos\python_project\apps\wealth_list\main.py", line 45, in <module>
+    logging.info("")
+                 ^
+NameError: name 'I' is not defined
+
+2024-11-27 10:20:10,403 E 22696 D:\new_apps\language-code-repos\python_project\apps\wealth_list\main.py:49 (<module>)	| error: name 'I' is not defined
