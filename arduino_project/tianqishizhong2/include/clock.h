@@ -1,10 +1,12 @@
+#ifndef CLOCK_H
+#define CLOCK_H
 #include "NTPClient.h"
 #include "WiFiUdp.h"
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP,"ntp1.aliyun.com",60*60*8,30*60*1000);
+#include "solar2lunar.h"
+#define ONE_WIRE_BUS 4
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-void get_week_name(uint8_t week, char *week_name);
-void get_time();
 
 typedef struct {
   uint8_t hour;
@@ -13,6 +15,16 @@ typedef struct {
   uint8_t week;
   uint8_t day;
   uint8_t month;
-  uint8_t year;
-  char* week_name;
-} n_time_t;
+  uint16_t year;
+  String week_name;
+  String lunar_date;
+  int temperature;
+} data_t;
+
+
+void get_week_name(uint8_t week, String *week_name);
+void get_data(data_t *ptr);
+void convertChineseString(uint32_t lunar_mm, uint32_t lunar_dd, bool is_leap_month,  String *lunar_date);
+int get_temperature();
+int temperature_init();
+#endif

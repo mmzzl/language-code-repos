@@ -1,10 +1,10 @@
 #include "font.h"
 
-bool isDigit(char c) {
-  return c >= '0' && c <= '9';
-}
 
-void drawString(TFT_eSPI *tft, font_t *font) {
+void drawChineseString(TFT_eSPI *tft, font_t *font, bool is_change) {
+    if (is_change) {
+       tft->fillRect(font->x, font->y, font->text.length() * font->size, font->size, TFT_BLACK);
+    }
     switch (font->size) {
         case 16:
             tft->loadFont(msyh16);
@@ -22,7 +22,7 @@ void drawString(TFT_eSPI *tft, font_t *font) {
             tft->loadFont(msyh16);
             break;
     }
-    tft->setTextColor(font->color);
+    tft->setTextColor(font->color, TFT_BLACK);
     tft->drawString(font->text, font->x, font->y, font->size);
     tft->unloadFont();
 }

@@ -17,5 +17,6 @@ void disconnectSoftAP();
 bool readDataFromEEPROM(String &ssid, String &password);
 void handleRoot();
 void handlerConnect();
-ESP8266WebServer server(80);
+void network_init();
+void start_server();
 #endif

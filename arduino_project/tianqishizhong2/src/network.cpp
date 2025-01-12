@@ -1,5 +1,6 @@
 #include "network.h"
 
+ESP8266WebServer server(80);
 void handleRoot() {
   String html = "<html><body>";
   html += "<form action=\"/connect\" method=\"POST\">";
@@ -26,7 +27,7 @@ void handlerConnect() {
 
 void saveDataToEEPROM(const char* ssid, const char* password) {
   // 将字符串转换为字符数组，并写入 EEPROM
-  for (int i = 0; i < MAX_LENGTH; i++) {
+  for (uint16_t i = 0; i < MAX_LENGTH; i++) {
     if (i < strlen(ssid)) EEPROM.write(EEPROM_SSID_START_ADDR + i, ssid[i]);
     else EEPROM.write(EEPROM_SSID_START_ADDR + i, '\0'); // 添加终止符
     if (i < strlen(password)) EEPROM.write(EEPROM_PASSWORD_START_ADDR + i, password[i]);
@@ -40,7 +41,7 @@ bool readDataFromEEPROM(String& ssid, String& password) {
   char buffer[MAX_LENGTH];
 
   // 从 EEPROM 读取 SSID
-  for (int i = 0; i < MAX_LENGTH; i++) {
+  for (uint16_t i = 0; i < MAX_LENGTH; i++) {
     buffer[i] = EEPROM.read(EEPROM_SSID_START_ADDR + i);
     if (buffer[i] == '\0') break;
   }
@@ -62,6 +63,26 @@ void disconnectSoftAP() {
   } else {
     Serial.println("Failed to disconnect SoftAP.");
   }
+}
+
+void network_init() {
+    // 尝试读取 EEPROM 中保存的 SSID 和密码
+  String ssid = "";
+  String password = "";
+
+  if (readDataFromEEPROM(ssid, password)) {
+    Serial.println("Using saved SSID and password from EEPROM.");
+    connectToWiFi(ssid.c_str(), password.c_str());
+  } else {
+    WiFi.softAP("ESP8266-Config");
+    server.on("/", handleRoot);
+    server.on("/connect", HTTP_POST, handlerConnect);
+    server.begin();
+  }
+}
+
+void start_server() {
+    server.handleClient();
 }
 
 void connectToWiFi(const char* ssid, const char* password) {

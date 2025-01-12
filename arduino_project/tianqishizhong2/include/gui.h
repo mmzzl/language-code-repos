@@ -1,8 +1,10 @@
 #ifndef  GUI_H
 #define  GUI_H
-#include <solar2lunar.h>
+#include <TFT_eSPI.h>
 #include "font.h"
+#include "clock.h"
 
-void drawClock(TFT_eSPI *tft, font_t *font);
+void main_gui();
+void tft_init();
 
 #endif
