@@ -59,6 +59,8 @@ void get_data(data_t *ptr) {
     bool is_leap_month = solar.isLeapMonth;
     // String lunar_date;
     convertChineseString(lunar_mm, lunar_dd, is_leap_month, &ptr->lunar_date);
+    unsigned char  solar_num = Solar2Term(ptr->year, ptr->month, ptr->day);
+    convertSolarString(solar_num, &ptr->solar_term);
 }
 
 int temperature_init() {
@@ -79,6 +81,12 @@ int get_temperature() {
     sensors.requestTemperatures();
     int temperature = sensors.getTempCByIndex(0);
     return temperature;
+}
+
+void convertSolarString(unsigned char solar_num, String *solar_term) {
+    // 节气
+    String solar_terms[] = {"无节气", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑","立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"};
+    *solar_term = solar_terms[solar_num];
 }
 
 void convertChineseString(uint32_t lunar_mm, uint32_t lunar_dd, bool is_leap_month,  String *lunar_date) {

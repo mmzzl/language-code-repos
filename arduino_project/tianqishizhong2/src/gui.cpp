@@ -1,7 +1,23 @@
 #include "gui.h"
+#include "weather.h"
+
+
+const std::map<std::string, const uint16_t*> weatherIcons = {
+        {"晴", qing},
+        {"雷阵雨", leizhenyu},
+        {"阴", yin},
+        {"阵雨", zhenyu},
+        {"晴间多云", qingjianduoyun},
+        {"大暴雨", dabaoyu},
+        {"暴雨", baoyu},
+        {"大雨", dayu},
+        {"中雨", zhongyu},
+        {"小雨", xiaoyu},
+        {"多云", duoyun}
+};
 
 TFT_eSPI tft = TFT_eSPI();
-
+weather_t forecasts[3];
 uint8_t omm = 99;
 uint8_t oss = 99;
 uint8_t xcolon = 0;
@@ -10,6 +26,11 @@ String old_lunar_date;
 int old_temperature;
 String old_week_name;
 bool is_change = false;
+uint32_t start_time = 0;
+String old_solar_term;
+String old_city;
+String old_today_weather;
+String old_tomorrow_weather;
 
 void tft_init() {
     // TFT屏幕初始化
@@ -20,10 +41,24 @@ void tft_init() {
   tft.setSwapBytes(true);
 }
 
+void showWeatherIcon(const char* weatherCondition)
+{
+    std::string str(weatherCondition);
+    auto it = weatherIcons.find(str.c_str());
+        if (it != weatherIcons.end()) {
+            tft.pushImage(176, 86, 48, 48, it->second, 16);
+        } else {
+            // 未找到对应的天气图标，使用默认图标
+            Serial.println(weatherCondition);
+            tft.pushImage(176, 86, 48, 48, tianqi, 16);
+        }
+}
+
+
 void main_gui() {
     data_t time_t;
     get_data(&time_t);
-    int xpos = 56;
+    int xpos = 0;
     // int xpos = 0;
     int ypos = 96;
     tft.setTextColor(TFT_GREEN, TFT_BLACK);
@@ -64,7 +99,7 @@ void main_gui() {
         day = String(time_t.day);
     }
     String date_str = month + "月" + day + "日";
-    ptr = font_t{0, 20, 28, TFT_WHITE, date_str};
+    ptr = font_t{0, 153, 28, TFT_WHITE, date_str};
     if (old_date != date_str) {
         old_date = date_str;
         is_change = true;
@@ -76,7 +111,7 @@ void main_gui() {
         old_lunar_date = time_t.lunar_date;
         is_change = true;
     }
-    ptr = font_t{112, 20, 28, TFT_YELLOW, time_t.lunar_date};
+    ptr = font_t{0, 20, 28, TFT_YELLOW, time_t.lunar_date};
     drawChineseString(&tft, &ptr, is_change);
     is_change = false;
     // 显示星期
@@ -84,7 +119,7 @@ void main_gui() {
         old_week_name = time_t.week_name;
         is_change = true;
     }
-    ptr = font_t{0, 212, 28, TFT_RED, time_t.week_name};
+    ptr = font_t{184, 153, 28, TFT_RED, time_t.week_name};
     drawChineseString(&tft, &ptr, is_change);
     is_change = false;
     // 显示温度
@@ -93,10 +128,68 @@ void main_gui() {
         old_temperature = temperature;
         is_change = true;
     }
-    ptr = font_t{50, 212, 28, TFT_GREEN, String(temperature) + "℃"};
+    if (temperature > 0) {
+        ptr = font_t{184, 58, 28, TFT_GREEN, String(temperature) + "℃"};
+    } else {
+        ptr = font_t{156, 58, 28, TFT_RED, String(temperature) + "℃"};
+    }
+
     drawChineseString(&tft, &ptr, is_change);
     is_change = false;
-    Serial.println(date_str);
-    Serial.println(time_t.lunar_date);
+    // 显示节气
+    if (old_solar_term != time_t.solar_term) {
+        old_solar_term = time_t.solar_term;
+        is_change = true;
+    }
+    if (time_t.solar_term.length() < 3) {
+        ptr = font_t{184, 20, 28, TFT_GREEN, time_t.solar_term};
+    } else {
+        ptr = font_t{156, 20, 28, TFT_GREEN, time_t.solar_term};
+    }
+    drawChineseString(&tft, &ptr, is_change);
+    is_change = false;
+    // 显示天气
+    if ((start_time>0) && ((millis() - start_time) == (3 * 60 * 60))) {
+        //3 小时更新一次天气
+        start_time = millis();
+        network_init();
+        getWeather(forecasts);
+        // 更新完后断开网络
+        disconnectWiFi();
+    };
+    if (forecasts[0].dayweather == NULL) {
+        getWeather(forecasts);
+        start_time = millis();
+    }
+    
+    // 显示天气
+    if (old_today_weather != forecasts[0].dayweather) {
+        old_today_weather = forecasts[0].dayweather;
+        is_change = true;
+    }
+    ptr = font_t{90, 58, 28, TFT_GREEN, forecasts[0].dayweather};
+    drawChineseString(&tft, &ptr, is_change);
+    // 显示天气图标
+    showWeatherIcon(forecasts[0].dayweather.c_str());
+    is_change = false;
+    // 显示地区
+    if (old_city != forecasts[0].city) {
+        old_city = forecasts[0].city;
+        is_change = true;
+    }
+    ptr = font_t{0, 58, 28, TFT_GREEN, forecasts[0].city};
+    drawChineseString(&tft, &ptr, is_change);
+    is_change = false;
+    // 明日天气
+    if (old_tomorrow_weather != forecasts[1].dayweather) {
+        old_tomorrow_weather = forecasts[1].dayweather;
+        is_change = true;
+    }
+    ptr = font_t{0, 202, 28, TFT_GREEN, "明日天气:" + forecasts[1].dayweather};
+    drawChineseString(&tft, &ptr, is_change);
+    is_change = false;
+    if (millis() -  start_time == 60) {
+        disconnectWiFi();
+    }
 }
 

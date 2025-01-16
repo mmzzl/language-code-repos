@@ -19,6 +19,7 @@ typedef struct {
   String week_name;
   String lunar_date;
   int temperature;
+  String solar_term;
 } data_t;
 
 
@@ -27,4 +28,5 @@ void get_data(data_t *ptr);
 void convertChineseString(uint32_t lunar_mm, uint32_t lunar_dd, bool is_leap_month,  String *lunar_date);
 int get_temperature();
 int temperature_init();
+void convertSolarString(unsigned char solar_num, String *solar_term);
 #endif

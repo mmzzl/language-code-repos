@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
 #include <EEPROM.h>
 
 // 定义 EEPROM 存储位置
@@ -19,4 +18,5 @@ void handleRoot();
 void handlerConnect();
 void network_init();
 void start_server();
+void disconnectWiFi();
 #endif

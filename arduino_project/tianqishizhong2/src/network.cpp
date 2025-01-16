@@ -1,4 +1,5 @@
 #include "network.h"
+#include <ESP8266WebServer.h>
 
 ESP8266WebServer server(80);
 void handleRoot() {
@@ -57,6 +58,11 @@ bool readDataFromEEPROM(String& ssid, String& password) {
   return !ssid.isEmpty() && !password.isEmpty();
 }
 
+void disconnectWiFi() {
+  WiFi.disconnect();
+  Serial.println("Wi-Fi disconnected.");
+}
+
 void disconnectSoftAP() {
   if (WiFi.softAPdisconnect(true)) {
     Serial.println("SoftAP disconnected successfully.");
@@ -94,15 +100,15 @@ void connectToWiFi(const char* ssid, const char* password) {
   while (WiFi.status() != WL_CONNECTED && attempts < 20) {
     delay(500);
     Serial.print(".");
-    digitalWrite(LED_BUILTIN, HIGH); // 显示正在尝试连接
+    // digitalWrite(LED_BUILTIN, HIGH); // 显示正在尝试连接
     delay(500);
-    digitalWrite(LED_BUILTIN, LOW);  // 关闭指示灯
+    // digitalWrite(LED_BUILTIN, LOW);  // 关闭指示灯
     attempts++;
   }
 
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("Connected to Wi-Fi");
-    digitalWrite(LED_BUILTIN, HIGH); // 显示已连接
+    // digitalWrite(LED_BUILTIN, HIGH); // 显示已连接
     disconnectSoftAP();
   } else {
     Serial.println("Failed to connect to Wi-Fi.");
