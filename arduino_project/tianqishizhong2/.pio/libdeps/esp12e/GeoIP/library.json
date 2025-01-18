@@ -1,0 +1,27 @@
+{
+  "name": "GeoIP",
+  "keywords": "IP, Geolocation, Timezone, Time, Location, ESP32, ESP8266",
+  "description": "Library to get local timezone and geographic location based on your network's IP address - uses ipapi.co.",
+  "version": "1.3.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmarkin/GeoIP.git"
+  },
+  "url": "https://github.com/mmarkin/GeoIP",
+  "frameworks": "arduino",
+  "platforms": "espressif8266, espressif32",
+  "dependencies": [
+    {
+      "owner": "bblanchon",
+      "name": "ArduinoJson",
+      "version": "^7.0.4"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Mitch Markin",
+      "maintainer": true      
+    }
+  ],
+  "license": "MIT"
+}
