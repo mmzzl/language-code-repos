@@ -1,5 +1,8 @@
 #include "gui.h"
 #include "weather.h"
+#include <TJpg_Decoder.h>
+
+
 
 
 const std::map<std::string, const uint16_t*> weatherIcons = {
@@ -26,19 +29,52 @@ String old_lunar_date;
 int old_temperature;
 String old_week_name;
 bool is_change = false;
-uint32_t start_time = 0;
+unsigned long start_time = 0;
 String old_solar_term;
 String old_city;
 String old_today_weather;
 String old_tomorrow_weather;
+uint8_t Animate_key = -1; // 初始化图标显示帧数
+int Amimate_reflash_Time = 0;  // 动画更新时间计数
+
+bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
+{
+   if (y >= tft.height()) return 0;
+    tft.pushImage(x, y, w, h, bitmap);
+   return 1;
+}
+
+//从动图数组里面获取一帧图像数据
+void imgAnim(const uint8_t **Animate_value, uint32_t *Animate_size){
+     Animate_key++;
+    *Animate_value = astronaut[Animate_key];
+    *Animate_size = astronaut_size[Animate_key];
+    if (Animate_key >= (sizeof(astronaut)/sizeof(astronaut[0])-1))  //gif动图帧数
+            Animate_key = -1;
+}
+
+void showTaikongRen() {
+     // 显示太空人
+  const uint8_t * Animate_value;
+  uint32_t Animate_size; // 指向关键帧大小的指针
+  if(millis() - Amimate_reflash_Time > 2) {
+      Amimate_reflash_Time = millis();
+      imgAnim(&Animate_value, &Animate_size);
+      TJpgDec.drawJpg(180, 176, Animate_value, Animate_size);
+  }
+}
+
 
 void tft_init() {
     // TFT屏幕初始化
   tft.init();
   tft.setRotation(1);
+  tft.invertDisplay(1);
   tft.setWindow(0, 0, tft.width() - 1, tft.height() - 1); // 设置显示窗口
+  TJpgDec.setJpgScale(1);
+  TJpgDec.setSwapBytes(true);
+  TJpgDec.setCallback(tft_output);
   tft.fillScreen(TFT_BLACK);
-  tft.setSwapBytes(true);
 }
 
 void showWeatherIcon(const char* weatherCondition)
@@ -149,7 +185,7 @@ void main_gui() {
     drawChineseString(&tft, &ptr, is_change);
     is_change = false;
     // 显示天气
-    if ((start_time>0) && ((millis() - start_time) == (3 * 60 * 60))) {
+    if ((start_time>0) && ((millis() - start_time) >= (3 * 60 * 60 * 1000))) {
         //3 小时更新一次天气
         start_time = millis();
         network_init();
@@ -185,11 +221,13 @@ void main_gui() {
         old_tomorrow_weather = forecasts[1].dayweather;
         is_change = true;
     }
-    ptr = font_t{0, 202, 28, TFT_GREEN, "明日天气:" + forecasts[1].dayweather};
+    ptr = font_t{0, 202, 28, TFT_GREEN, "明日 " + forecasts[1].dayweather};
     drawChineseString(&tft, &ptr, is_change);
     is_change = false;
     if (millis() -  start_time == 60) {
         disconnectWiFi();
     }
+    // 显示天空人
+    showTaikongRen();
 }
 

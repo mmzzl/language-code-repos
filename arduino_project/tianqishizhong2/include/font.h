@@ -5,7 +5,7 @@
 
 // #include "fonts/msyh16.h"
 #include "fonts/msyh20.h"
-#include "fonts/msyh28.h"
+#include "fonts/SIMHEI28.h"
 // #include "fonts/msyh40.h"
 typedef struct
 {

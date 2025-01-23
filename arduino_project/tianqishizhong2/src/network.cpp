@@ -88,7 +88,9 @@ void network_init() {
 }
 
 void start_server() {
-    server.handleClient();
+  if (WiFi.getMode() == WIFI_AP || WiFi.softAPgetStationNum() > 0) {
+        server.handleClient();  // 处理客户端请求，确保在 AP 模式下服务器正常工作
+  }
 }
 
 void connectToWiFi(const char* ssid, const char* password) {

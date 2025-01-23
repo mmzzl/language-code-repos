@@ -54,9 +54,9 @@ void getWeather(weather_t *forecasts) {
     String region;
     // 获取地理位置信息
         // delay(5000);
-    getGeo();
-    Serial.println(cityName);
-    cityName = "深圳市";
+    // getGeo();
+    // Serial.println(cityName);
+    cityName = "武胜县";
     String url = "https://restapi.amap.com/v3/weather/weatherInfo?key=" + key + "&city=" + cityName + "&extensions=all&output=json";
     String body;
     getRequestHttp(url, &body);

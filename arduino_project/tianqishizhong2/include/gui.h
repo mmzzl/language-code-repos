@@ -7,6 +7,7 @@
 #include "clock.h"
 #include "images.h"
 #include "network.h"
+#include "images/astronaut.h"
 
 void main_gui();
 void tft_init();

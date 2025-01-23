@@ -13,7 +13,7 @@ void drawChineseString(TFT_eSPI *tft, font_t *font, bool is_change) {
             tft->loadFont(msyh20);
             break;
         case 28:
-            tft->loadFont(msyh28);
+            tft->loadFont(SIMHEI28);
             break;
         // case 40:
         //     tft->loadFont(msyh40);
