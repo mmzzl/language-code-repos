@@ -25,7 +25,7 @@ volatile unsigned long lastButtonChangeTime = 0;
 // 存储长按开始时间
 volatile unsigned long longPressStartTime = 0;
 // 去抖动的时间间隔（毫秒）
-const unsigned long debounceInterval = 50;
+const unsigned long debounceInterval = 100;
 // 长按的时间阈值（毫秒）
 const unsigned long longPressThreshold = 1000;
 void callback(char* topic, byte* payload, unsigned int length);
