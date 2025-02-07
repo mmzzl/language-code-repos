@@ -16,9 +16,13 @@ void setup() {
     Serial.println("Failed to initialize temperature sensor");
   }
   tft_init();
+  time_init();
+  // 启用看门狗
+  ESP.wdtEnable(5000);
 }
 
 void loop() {
+  ESP.wdtFeed();
   main_gui();
   start_server();
 }

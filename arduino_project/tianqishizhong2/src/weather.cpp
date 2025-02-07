@@ -26,6 +26,9 @@ void getGeo() {
 
 void getRequestHttp(String url, String *body) {
     httpsClient.setInsecure();
+      // 设置连接超时时间为 5 秒
+    httpsClient.setTimeout(5000); 
+
     if (httpsClient.connect("restapi.amap.com", 443)) {
         Serial.println("Connected to server");
         httpsClient.print(String("GET ") + url + " HTTP/1.1\r\n" +
@@ -49,6 +52,30 @@ void getRequestHttp(String url, String *body) {
         Serial.println("Failed to connect to server");
     }
 }
+
+// 获取实时天气信息
+void realtimeWeather(weather_t *forecasts) {
+    cityName = "武胜县";
+    String url = "https://restapi.amap.com/v3/weather/weatherInfo?key=" + key + "&city=" + cityName + "&extensions=base&output=json";
+    String body;
+    getRequestHttp(url, &body);
+    JsonDocument jsonDoc; 
+    DeserializationError error = deserializeJson(jsonDoc, body);
+    if (!error) {
+        JsonObject rootObj = jsonDoc.as<JsonObject>();
+        if (rootObj.containsKey("lives") && rootObj["lives"].is<JsonArray>() && rootObj["lives"].size() > 0) {
+            JsonArray livesArray = rootObj["lives"].as<JsonArray>();
+            if (livesArray[0].containsKey("city") && livesArray[0]["city"]) {
+                // 使用String的赋值操作来复制城市名称，而不是错误的strcpy（strcpy用于char数组）
+                JsonObject lives = livesArray[0];
+                strcpy(forecasts[0].realtimeWeather,lives["weather"]);
+            }
+        }
+    }
+    // 释放 JsonDocument 占用的内存
+    jsonDoc.clear(); 
+}
+
 void getWeather(weather_t *forecasts) {
    
     String region;
@@ -69,14 +96,20 @@ void getWeather(weather_t *forecasts) {
                 JsonArray forecastsArray = rootObj["forecasts"].as<JsonArray>();
                 if (forecastsArray[0].containsKey("city") && forecastsArray[0]["city"].is<String>()) {
                     // 使用String的赋值操作来复制城市名称，而不是错误的strcpy（strcpy用于char数组）
-                    for (int i = 0; i < 3; i++) {
-                        forecasts[i].city = forecastsArray[0]["city"].as<String>();
-                        JsonArray casts = forecastsArray[0]["casts"];
-                        for (auto cast : casts) {
-                            forecasts[i].date = cast["date"].as<String>();
-                            forecasts[i].dayweather = cast["dayweather"].as<String>();
-                            forecasts[i].nightweather = cast["nightweather"].as<String>();
-                        }
+                    JsonArray casts = forecastsArray[0]["casts"];
+                    // 确定要处理的元素数量，取 3 和 casts 数组长度的较小值
+                    int numForecasts = 3;
+                    for (int i = 0; i < numForecasts; i++) {
+                        // 赋值城市信息
+                        strcpy(forecasts[i].city, forecastsArray[0]["city"]);
+                        // 获取 casts 数组中对应索引的元素
+                        JsonObject cast = casts[i];
+                        // 赋值日期信息
+                        strcpy(forecasts[i].date, cast["date"]);
+                        // 赋值白天天气信息
+                        strcpy(forecasts[i].dayweather, cast["dayweather"]);
+                        // 赋值夜间天气信息
+                        strcpy(forecasts[i].nightweather, cast["nightweather"]);
                     }
                 }
             }
@@ -85,4 +118,6 @@ void getWeather(weather_t *forecasts) {
         Serial.println("JSON parse failed");
         Serial.println(error.f_str());
     }
+    // 释放 JsonDocument 占用的内存
+    jsonDoc.clear(); 
 }

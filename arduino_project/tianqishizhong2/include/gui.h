@@ -7,7 +7,7 @@
 #include "clock.h"
 #include "images.h"
 #include "network.h"
-#include "images/astronaut.h"
+#include "images/xiaogou.h"
 
 void main_gui();
 void tft_init();
