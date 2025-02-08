@@ -11,11 +11,11 @@
 
 // Pins
 #define SENSOR_PIN    A0        // tip temperature sense
-#define VIN_PIN       A1        // input voltage sense
+// #define VIN_PIN       A1        // input voltage sense
 #define BUZZER_PIN     5        // buzzer
-#define CONTROL_PIN    9        // heater MOSFET PWM control
-#define SWITCH_PIN    10        // handle vibration switch
-#define POTENTIOMETER_PIN A2    // potentiometer for temperature setting
+#define CONTROL_PIN    3       // heater MOSFET PWM control
+#define SWITCH_PIN    A4        // handle vibration switch
+#define POTENTIOMETER_PIN A1    // potentiometer for temperature setting
 
 // Default temperature control values (recommended soldering temperature: 300-380°C)
 #define TEMP_MIN      150       // min selectable temperature
@@ -38,6 +38,8 @@
 #define TEMP200 216 // 200度
 #define TEMP280 308 // 280度
 #define TEMP360 390 // 300度
+#define ADC_TIMEOUT 1000  // 定义超时时间，单位为毫秒
+#define ADC_SAMPLE_TIMES 32  // 定义采样次数
 
 // MOSFET control definitions
 #if  defined (P_MOSFET) 
@@ -58,7 +60,7 @@ double consKp=11, consKi=3, consKd=5;
 
 // Default values
 uint16_t  DefaultTemp = TEMP_DEFAULT;
-uint16_t  SetTemp, ShowTemp;
+uint16_t  SetTemp, ShowTemp, LastShowTemp;
 double    Input, Output, Setpoint, RawTemp, CurrentTemp;
 
 // Default values for tips
@@ -93,6 +95,10 @@ byte digitPins[] = {11, 12, 13}; // Digit pins
 byte segmentPins[] = {2, 4, 6, 7, 8, 9, 10}; // Segment pins
 uint16_t gap;
 bool PIDenable = PID_ENABLE;
+uint16_t last_temp_target = 0;
+unsigned long displayStartTime = 0;
+bool isDisplayingTemp = false;
+unsigned long lastDisplayTime = 0;
 
 void SevSegInit() {
   // 数码管初始化
@@ -108,10 +114,12 @@ void beep();
 uint16_t denoiseAnalog(byte port);
 void handleSwitchChange();
 
+
+
 void setup() {
   // set the pin modes
+  Serial.begin(115200);
   pinMode(SENSOR_PIN,   INPUT);
-  pinMode(VIN_PIN,      INPUT);
   pinMode(BUZZER_PIN,   OUTPUT);
   pinMode(CONTROL_PIN,  OUTPUT);
   pinMode(POTENTIOMETER_PIN, INPUT);
@@ -120,23 +128,14 @@ void setup() {
   analogWrite(CONTROL_PIN, HEATER_OFF); // this shuts off the heater
   digitalWrite(BUZZER_PIN, LOW);        // must be LOW when buzzer not in use
 
-  // setup ADC
-  ADCSRA |= bit (ADPS0) | bit (ADPS1) | bit (ADPS2);  // set ADC prescaler to 128
-  ADCSRA |= bit (ADIE);                 // enable ADC interrupt
-  interrupts ();                        // enable global interrupts
 
   // Initialize SevSeg
   SevSegInit();
-
   // read and set current iron temperature
   SetTemp  = DefaultTemp;
   RawTemp  = denoiseAnalog(SENSOR_PIN);
   calculateTemp();
-
-  // turn on heater if iron temperature is well below setpoint
   if ((CurrentTemp + 20) < DefaultTemp) analogWrite(CONTROL_PIN, HEATER_ON);
-
-  // set PID output range and start the PID
   ctrl.SetOutputLimits(0, 255);
   ctrl.SetMode(AUTOMATIC);
 
@@ -145,38 +144,55 @@ void setup() {
   lastActivityTime = millis(); // 初始化最后活动时间
    // Attach interrupt to handle switch state change
   attachInterrupt(digitalPinToInterrupt(SWITCH_PIN), handleSwitchChange, CHANGE);
+  beep();
 }
 
 void loop() {
   // 检查手柄状态
-  uint8_t d = digitalRead(SWITCH_PIN);
-  if (d == LOW) { // 如果手柄被移除
+  if (ShowTemp > 420) {
     TipIsPresent = false; // 设置为未插入状态
   } else {
     TipIsPresent = true; // 手柄插入
     lastActivityTime = millis(); // 更新最后活动时间
   }
-
   // 检查是否需要进入休眠模式
   if (!inSleepMode && (millis() - lastActivityTime >= SLEEP_TIME)) {
     enterSleepMode(); // 进入休眠模式
   }
 
+
   // 读取可调电阻的值并映射到温度
   int potValue = analogRead(POTENTIOMETER_PIN);
   SetTemp = map(potValue, 0, 1023, TEMP_MIN, TEMP_MAX);
+
+
+//检测可调电阻的值是否改变
+if ((last_temp_target != SetTemp) && (last_temp_target != SetTemp + 1) && (last_temp_target != SetTemp - 1)) {
+  last_temp_target = SetTemp;
+  displayStartTime = millis();
+  isDisplayingTemp = true;
+}
 
   // 检查温度并控制加热器
   SENSORCheck();      // 读取温度和手柄状态
   Thermostat();       // 控制加热器
 
-  // 更新显示
-  if (!TipIsPresent) {
-    sevseg.setNumber(999); // 显示错误代码，例如999表示错误
+  //更新显示
+  if (isDisplayingTemp && (millis() - displayStartTime < 2000)) {
+    sevseg.setNumber(SetTemp, 1);
   } else {
-    sevseg.setNumber(ShowTemp); // 显示当前温度
+    isDisplayingTemp = false;
+    if (!TipIsPresent) {
+      sevseg.setChars("ERR"); // 显示错误代码，例如999表示错误
+    } else {
+      sevseg.setNumber(ShowTemp, 1); // 显示当前温度
+    }
   }
-  sevseg.refreshDisplay(); // 刷新显示
+  lastDisplayTime = millis();
+  while (millis() - lastDisplayTime < 100) {
+    sevseg.refreshDisplay();
+  }
+  
 }
 
 // 进入休眠模式
@@ -188,6 +204,9 @@ void enterSleepMode() {
   // 休眠结束后，恢复工作状态
   inSleepMode = false;
   lastActivityTime = millis(); // 重置最后活动时间
+   if ((CurrentTemp + 20) < SetTemp) {
+     analogWrite(CONTROL_PIN, HEATER_ON);
+   }
 }
 
 // 读取温度、手柄状态和电压
@@ -248,20 +267,14 @@ void beep() {
   }
 }
 
-// 平均多个ADC读取以去噪
-uint16_t denoiseAnalog (byte port) {
+uint16_t denoiseAnalog(byte port) {
   uint16_t result = 0;
-  ADCSRA |= bit (ADEN) | bit (ADIF);    // enable ADC, turn off any pending interrupt
-  if (port >= A0) port -= A0;           // set port and
-  ADMUX = (0x0F & port) | bit(REFS0);   // reference to AVcc
-  set_sleep_mode (SLEEP_MODE_ADC);      // sleep during sample for noise reduction
-  for (uint8_t i=0; i<32; i++) {        // get 32 readings
-    sleep_mode();                       // go to sleep while taking ADC sample
-    while (bitRead(ADCSRA, ADSC));      // make sure sampling is completed
-    result += ADC;                      // add them up
+  digitalWrite(CONTROL_PIN, LOW);
+  for(uint8_t i=0; i<32; i++) {
+    result += analogRead(port);
   }
-  bitClear (ADCSRA, ADEN);              // disable ADC
-  return (result >> 5);                 // divide by 32 and return value
+  digitalWrite(CONTROL_PIN, HIGH);
+  return (result >> 5);
 }
 
 // 处理手柄状态变化的中断服务例程
@@ -269,7 +282,10 @@ void handleSwitchChange() {
   lastActivityTime = millis(); // 更新最后活动时间
   if (inSleepMode) {
     // 如果当前在休眠模式，退出休眠
-    sleep_disable(); // 退出休眠
     inSleepMode = false; // 更新状态
+    beep();
+    if ((CurrentTemp + 20) < SetTemp) {
+      analogWrite(CONTROL_PIN, HEATER_ON);
+    }
   }
 }
