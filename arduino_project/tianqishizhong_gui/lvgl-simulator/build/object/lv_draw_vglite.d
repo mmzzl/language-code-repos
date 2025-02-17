@@ -1,0 +1,17 @@
+build/object/lv_draw_vglite.o: \
+ d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\draw\nxp\vglite\lv_draw_vglite.c \
+ d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\draw\nxp\vglite\lv_draw_vglite.h \
+ d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\lv_conf_internal.h \
+ d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\lv_conf_kconfig.h \
+ D:/work/new/language-code-repos/arduino_project/tianqishizhong_gui/lvgl-simulator/lv_conf.h \
+ d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\custom\lv_conf_ext.h
+
+d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\draw\nxp\vglite\lv_draw_vglite.h:
+
+d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\lv_conf_internal.h:
+
+d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\lvgl\src\lv_conf_kconfig.h:
+
+D:/work/new/language-code-repos/arduino_project/tianqishizhong_gui/lvgl-simulator/lv_conf.h:
+
+d:\work\new\language-code-repos\arduino_project\tianqishizhong_gui\custom\lv_conf_ext.h:

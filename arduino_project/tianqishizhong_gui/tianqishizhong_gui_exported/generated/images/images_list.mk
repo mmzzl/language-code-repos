@@ -1,0 +1,1 @@
+GEN_CSRCS += _weizhi_alpha_15x16.c _duoyun_alpha_22x19.c _wendu_alpha_17x22.c

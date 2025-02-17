@@ -1,11 +1,19 @@
 #include <Arduino.h>
 #include <lvgl.h>
 #include <TFT_eSPI.h>
-#include <Encoder.h>
+
+#include <ESP32Encoder.h>
+#include "custom/gui_guider.h"
+#include "custom/custom.h"
+#include "custom/events_init.h"
+lv_ui guider_ui;
+
 TFT_eSPI tft = TFT_eSPI();
 
 // 定义编码器引脚
-Encoder myEnc(2, 3);
+ESP32Encoder myEnc;
+const int encoderPinA = 2;
+const int encoderPinB = 18;
 // 定义按键引脚
 const int buttonPin = 4;
 // 定义上一次编码器的值
@@ -40,7 +48,7 @@ static void disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *c
 
 // 编码器输入设备读取回调函数
 static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
-  long newPosition = myEnc.read();
+  long newPosition = myEnc.getCount();
   if (newPosition != oldPosition) {
     // 根据编码器旋转方向设置输入数据的差值
     data->enc_diff = newPosition - oldPosition;
@@ -64,15 +72,15 @@ static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
           lv_obj_add_flag(settingsMenu, LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(timeCalibrationPage, LV_OBJ_FLAG_HIDDEN);
         }
-      } else {
-        data->state = currentButtonState == LOW ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL;
       }
-      lastButtonState = currentButtonState;
     }
+    lastButtonState = currentButtonState;
     // 更新显示编码器值的标签文本
     char encoderValueStr[20];
     snprintf(encoderValueStr, sizeof(encoderValueStr), "Encoder Value: %ld", newPosition);
-    lv_label_set_text(encoderValueLabel, encoderValueStr);
+    if (encoderValueLabel) {
+      lv_label_set_text(encoderValueLabel, encoderValueStr);
+    }
   }
   // 读取按键状态
   data->state = digitalRead(buttonPin) == LOW ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL;
@@ -81,7 +89,11 @@ static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
 // 创建页面函数
 void createPages() {
   // 创建主菜单
-  mainMenu= lv_menu_create(lv_scr_act());
+  mainMenu = lv_menu_create(lv_scr_act());
+  if (mainMenu == NULL) {
+    Serial.println("Failed to create mainMenu!");
+    return;
+  }
   lv_obj_set_size(mainMenu, lv_pct(100), lv_pct(100));
 
   // 添加查看天气菜单项
@@ -101,7 +113,11 @@ void createPages() {
   lv_obj_center(settingsLabel);
 
   // 创建设置菜单
-  lv_obj_t *settingsMenu = lv_obj_create(lv_scr_act());
+  settingsMenu = lv_obj_create(lv_scr_act());
+  if (settingsMenu == NULL) {
+    Serial.println("Failed to create settingsMenu!");
+    return;
+  }
   lv_obj_set_size(settingsMenu, lv_pct(100), lv_pct(100));
   lv_obj_add_flag(settingsMenu, LV_OBJ_FLAG_HIDDEN);
 
@@ -113,61 +129,94 @@ void createPages() {
   lv_label_set_text(timeCalibrationLabel, "时间校正");
   lv_obj_center(timeCalibrationLabel);
 
-// 创建天气页面
+  // 创建天气页面
   weatherPage = lv_obj_create(lv_scr_act());
+  if (weatherPage == NULL) {
+    Serial.println("Failed to create weatherPage!");
+    return;
+  }
   lv_obj_set_size(weatherPage, lv_pct(100), lv_pct(100));
-  lv_obj_add_flag(settingsMenu, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(weatherPage, LV_OBJ_FLAG_HIDDEN); 
   lv_obj_t *weatherLabel = lv_label_create(weatherPage);
   lv_label_set_text(weatherLabel, "天气信息");
   lv_obj_center(weatherLabel);
   
-  //创建时间矫正页面
+  // 创建时间矫正页面
   timeCalibrationPage = lv_obj_create(lv_scr_act());
+  if (timeCalibrationPage == NULL) {
+    Serial.println("Failed to create timeCalibrationPage!");
+    return;
+  }
   lv_obj_set_size(timeCalibrationPage, lv_pct(100), lv_pct(100));
   lv_obj_add_flag(timeCalibrationPage, LV_OBJ_FLAG_HIDDEN);
   lv_obj_t *timeCalibrationPageLabel = lv_label_create(timeCalibrationPage);
   lv_label_set_text(timeCalibrationPageLabel, "时间校正");
-  lv_obj_center(timeCalibrationLabel);
-
+  lv_obj_center(timeCalibrationPageLabel); 
 }
+
 void setup() {
-    // 初始化串口通信
-    Serial.begin(115200);
-    // 初始化 TFT 显示屏
-    tft.begin();
-    tft.setRotation(1);
-    // 初始化 LVGL
-    lv_init();
-    // 初始化显示缓冲区
-    lv_disp_draw_buf_init(&draw_buf, buf, NULL, LV_HOR_RES_MAX * 10);
-    // 初始化显示驱动
-    static lv_disp_drv_t disp_drv;
-    lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res = tft.width();
-    disp_drv.ver_res = tft.height();
-    disp_drv.flush_cb = disp_flush;
-    disp_drv.draw_buf = &draw_buf;
-    lv_disp_drv_register(&disp_drv);
+  // 初始化串口通信
+  Serial.begin(115200);
+  // 初始化 TFT 显示屏
+  tft.begin();
+  tft.setRotation(0);
+  Serial.println("TFT_eSPI test!");
+  // 初始化 LVGL
+  lv_init();
+  // 初始化显示缓冲区
+  lv_disp_draw_buf_init(&draw_buf, buf, NULL, LV_HOR_RES_MAX * 10);
+  // 初始化显示驱动
+  static lv_disp_drv_t disp_drv;
+  lv_disp_drv_init(&disp_drv);
+  disp_drv.hor_res = tft.width();
+  disp_drv.ver_res = tft.height();
+  disp_drv.flush_cb = disp_flush;
+  disp_drv.draw_buf = &draw_buf;
+  lv_disp_drv_register(&disp_drv);
 
-     // 初始化编码器输入设备驱动
-    static lv_indev_drv_t indev_drv;
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_ENCODER;
-    indev_drv.read_cb = encoder_read;
-    lv_indev_drv_register(&indev_drv);
+  // 初始化编码器
+  ESP32Encoder::useInternalWeakPullResistors = puType::up;
+  myEnc.attachSingleEdge(encoderPinA, encoderPinB);
 
-    
-     // 初始显示编码器值
-    char encoderValueStr[20];
-    snprintf(encoderValueStr, sizeof(encoderValueStr), "Encoder Value: %ld", oldPosition);
-    lv_label_set_text(encoderValueLabel, encoderValueStr);
+  // 初始化编码器输入设备驱动
+  static lv_indev_drv_t indev_drv;
+  lv_indev_drv_init(&indev_drv);
+  indev_drv.type = LV_INDEV_TYPE_ENCODER;
+  indev_drv.read_cb = encoder_read;
+  lv_indev_t *registered_indev = lv_indev_drv_register(&indev_drv);
+  if (registered_indev == NULL) {
+      Serial.println("Failed to register input device driver!");
+      return;
+  }
+  setup_ui(&guider_ui);
+  // createPages();
+  // inputGroup = lv_group_create();
+  // if (inputGroup == NULL) {
+  //     Serial.println("Failed to create inputGroup!");
+  //     return;
+  // }
 
-    createPages();
-    inputGroup = lv_group_create();
-    lv_group_add_obj(inputGroup, mainMenu);
-    lv_group_add_obj(inputGroup, settingsMenu);
-    lv_indev_set_group(lv_indev_get_act(), inputGroup);
+  // if (mainMenu != NULL) {
+  //     lv_group_add_obj(inputGroup, mainMenu);
+  // }
+  // if (settingsMenu != NULL) {
+  //     lv_group_add_obj(inputGroup, settingsMenu);
+  // }
+
+  // lv_indev_t *indev = lv_indev_get_act();
+  // if (indev != NULL) {
+  //     lv_indev_set_group(indev, inputGroup);
+  // } else {
+  //     Serial.println("Failed to get active input device!");
+  // }
+
+  // // 创建编码器值标签
+  // encoderValueLabel = lv_label_create(lv_scr_act());
+  // lv_obj_align(encoderValueLabel, LV_ALIGN_BOTTOM_MID, 0, 0);
 }
+
+
+
 
 void loop() {
     // 处理 LVGL 任务
