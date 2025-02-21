@@ -1,129 +1,170 @@
-#include "network.h"
-#include <ESP8266WebServer.h>
+//需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
+//需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
+//需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
+//需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
+#include <ESP8266WiFi.h>
+#include <WiFiUDP.h>
+#include <ArduinoJson.h>
+#include <EEPROM.h>
+#include <Ticker.h>
+#include <network.h>
 
-ESP8266WebServer server(80);
+config_type config;
 
-void handleRoot() {
-  String html = "<html><head><style>";
-  // 添加 CSS 样式，使页面元素居中
-  html += "body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }";
-  html += "form { text-align: center; }";
-  html += "</style></head><body>";
-  html += "<form action=\"/connect\" method=\"POST\">";
-  html += "SSID: <input type=\"text\" name=\"ssid\"><br>";
-  html += "Password: <input type=\"password\" name=\"password\"><br>";
-  html += "<input type=\"submit\" value=\"Connect\"></form>";
-  html += "</body></html>";
-  server.send(200, "text/html", html);
-}
+//需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
+
+//根据需要修改的信息
+String type = "002"; //设备类型，001插座设备，002灯类设备，003风扇设备,005空调，006开关，009窗帘
+String Name= "台灯"; //设备昵称，可随意修改
+String proto= "3"; //3是tcp设备端口8344,1是MQTT设备
 
 
-void handlerConnect() {
-  if (server.hasArg("ssid") && server.hasArg("password")) {
-    const char *ssid = server.arg("ssid").c_str();
-    const char *password = server.arg("password").c_str();
-    saveDataToEEPROM(ssid, password);
-    connectToWiFi(ssid, password);
-    server.sendHeader("Location", "/");
-    server.send(303); // HTTP 303 See Other
-  } else {
-    server.send(400, "text/plain", "Bad Request");
+
+
+char config_flag = 0;//判断是否配网
+#define MAGIC_NUMBER 0xAA //判断是否配网
+char packetBuffer[255]; //发送数据包
+WiFiUDP Udp;
+
+
+/*
+ * 从EEPROM加载参数
+*/
+uint8_t *p = (uint8_t*)(&config);
+void loadConfig()
+{
+
+  uint8_t mac[6];
+  Serial.println(" LoadConfig.......");
+  WiFi.macAddress(mac);
+  EEPROM.begin(512);
+  for (int i = 0; i < sizeof(config); i++)
+  {
+    *(p + i) = EEPROM.read(i);
   }
-}
-
-void saveDataToEEPROM(const char* ssid, const char* password) {
-  // 将字符串转换为字符数组，并写入 EEPROM
-  for (uint16_t i = 0; i < MAX_LENGTH; i++) {
-    if (i < strlen(ssid)) EEPROM.write(EEPROM_SSID_START_ADDR + i, ssid[i]);
-    else EEPROM.write(EEPROM_SSID_START_ADDR + i, '\0'); // 添加终止符
-    if (i < strlen(password)) EEPROM.write(EEPROM_PASSWORD_START_ADDR + i, password[i]);
-    else EEPROM.write(EEPROM_PASSWORD_START_ADDR + i, '\0'); // 添加终止符
+  config.reboot = config.reboot + 1;
+  if(config.reboot>=4){
+    restoreFactory();
+  }
+  if(config.magic != 0xAA){
+    config_flag = 1;
+  }
+  EEPROM.begin(512);
+  for (int i = 0; i < sizeof(config); i++){
+    EEPROM.write(i, *(p + i));
   }
   EEPROM.commit();
-  Serial.println("Saved SSID and password to EEPROM.");
-}
-
-bool readDataFromEEPROM(String& ssid, String& password) {
-  char buffer[MAX_LENGTH];
-
-  // 从 EEPROM 读取 SSID
-  for (uint16_t i = 0; i < MAX_LENGTH; i++) {
-    buffer[i] = EEPROM.read(EEPROM_SSID_START_ADDR + i);
-    if (buffer[i] == '\0') break;
+  delay(2000);
+  Serial.println("loadConfig Over");
+  EEPROM.begin(512);
+  config.reboot = 0;
+  for (int i = 0; i < sizeof(config); i++){
+    EEPROM.write(i, *(p + i));
   }
-  ssid = String(buffer);
-
-  // 从 EEPROM 读取 Password
-  for (int i = 0; i < MAX_LENGTH; i++) {
-    buffer[i] = EEPROM.read(EEPROM_PASSWORD_START_ADDR + i);
-    if (buffer[i] == '\0') break;
-  }
-  password = String(buffer);
-
-  return !ssid.isEmpty() && !password.isEmpty();
+  EEPROM.commit();
 }
 
-void disconnectWiFi() {
-  WiFi.disconnect();
-  Serial.println("Wi-Fi disconnected.");
-}
 
-void disconnectSoftAP() {
-  if (WiFi.softAPdisconnect(true)) {
-    Serial.println("SoftAP disconnected successfully.");
-  } else {
-    Serial.println("Failed to disconnect SoftAP.");
+/* 
+ * 恢复出厂设置
+*/
+void restoreFactory()
+{
+  Serial.println("\r\n Restore Factory....... ");
+  config.magic = 0x00;
+  strcpy(config.stassid, "");
+  strcpy(config.stapsw, "");
+  strcpy(config.cuid, "");
+  strcpy(config.ctopic, "");
+  config.magic = 0x00;
+  saveConfig();
+  ESP.restart();
+  // delayRestart(1);
+  while (1) {
+    ESP.wdtFeed();
+    delay(100);
   }
 }
 
-void network_init() {
-    // 尝试读取 EEPROM 中保存的 SSID 和密码
-  String ssid = "";
-  String password = "";
+/*
+保存WIFI信息
+*/
+void saveConfig()
+{
+  config.reboot = 0;
+  EEPROM.begin(2018);
+  uint8_t *p = (uint8_t*)(&config);
+  for (int i = 0; i < sizeof(config); i++)
+  {
+    EEPROM.write(i, *(p + i));
+  }
+  EEPROM.commit();
+}
 
-  if (readDataFromEEPROM(ssid, password)) {
-    Serial.println("Using saved SSID and password from EEPROM. ssid: " + ssid +  "password: " +  password);
-    connectToWiFi(ssid.c_str(), password.c_str());
-  } else {
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP("ESP8266-Config");
-    server.on("/", handleRoot);
-    server.on("/connect", HTTP_POST, handlerConnect);
-    server.begin();
+void apConfig(String mac)
+{
+  if(config_flag == 1){
+      WiFi.softAP("bemfa_"+mac);
+      Udp.begin(8266);
+      Serial.println("Started Ap Config...");
+  }
+  String topic = mac+type;
+  while(config_flag){//如果未配网，开启AP配网，并接收配网信息
+        int packetSize = Udp.parsePacket();
+        if (packetSize) {
+          Serial.print("Received packet of size ");
+          Serial.println(packetSize);
+          Serial.print("From ");
+          IPAddress remoteIp = Udp.remoteIP();
+          Serial.print(remoteIp);
+          Serial.print(", port ");
+          Serial.println(Udp.remotePort());
+      
+
+          int len = Udp.read(packetBuffer, 255);
+          if (len > 0) {
+            packetBuffer[len] = 0;
+          }
+          Serial.println("Contents:");
+          Serial.println(packetBuffer);
+          StaticJsonDocument<200> doc;
+      
+          DeserializationError error = deserializeJson(doc, packetBuffer);
+          if (error) {
+            Serial.print(F("deserializeJson() failed: "));
+            Serial.println(error.f_str());
+            return;
+          }
+          int cmdType = doc["cmdType"].as<int>();;
+  
+          if (cmdType == 1) {
+              const char* ssid = doc["ssid"];
+              const char* password = doc["password"];
+              const char* token = doc["token"];
+              //const char* topic = doc["topic"];
+              Serial.println(cmdType);
+              Serial.println(ssid);
+              Serial.println(password);
+              Serial.println(token);
+              strcpy(config.stassid, ssid);
+              strcpy(config.stapsw, password);
+              strcpy(config.cuid, token);
+              config.reboot = 0;
+              config.magic = 0xAA;
+              saveConfig();
+              //收到信息，并回复
+              String  ReplyBuffer = "{\"cmdType\":2,\"productId\":\""+topic+"\",\"deviceName\":\""+Name+"\",\"protoVersion\":\""+proto+"\"}";
+              Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+              Udp.write(ReplyBuffer.c_str());
+              Udp.endPacket();
+            
+          }else if(cmdType == 3){
+              config_flag = 0;
+              WiFi.softAPdisconnect(true);
+          }
+          
+        }
+    
   }
 }
 
-void start_server() {
-  if (WiFi.getMode() == WIFI_AP || WiFi.softAPgetStationNum() > 0) {
-        server.handleClient();  // 处理客户端请求，确保在 AP 模式下服务器正常工作
-  }
-}
-
-void connectToWiFi(const char* ssid, const char* password) {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  int attempts = 0;
-
-  // 等待 Wi-Fi 连接
-  while (WiFi.status() != WL_CONNECTED && attempts < 60) {
-    delay(500);
-    Serial.print(".");
-    digitalWrite(LED_BUILTIN, HIGH); // 显示正在尝试连接
-    delay(500);
-    digitalWrite(LED_BUILTIN, LOW);  // 关闭指示灯
-    attempts++;
-  }
-
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected to Wi-Fi");
-    digitalWrite(LED_BUILTIN, HIGH); // 显示已连接
-    disconnectSoftAP();
-  } else {
-    Serial.println("Failed to connect to Wi-Fi. Restarting to AP mode.");
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP("ESP8266-Config"); // 如果连接失败，则恢复 AP 模式
-    server.on("/", handleRoot);
-    server.on("/connect", HTTP_POST, handlerConnect);
-    server.begin();
-  }
-}
