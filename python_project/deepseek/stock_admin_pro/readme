@@ -1,1 +1,8 @@
 sk-760ea581959f4b7c94fc82f113b97163
+### 安装rabitmq 做为 celery任务的数据库
+### 用nssm创建服务
+nssm install CeleryBeat 
+这会弹出一个配置窗口，在 “Application” 选项卡的 “Path” 字段中输入 Python 解释器的路径，例如C:\Users\life8\AppData\Local\Programs\Python\Python312\python.exe。
+在 “Arguments” 字段中输入 Celery 的启动命令参数，如-m celery -A stock_admin_pro beat -l info。
+在 “Startup File” 选项卡中，可以设置服务的启动的目录
+点击 “Install service” 按钮完成安装。

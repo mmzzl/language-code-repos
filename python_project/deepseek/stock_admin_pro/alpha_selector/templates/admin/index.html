@@ -1,0 +1,17 @@
+<!-- alpha_selector/templates/admin/index.html -->
+{% extends "admin/index.html" %}
+
+{% block content %}
+{{ block.super }}
+<div id="content-main">
+    <div id="content-related1">
+        <div class="module" id="recent-actions-module">
+            <h2>Celery管理</h2>
+            <div class="submit-row">
+                <input type="submit" value="启动 Celery Beat" class="default" onclick="location.href='{{ start_beat_url }}'; return false;">
+                <input type="submit" value="停止 Celery Beat" class="deletelink" onclick="location.href='{{ stop_beat_url }}'; return false;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

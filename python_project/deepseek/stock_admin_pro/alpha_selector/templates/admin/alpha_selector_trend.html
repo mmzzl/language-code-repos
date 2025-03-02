@@ -25,7 +25,25 @@
 
 
 {% block content %}
-<div div id="content-main">
-    <h1>趋势图</h1>
+<div id="content-main">
+    <h1>收益趋势图</h1>
+    <canvas id="trendChart" width="400" height="200"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('trendChart').getContext('2d');
+        var trendChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: '{{name}}',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+            options: {}
+        });
+    </script>
 </div>
 {% endblock %}
