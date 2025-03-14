@@ -13,15 +13,16 @@
                                                                                                                             //
 //    1.Solar panel power = 50W                                            
                                                                                                                             //
-//    2.Rated Battery Voltage= 12V ( lead acid type )
+//    2.Rated Battery Voltage= 12.6V ( lithium-ion type )
 
-//    3.Maximum current = 5A                                                                                                //
+//    3.Maximum current = 2A (假设锂电池的最大充电电流为2A)
 
 //    4.Maximum load current =10A                                                                                            //
 
-//    5. In put Voltage = Solar panel with Open circuit voltage from 17 to 25V                                               //
+//    5. In put Voltage = Solar panel with Open circuit voltage from 17 to 25V
+// 根据实际情况调整输入电压范围
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "TimerOne.h"                // using Timer1 library from http://www.arduino.cc/playground/Code/Timer1
 #include <Wire.h>  
@@ -63,7 +64,7 @@
 #define AVG_NUM 8                      // number of iterations of the adc routine to average the adc readings
 
 // ACS 712 Current Sensor is used. Current Measured = (5/(1024 *0.185))*ADC - (2.5/0.185) 
-
+// 根据实际使用的电流传感器进行调整
 #define SOL_AMPS_SCALE  0.026393581        // the scaling value for raw adc reading to get solar amps   // 5/(1024*0.185)
 #define SOL_VOLTS_SCALE 0.029296875        // the scaling value for raw adc reading to get solar volts  // (5/1024)*(R1+R2)/R2 // R1=100k and R2=20k
 #define BAT_VOLTS_SCALE 0.029296875        // the scaling value for raw adc reading to get battery volts 
@@ -88,11 +89,10 @@
 
 #define LOW_SOL_WATTS 5.00          //value of solar watts // this is 5.00 watts
 #define MIN_SOL_WATTS 1.00          //value of solar watts // this is 1.00 watts
-#define MIN_BAT_VOLTS 11.00         //value of battery voltage // this is 11.00 volts          
-#define MAX_BAT_VOLTS 14.10         //value of battery voltage// this is 14.10 volts
-#define BATT_FLOAT 13.60            // battery voltage we want to stop charging at
-#define HIGH_BAT_VOLTS 13.00        //value of battery voltage // this is 13.00 volts 
-#define LVD 11.5                    //Low voltage disconnect setting for a 12V system
+#define MIN_BAT_VOLTS 10.00         // value of battery voltage // this is 10.00 volts for a 12.6V lithium-ion system          
+#define MAX_BAT_VOLTS 12.60         // value of battery voltage// this is 12.60 volts for a 12.6V lithium-ion system
+#define BATT_FLOAT 12.60            // battery voltage we want to stop charging at for a 12.6V lithium-ion system
+#define LVD 10.5                    // Low voltage disconnect setting for a 12.6V lithium-ion system
 #define OFF_NUM 9                   // number of iterations of off charger state
   
 //------------------------------------------------------------------------------------------------------
