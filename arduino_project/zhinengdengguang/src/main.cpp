@@ -20,6 +20,7 @@ IRrecv irrecv(IR_RECEIVE_PIN);   // 定义红外遥控接收器对象并传入�
 decode_results result; 
 
 const int ledPin = 12;
+const int ledPin2 = 0;
 const int buttonPin = 2;
 const char* mqtt_server = "bemfa.com";
 const int mqtt_port = 9501;
@@ -57,13 +58,14 @@ uint8_t sRepeats = 1;
 
 unsigned long receivedData[MAX_RECEIVED_DATA];
 int dataIndex = 0;
-
+int state = 0;
 
 void setup() {
     Serial.begin(115200);
     pinMode(A0, INPUT);
     pinMode(buttonPin, INPUT_PULLUP);
     pinMode(ledPin, OUTPUT);
+    pinMode(ledPin2, OUTPUT);
     // 初始化LEDC
     analogWriteFreq(23000); // 频率设置为23khz
     analogWriteRange(255);
@@ -134,7 +136,21 @@ void loop() {
         Serial.println("");
         irrecv.resume();  // Receive the next value
     }
-    analogWrite(ledPin, map(ledBrightness, 0, 100, 0, 255));
+    switch (state) {
+        case 0:
+            analogWrite(ledPin2, map(ledBrightness, 0, 100, 0, 255));
+            analogWrite(ledPin, map(0, 0, 100, 0, 255));
+            break;
+        case 1:
+            analogWrite(ledPin, map(ledBrightness, 0, 100, 0, 255));
+            analogWrite(ledPin2, map(0, 0, 100, 0, 255));
+            break;
+        case 2:
+            analogWrite(ledPin, map(ledBrightness, 0, 100, 0, 255));
+            analogWrite(ledPin2, map(ledBrightness, 0, 100, 0, 255));
+            break;
+    }
+    
     delay(10);
 }
 
@@ -194,6 +210,7 @@ void handleShortPress() {
         case 5:
             ledBrightness = 0;
             num = 0;
+            state = (state+1) % 3;
             break;
         default:
             break;
@@ -226,6 +243,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
                 }
             } else if (strcmp(parts[0], "off") == 0) {
                 ledBrightness = 0;
+                state = (state+1) % 3;
             }
         }
         Serial.println("LED brightness set to: " + String(ledBrightness));
