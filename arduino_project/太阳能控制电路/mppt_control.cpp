@@ -69,8 +69,8 @@
 #define SOL_VOLTS_SCALE 0.029296875        // the scaling value for raw adc reading to get solar volts  // (5/1024)*(R1+R2)/R2 // R1=100k and R2=20k
 #define BAT_VOLTS_SCALE 0.029296875        // the scaling value for raw adc reading to get battery volts 
 
-#define PWM_PIN 9                    // the output pin for the pwm (only pin 9 avaliable for timer 1 at 50kHz)
-#define PWM_ENABLE_PIN 8            // pin used to control shutoff function of the IR2104 MOSFET driver (hight the mosfet driver is on)
+#define PWM_PIN 8                    // the output pin for the pwm (only pin 9 avaliable for timer 1 at 50kHz)
+#define PWM_ENABLE_PIN 9            // pin used to control shutoff function of the IR2104 MOSFET driver (hight the mosfet driver is on)
 #define PWM_FULL 1023                // the actual value used by the Timer1 routines for 100% pwm duty cycle
 #define PWM_MAX 100                  // the value for pwm duty cyle 0-100%
 #define PWM_MIN 60                  // the value for pwm duty cyle 0-100% (below this value the current running in the system is = 0)
