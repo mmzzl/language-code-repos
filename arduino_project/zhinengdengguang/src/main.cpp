@@ -6,8 +6,6 @@
 #include <IRutils.h>
 #include "network.h"
 
-
-
 #define DECODE_NEC          // Includes Apple and Onkyo
 #define DECODE_DISTANCE_WIDTH // In case NEC is not received correctly. Universal decoder for pulse distance width protocols
 #define DELAY_AFTER_SEND 2000
@@ -16,7 +14,6 @@
 // 定义红外接收引脚
 const uint16_t IR_RECEIVE_PIN = 4;
 IRrecv irrecv(IR_RECEIVE_PIN);   // 定义红外遥控接收器对象并传入使用的引脚，库会根据传入引脚编号自动初始化接收功能
- 
 decode_results result; 
 
 const int ledPin = 12;
@@ -49,6 +46,8 @@ void IRAM_ATTR buttonISR();
 void callback(char* topic, byte* payload, unsigned int length);
 void splitString(const String& input, char* parts[], int maxParts);
 void led();
+void reconnectWiFi();
+void reconnectMQTT();
 
 PubSubClient client(mqtt_server, mqtt_port, callback, espClient);
 
@@ -82,19 +81,7 @@ void setup() {
     Serial.print(F("Ready to receive IR signals at pin "));
     Serial.println(IR_RECEIVE_PIN);
 
-    WiFi.disconnect(); // 断开连接
-    WiFi.mode(WIFI_STA); // STA模式
-    Serial.println("Connecting to WiFi...");
-    // 这里假设 config 结构体存在且正确初始化
-    Serial.println(config.stassid);
-    Serial.println(config.stapsw);
-    WiFi.begin(config.stassid, config.stapsw); // 连接路由器
-    while (WiFi.status() != WL_CONNECTED) { // 检查是否连接成功
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("WiFi connected");
-    led();
+    reconnectWiFi(); // 初始连接WiFi
     if (client.connect(client_id)) {
         Serial.println("MQTT connected");
         client.subscribe(mqtt_topic);
@@ -104,7 +91,15 @@ void setup() {
 }
 
 void loop() {
-    client.loop();
+    if (!WiFi.isConnected()) {
+        reconnectWiFi();
+    }
+    if (!client.connected()) {
+        reconnectMQTT();
+    } else {
+        client.loop();
+    }
+
     // 检查是否接收到红外信号
     if (irrecv.decode(&result)) {
         // print() & println() can't handle printing long longs. (uint64_t)
@@ -112,7 +107,6 @@ void loop() {
         switch (result.value)
         {
         case 0x1FE50AF:
-            /* code */
             ledBrightness = 50;
             break;
         case 0x1FEF807:
@@ -160,7 +154,7 @@ void led() {
     digitalWrite(ledPin, LOW);
 }
 
-//中断服务程序（ISR）
+// 中断服务程序（ISR）
 void IRAM_ATTR buttonISR() {
     unsigned long currentTime = millis();
     // 去抖动处理
@@ -293,5 +287,28 @@ void splitString(const String& input, char* parts[], int maxParts) {
     // 填充剩余的部分为 nullptr
     for (int i = partCount; i < maxParts; i++) {
         parts[i] = nullptr;
+    }
+}
+
+// 重新连接WiFi
+void reconnectWiFi() {
+    WiFi.disconnect();
+    WiFi.mode(WIFI_STA);
+    Serial.println("Connecting to WiFi...");
+    WiFi.begin(config.stassid, config.stapsw);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("WiFi connected");
+}
+
+// 重新连接MQTT
+void reconnectMQTT() {
+    if (client.connect(client_id)) {
+        Serial.println("MQTT connected");
+        client.subscribe(mqtt_topic);
+    } else {
+        Serial.println("MQTT connection failed");
     }
 }
