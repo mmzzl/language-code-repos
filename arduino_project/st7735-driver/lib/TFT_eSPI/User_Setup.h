@@ -53,7 +53,7 @@
 //#define ILI9486_DRIVER
 //#define ILI9488_DRIVER     // WARNING: Do not connect ILI9488 display SDO to MISO if other devices share the SPI bus (TFT SDO does NOT tristate when CS is high)
 #define ST7789_DRIVER      // Full configuration option, define additional parameters below for this display
-//#define ST7789_2_DRIVER    // Minimal configuration option, define additional parameters below for this display
+// #define ST7789_2_DRIVER    // Minimal configuration option, define additional parameters below for this display
 //#define R61581_DRIVER
 //#define RM68140_DRIVER
 //#define ST7796_DRIVER
@@ -73,8 +73,8 @@
 // For ST7735, ST7789 and ILI9341 ONLY, define the colour order IF the blue and red are swapped on your display
 // Try ONE option at a time to find the correct colour order for your display
 
-//  #define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
-//  #define TFT_RGB_ORDER TFT_BGR  // Colour order Blue-Green-Red
+//#define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
+//#define TFT_RGB_ORDER TFT_BGR  // Colour order Blue-Green-Red
 
 // For M5Stack ESP32 module with integrated ILI9341 display ONLY, remove // in line below
 
@@ -82,15 +82,16 @@
 
 // For ST7789, ST7735, ILI9163 and GC9A01 ONLY, define the pixel width and height in portrait orientation
 // #define TFT_WIDTH  80
-// #define TFT_WIDTH  128
+#define TFT_WIDTH  240
 // #define TFT_WIDTH  172 // ST7789 172 x 320
 // #define TFT_WIDTH  170 // ST7789 170 x 320
-#define TFT_WIDTH  240 // ST7789 240 x 240 and 240 x 320
-// #define TFT_HEIGHT 160
+// #define TFT_WIDTH  240 // ST7789 240 x 240 and 240 x 320
+#define TFT_HEIGHT 320
 // #define TFT_HEIGHT 128
 // #define TFT_HEIGHT 240 // ST7789 240 x 240
 // #define TFT_HEIGHT 320 // ST7789 240 x 320
-#define TFT_HEIGHT 240 // GC9A01 240 x 240
+// #define TFT_HEIGHT 240 // GC9A01 240 x 240
+// #define SPI_DMA_CHAN SPI_DMA_CH_AUTO
 
 // For ST7735 ONLY, define the type of display, originally this was based on the
 // colour of the tab on the screen protector film but this is not always true, so try
@@ -114,7 +115,7 @@
 // 2 lines try both options, one of the options should correct the inversion.
 
 // #define TFT_INVERSION_ON
-// #define TFT_INVERSION_OFF
+#define TFT_INVERSION_OFF
 
 
 // ##################################################################################
@@ -222,7 +223,7 @@
 
 #define TFT_MOSI 8 // In some display driver board, it might be written as "SDA" and so on.
 #define TFT_SCLK 9
-// #define TFT_CS   5  // Chip select control pin
+#define TFT_CS   11  // Chip select control pin
 #define TFT_DC   5  // Data Command control pin
 #define TFT_RST  4  // Reset pin (could connect to Arduino RESET pin)
 // #define TFT_BL   22  // LED back-light
