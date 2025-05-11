@@ -4,3 +4,5 @@
 .idea/
 python_project/crawl_data/data/*
 python_project/.idea
+node_modules
+python_project/videoproject/video-project-ui/node_modules

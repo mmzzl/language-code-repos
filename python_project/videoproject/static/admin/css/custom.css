@@ -1,0 +1,18 @@
+.loading-indicator {
+    display: none; /* 默认隐藏 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0,0,0,0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 添加调试样式 */
+.loading-indicator.visible-for-debug {
+    display: block !important; /* 强制显示 */
+}

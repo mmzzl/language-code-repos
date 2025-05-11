@@ -1,7 +1,11 @@
 from django.contrib import admin
-from django.urls import path
-from .views import play_m3u8
-
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import video_played, SeriesModelViewSet, VideoModelViewSet
+router = DefaultRouter()
+router.register('series', SeriesModelViewSet)
+router.register('episodes', VideoModelViewSet)
 urlpatterns = [
-    path('play/<path:file_path>', play_m3u8, name='play_m3u8'),
+    path('video-played/<int:video_id>/', video_played, name='video_played'),
+    path('videos/', include(router.urls))
 ]
