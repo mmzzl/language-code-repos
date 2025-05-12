@@ -164,3 +164,8 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+# url 路由
+获取视频
+http://127.0.0.1:8000/api/videos/series/
+获取详情
+http://127.0.0.1:8000/api/videos/episodes/

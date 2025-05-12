@@ -2,20 +2,38 @@ import os
 import logging
 from django.conf import settings
 from moviepy.video.io.VideoFileClip import VideoFileClip
+from rest_framework.views import exception_handler
+
+
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+
+    if response is not None:
+        # 统一所有 404 响应格式
+        if response.status_code == 404:
+            response.data = {
+                'status': 'error',
+                'code': 'not_found',
+                'message': 'The requested resource was not found'
+            }
+
+    return response
 
 
 def process_video(video_path, instance):
     try:
         video = VideoFileClip(video_path)
         # 提取缩略图
-        thumbnail_dir = os.path.join(settings.MEDIA_ROOT, 'videos','thumbnails')
+        thumbnail_dir = os.path.join(settings.MEDIA_ROOT, 'videos',
+                                     'thumbnails')
         if not os.path.exists(thumbnail_dir):
             os.makedirs(thumbnail_dir)
         thumbnail_path = os.path.join(thumbnail_dir, f'thumbnail_'
                                                      f'{instance.id}.jpg')
         video.save_frame(thumbnail_path, t=5)  # 在5秒位置提取缩略图
         # 视频转码
-        processed_dir = os.path.join(settings.MEDIA_ROOT, 'videos', 'processed')
+        processed_dir = os.path.join(settings.MEDIA_ROOT, 'videos',
+                                     'processed')
         if not os.path.exists(processed_dir):
             os.makedirs(processed_dir)
         processed_video_path = os.path.join(processed_dir,

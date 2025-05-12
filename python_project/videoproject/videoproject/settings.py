@@ -128,7 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'video.pagination.CustomPagination',
-    'PAGE_SIZE': 10  # 默认每页数量(如果未使用自定义分页类)
+    'PAGE_SIZE': 10,  # 默认每页数量(如果未使用自定义分页类),
+    'EXCEPTION_HANDLER': 'video.utils.custom_exception_handler'
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
