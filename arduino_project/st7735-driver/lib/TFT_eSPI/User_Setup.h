@@ -74,7 +74,8 @@
 // Try ONE option at a time to find the correct colour order for your display
 
 //#define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
-//#define TFT_RGB_ORDER TFT_BGR  // Colour order Blue-Green-Red
+#define TFT_RGB_ORDER TFT_BGR  // Colour order Blue-Green-Red
+#define ESP32_DMA
 
 // For M5Stack ESP32 module with integrated ILI9341 display ONLY, remove // in line below
 
@@ -221,12 +222,12 @@
 // For ESP32 Dev board (only tested with GC9A01 display)
 // The hardware SPI can be mapped to any pins
 
-#define TFT_MOSI 8 // In some display driver board, it might be written as "SDA" and so on.
-#define TFT_SCLK 9
-#define TFT_CS   11  // Chip select control pin
-#define TFT_DC   5  // Data Command control pin
-#define TFT_RST  4  // Reset pin (could connect to Arduino RESET pin)
-// #define TFT_BL   22  // LED back-light
+#define TFT_MOSI 21 // In some display driver board, it might be written as "SDA" and so on.
+#define TFT_SCLK 22
+#define TFT_CS   -1  // Chip select control pin
+#define TFT_DC   18  // Data Command control pin
+#define TFT_RST  19  // Reset pin (could connect to Arduino RESET pin)
+#define TFT_BL   17  // LED back-light
 
 //#define TOUCH_CS 21     // Chip select pin (T_CS) of touch screen
 
@@ -367,10 +368,12 @@
 // #define SPI_FREQUENCY  80000000
 
 // Optional reduced SPI frequency for reading TFT
-#define SPI_READ_FREQUENCY  20000000
+// #define SPI_READ_FREQUENCY  20000000
 
 // The XPT2046 requires a lower SPI clock rate of 2.5MHz so we define that here:
-#define SPI_TOUCH_FREQUENCY  2500000
+// #define SPI_TOUCH_FREQUENCY  2500000
+#define SPI_FREQUENCY  40000000
+#define SPI_READ_FREQUENCY 6000000
 
 // The ESP32 has 2 free SPI ports i.e. VSPI and HSPI, the VSPI is the default.
 // If the VSPI port is in use and pins are not accessible (e.g. TTGO T-Beam)
