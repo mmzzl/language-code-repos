@@ -1,7 +1,7 @@
 import os
 from django.db import models
 from django.conf import settings
-from .utils import process_video
+from .tasks import video_processed_task
 
 # Create your models here.
 class Series(models.Model):
@@ -43,11 +43,19 @@ class Video(models.Model):
         return f'{self.series.title} - {self.title}'
 
     def save(self, *args, **kwargs):
-        is_new = self._state.adding  # 判断是否是新记录
+        # 获取旧的实例（如果是更新）
+        is_new = self._state.adding
+        old_file = None
+        if not is_new:
+            try:
+                old_instance = Video.objects.get(pk=self.pk)
+                old_file = old_instance.original_video_file
+            except Video.DoesNotExist:
+                pass
+
         super().save(*args, **kwargs)
-        if is_new and self.original_video_file:
-            video_path = os.path.join(settings.MEDIA_ROOT,
-                                      self.original_video_file.name)
-            # 调用自定义函数处理视频文件
-            process_video(video_path, self)
+
+        # 如果是新增 或者 文件被修改过
+        if self.original_video_file and (is_new or old_file != self.original_video_file):
+            video_processed_task.delay(self.id)
 

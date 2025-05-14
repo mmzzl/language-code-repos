@@ -174,4 +174,34 @@ http://127.0.0.1:8000/api/videos/episodes/
 
 npm install @dcloudio/uni-ui
 npm install --save-dev typescript vue-tsc
+# 安装celery 用于处理上传视频
+1. pip install celery redis
+2. 在django项目根目录（与settings.py 同级） 创建celery.py
+3. 在videoproject/__init__.py 中添加
+4. settings.py 配置消息代理
+5. 在应用目录下创建tasks.py
+6. 在视图中调用异步任务
+7. 启动celery worker
+python -m celery -A videoproject worker --loglevel=info --pool=solo
+8. 通过任务id查询任务状态
+
+集成celery Flower
+1. pip install flower
+2. 配置django url
+3. 启动python -m celery -A videoproject  flower --port=5555
+4. 打开浏览器访问http://localhost:5555
+- 可以查看实时任务状态
+- Worker活动监控
+- 任务历史和统计
+- 支持任务重试，取消操作
+
+pm2 管理启动命令
+npm install pm2 -g
+//pm2 start "python -m celery -A videoproject worker --loglevel=info --pool=solo" --name celery-worker
+//pm2 start "python -m celery -A videoproject  flower --port=5555" --name celery-flower
+//pm2 save
+//pm2 startup
+
+pm2 start ecosystem.config.js
+pm2 save
 

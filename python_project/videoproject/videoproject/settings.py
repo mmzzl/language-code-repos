@@ -139,6 +139,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ("*")
 CORS_ALLOW_CREDENTIALS = True
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 # CORS_ALLOWED_ORIGINS = [
 # "http://127.0.0.1:8080",
 # "http://localhost:8080"

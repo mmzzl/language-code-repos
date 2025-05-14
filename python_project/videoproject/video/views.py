@@ -8,6 +8,7 @@ from rest_framework import viewsets, filters
 from .serializers import SeriesModelSerializer, VideoModelSerializer
 from .pagination import CustomPagination
 from rest_framework.response import Response
+from celery.result import AsyncResult
 
 
 def video_played(request, video_id):
@@ -18,6 +19,14 @@ def video_played(request, video_id):
         'success': True
     })
 
+def check_task_status(request, task_id):
+    result = AsyncResult(task_id)
+    return JsonResponse(
+        {
+            'status': result.status,
+            'result': result.result if result.ready() else None
+        }
+    )
 
 class SeriesModelViewSet(viewsets.ModelViewSet):
     queryset = Series.objects.all().order_by('title')
