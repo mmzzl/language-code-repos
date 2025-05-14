@@ -36,5 +36,10 @@
     "dist",
     "src/**/*.nvue"
   ],
-   "include": ["src/**/*", "global.d.ts", "./**/*"]
+   "include": [ 
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.ts"
+  ]
 }

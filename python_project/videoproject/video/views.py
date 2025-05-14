@@ -9,15 +9,36 @@ from .serializers import SeriesModelSerializer, VideoModelSerializer
 from .pagination import CustomPagination
 from rest_framework.response import Response
 from celery.result import AsyncResult
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def video_played(request, video_id):
-    video = Video.objects.get(id=video_id)
+    if request.method != 'POST':
+        return JsonResponse({
+            'success': False,
+            'error': 'Method not allowed. Use POST.'
+        }, status=405)  # 返回 405 Method Not Allowed
+    try:
+        video = Video.objects.get(id=video_id)
+    except Video.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': f'Video with ID {video_id} not found'
+        }, status=404)
     video.play_count += 1
     video.save()
-    return JsonResponse({
-        'success': True
-    })
+    return JsonResponse({'success': True})
+
+
+def video_play_count(request, video_id):
+    try:
+        video = Video.objects.get(id=video_id)
+    except Video.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': f'Video with ID {video_id} not found'
+        }, status=404)
+    return JsonResponse({'success': True, 'number': video.play_count})
 
 def check_task_status(request, task_id):
     result = AsyncResult(task_id)

@@ -1,7 +1,16 @@
 <template>
   <view class="container">
-    <!-- 视频播放器 -->
-    <div id="mui-player"></div>
+    <!-- 原生 video 组件 -->
+    <video
+      :src="currentVideoUrl"
+      :enable-play-gesture="true"
+      @play="onPlay"
+      @ended="handleVideoEnd"
+      :autoplay="true"
+      style="width: 100%; height: 500rpx;"
+      :show-progress="true"
+      :show-fullscreen-btn="true"
+    ></video>
 
     <!-- 简介区域 -->
     <view class="description-box">
@@ -11,6 +20,9 @@
       <text class="toggle-btn" @click="toggleDescription">
         {{ isDescriptionExpanded ? '收起' : '展开' }}
       </text>
+      <view class="play-count">
+        播放量: {{ playCount }}
+      </view>
     </view>
 
     <!-- 水平滚动选集列表 -->
@@ -23,116 +35,114 @@
         </view>
       </block>
     </scroll-view>
-
-    <!-- 视频列表 -->
-    <view class="videos-container">
-      <view v-for="(video, index) in videos" :key="index" class="video-item">
-        <image
-          :src="video.thumbnail"
-          mode="aspectFill"
-          class="thumbnail"
-          @click="goToDetail(video.id)"
-        ></image>
-        <text class="video-title">{{ video.title }}</text>
-      </view>
-    </view>
-
-    <!-- 加载更多 -->
-    <view class="load-more" @click="fetchVideos">
-      {{ isLoading ? '加载中...' : (hasNextPage ? '加载更多' : '没有更多了') }}
-    </view>
   </view>
 </template>
 
 <script>
-import 'mui-player/dist/mui-player.min.css';
-import MuiPlayer from 'mui-player';
-import Hls from 'hls.js';
-
 export default {
   data() {
     return {
-      currentVideoUrl: '', // 当前播放视频的URL
-      episodes: [],        // 存储选集数据
-      isEpisodesVisible: true, // 控制选集显示隐藏
-      selectedEpisodeId: null   ,// 当前选中的剧集ID
-	  mp: null  ,
-	  description: "这里是视频的详细介绍内容，可以写很多文字。例如剧情介绍、演员信息、拍摄背景等等。你可以点击展开查看全部内容。",
-	  isDescriptionExpanded: false,
+      currentVideoUrl: '', // 当前播放视频地址
+      episodes: [],        // 所有剧集数据
+      isEpisodesVisible: true,
+      selectedEpisodeId: null, // 当前选中剧集ID
+      seriesId: null,      // 系列ID
+      playCount: 0,        // 当前剧集播放量
+      description: "",
+      isDescriptionExpanded: false,
+	  apiBaseURL: "http://192.168.43.21:8000"
     };
   },
   onLoad(options) {
-	  // options 就是跳转时传入的参数对象
-	  if (options.id) {
-	  	console.log('接收到的id是：', options.id);
-		this.seriesId = options.id;
-	  }
-  },
-  onUnload() {
-    if (this.hlsInstance) {
-      this.hlsInstance.destroy();
-      this.hlsInstance = null;
+    if (options.id) {
+      console.log('接收到的id是：', options.id);
+      this.seriesId = options.id;
+      this.fetchEpisodes(this.seriesId);
     }
   },
   onReady() {
-	if (this.seriesId) {
-		this.fetchEpisodes(this.seriesId);
-	} else {
-		uni.showToast({
-			title: "缺少系列ID",
-			icon: 'none'
-		})
-	}
-  },
- 
-  beforeDestroy() {
-	this.mp.destroy();
+    if (!this.seriesId) {
+      uni.showToast({ title: "缺少系列ID", icon: 'none' });
+    }
   },
   methods: {
-	toggleDescription() {
-	      this.isDescriptionExpanded = !this.isDescriptionExpanded;
-	},
-	initMuiPlayer() {
-	    const container = document.getElementById("mui-player");
-	    if (!container) {
-	      console.error("播放器容器未找到");
-	      return;
-	    }
-	
-	    if (!this.currentVideoUrl) {
-	      console.warn("视频地址为空，无法初始化播放器");
-	      return;
-	    }
-	
-	    this.mp = new MuiPlayer({
-	      container: container,
-	      src: this.currentVideoUrl,
-	      parse: {
-	        type: 'hls',
-	        loader: Hls, // 确保 Hls 已挂载到 window
-	        config: { debug: false },
-	      },
-	      pageHead: false,
-	    });
-	  },
-    // 获取选集列表
+    toggleDescription() {
+      this.isDescriptionExpanded = !this.isDescriptionExpanded;
+    },
+
+    // 播放时调用播放接口
+    async onPlay() {
+      await this.incrementPlayCount(this.selectedEpisodeId);
+    },
+
+    // 视频结束时处理下一集
+    handleVideoEnd() {
+      const currentIndex = this.episodes.findIndex(e => e.id === this.selectedEpisodeId);
+      if (currentIndex < this.episodes.length - 1) {
+        const nextEpisodeId = this.episodes[currentIndex + 1].id;
+        this.playEpisode(nextEpisodeId); // 自动播放下一集
+      } else {
+        console.log('已播放到最后一集');
+      }
+    },
+
+    // 播放下一集
+    playEpisode(videoId) {
+      const episode = this.episodes.find(e => e.id === videoId);
+      if (episode) {
+        this.currentVideoUrl = episode.processed_video_file;
+        this.selectedEpisodeId = episode.id;
+        this.description = episode.description;
+        // 获取当前播放量
+        this.fetchPlayCount(videoId);
+        // 👇 每次切换剧集都增加播放量
+        this.incrementPlayCount(videoId);
+      }
+    },
+
+    // 获取播放量
+    async fetchPlayCount(video_id) {
+      try {
+        const res = await uni.request({
+          url: `${this.apiBaseURL}/api/videos/playcount/${video_id}`,
+          method: 'GET',
+        });
+        if (res.statusCode === 200 && typeof res.data.number === 'number') {
+          this.playCount = res.data.number;
+        } else {
+          console.error('获取播放量失败:', res);
+        }
+      } catch (error) {
+        console.error('获取播放量失败:', error);
+      }
+    },
+
+    // 增加播放量
+    async incrementPlayCount(video_id) {
+      try {
+        await uni.request({
+          url: `${this.apiBaseURL}/api/videos/played/${video_id}`,
+          method: 'POST',
+        });
+        console.log(`视频ID ${video_id} 的播放量已增加`);
+      } catch (error) {
+        console.error(`增加视频ID ${video_id} 的播放量失败:`, error);
+      }
+    },
+
+    // 获取所有剧集
     async fetchEpisodes(series_id) {
       try {
         const res = await uni.request({
-            url: `/api/videos/episodes?series_id=${series_id}`,
-            method: 'GET',
-          });
-        console.log("res: ", res);
-		console.log('statuscode: ', res.statusCode);
-		console.log(Array.isArray(res.data));
+          url: `${this.apiBaseURL}/api/videos/episodes/${series_id}`,
+          method: 'GET',
+        });
         if (res.statusCode === 200 && Array.isArray(res.data)) {
           this.episodes = res.data;
           if (this.episodes.length > 0) {
             this.selectedEpisodeId = this.episodes[0].id;
             this.playEpisode(this.episodes[0].id);
-          } else {
-			  console.log('小于0');
-		  }
+          }
         } else {
           uni.showToast({ title: '获取选集失败', icon: 'none' });
         }
@@ -141,23 +151,6 @@ export default {
         console.error(err);
       }
     },
-	playEpisode(videoId) {
-	  const episode = this.episodes.find(e => e.id === videoId);
-	  if (episode) {
-	    this.currentVideoUrl = episode.processed_video_file; // 使用 original_video_file 播放
-	    this.selectedEpisodeId = episode.id;
-		console.log('current_videourl:', this.currentVideoUrl);
-		// 使用 $nextTick 确保 DOM 更新后再初始化播放器
-		this.$nextTick(() => {
-			if (!this.mp) {
-			  this.initMuiPlayer(); // 第一次播放时初始化播放器
-			} else {
-			  this.mp.changeSrc(this.currentVideoUrl); // 切换剧集时更新地址
-			}
-		});
-	  }
-	},
-  
 
     // 切换选集面板显示状态
     toggleEpisodes() {
@@ -168,6 +161,7 @@ export default {
 </script>
 
 <style scoped>
+/* 保持原有样式不变 */
 .video-player {
   width: 100%;
   height: 500rpx;
@@ -192,14 +186,14 @@ export default {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2; /* 默认显示两行 */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 28rpx;
   color: #666;
 }
 
 .description-text.expanded {
-  -webkit-line-clamp: unset; /* 展开后不限制行数 */
+  -webkit-line-clamp: unset;
 }
 
 .toggle-btn {
@@ -207,6 +201,13 @@ export default {
   margin-top: 10rpx;
   font-size: 26rpx;
   display: inline-block;
+}
+
+.play-count {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+  display: block;
 }
 
 .episode-list-horizontal {

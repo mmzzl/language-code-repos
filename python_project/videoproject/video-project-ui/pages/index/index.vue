@@ -24,20 +24,24 @@
 
     <!-- 视频列表 -->
     <view class="videos-container">
-      <view v-for="(video, index) in videos" :key="index" class="video-item">
+      <view v-for="(video, index) in videos" :key="index" class="video-item" @click="goToDetail(video.id)">
         <image
           :src="video.thumbnail"
           mode="aspectFill"
           class="thumbnail"
-          @click="goToDetail(video.id)"
         ></image>
         <text class="video-title">{{ video.title }}</text>
       </view>
     </view>
 
     <!-- 加载更多 -->
-    <view class="load-more" @click="fetchVideos">
+    <view v-if="!isSearching" class="load-more" @click="fetchVideos">
       {{ isLoading ? '加载中...' : (hasNextPage ? '加载更多' : '没有更多了') }}
+    </view>
+
+    <!-- 搜索提示 -->
+    <view v-if="isSearching && videos.length === 0" class="no-result">
+      没有找到相关视频
     </view>
   </view>
 </template>
@@ -47,70 +51,99 @@ import Vue from 'vue';
 import uniIcons from '@dcloudio/uni-ui/lib/uni-icons/uni-icons.vue';
 
 interface VideoItem {
-  url?: string
-  title: string
-  thumbnail: string
+  url?: string;
+  title: string;
+  thumbnail: string;
+  id: number;
 }
 
 interface ApiResponse {
   results: Array<{
-    id: number
-    title: string
-    cover_image: string
-  }>
-  next: string | null
+    id: number;
+    title: string;
+    cover_image: string;
+  }>;
+  next: string | null;
 }
 
 export default Vue.extend({
   components: { uniIcons },
   data() {
-		return {
-			videos: [] as Array<{ url?: string; title: string; thumbnail: string; id: number}>,
-			currentPage: 1,
-			hasNextPage: true,
-			isLoading: false,
-			
-		};
-    },
+    return {
+      videos: [] as Array<VideoItem>,
+      searchQuery: '', // 搜索关键词
+      currentPage: 1,
+      hasNextPage: true,
+      isLoading: false,
+      isSearching: false, // 是否正在搜索
+    };
+  },
   onLoad() {
     this.fetchVideos();
   },
   onReachBottom() {
-	if (this.hasNextPage) {
-		this.fetchVideos();
-	}
+    if (this.hasNextPage && !this.isSearching) {
+      this.fetchVideos();
+    }
   },
   methods: {
-    async fetchVideos() {
+    async fetchVideos(reset = false) {
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+
       try {
+        const page = reset ? 1 : this.currentPage;
+        const baseUrl = "http://192.168.43.21:8000"; // 全局变量
+        const apiPath = "/api/videos/series";
+
+        const params = this.isSearching
+          ? `?title=${encodeURIComponent(this.searchQuery)}&page=${page}`
+          : `?page=${page}`;  
+
+        const url = baseUrl + apiPath + params;
         const res = await uni.request({
-          url:  '/api/videos/series' , //'https://your-api.com/api/videos', // 替换为你的接口地址
-          method: 'GET'
+          url,
+          method: 'GET',
+          credentials: 'omit'
         });
-		const data = res.data as ApiResponse;
-		
-        this.videos = [
-			...this.videos,
-			...data.results.map(item=>({
-				title: item.title,
-				thumbnail: item.cover_image,
-				id: item.id
-			}))
-		];
-		this.hasNextPage = !!data.next;
-		this.currentPage += 1;
+
+        const data = res.data as ApiResponse;
+
+        const newVideos = data.results.map(item => ({
+          title: item.title,
+          thumbnail: item.cover_image,
+          id: item.id,
+        }));
+
+        this.videos = reset ? newVideos : [...this.videos, ...newVideos];
+        this.hasNextPage = !!data.next;
+        this.currentPage += 1;
       } catch (error) {
-        console.error('Failed to fetch videos:', error);
+        console.error('获取视频失败:', error);
       } finally {
         this.isLoading = false;
       }
     },
-	goToDetail(id: number) {
-		uni.navigateTo({
-			url: `/pages/detail/detail?id=${id}`
-		});
-	}
-}
+
+    handleSearch() {
+      if (!this.searchQuery.trim()) {
+        uni.showToast({ title: '请输入关键词', icon: 'none' });
+        return;
+      }
+
+      this.isSearching = true;
+      this.currentPage = 1;
+      this.videos = [];
+      this.fetchVideos(true); // 重置并加载搜索结果
+    },
+
+    goToDetail(id: number) {
+      uni.navigateTo({
+        url: `/pages/detail/detail?id=${id}`,
+      });
+    },
+  },
 });
 </script>
 
