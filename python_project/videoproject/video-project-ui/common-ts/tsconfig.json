@@ -14,7 +14,9 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "@dcloudio/types"
+      "@dcloudio/types",
+	  "uni-app",
+	  "vue"
     ],
     "paths": {
       "@/*": [
@@ -34,5 +36,5 @@
     "dist",
     "src/**/*.nvue"
   ],
-   "include": ["src/**/*", "global.d.ts"]
+   "include": ["src/**/*", "global.d.ts", "./**/*"]
 }

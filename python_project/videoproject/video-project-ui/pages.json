@@ -28,5 +28,11 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	
+	"easycom": {
+	    "autoscan": true,
+	    "custom": {}
+	  }
+	
 }
