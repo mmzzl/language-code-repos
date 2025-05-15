@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hq)46wz4xm21t68^cw))4tm62t(l)0k&d!2_4=jky4)lbc!+8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 
 # CORS_ALLOW_HEADERS = ("*")
 # CORS_ALLOW_CREDENTIALS = True
@@ -144,32 +144,35 @@ CORS_ALLOW_ALL_ORIGINS = True
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-# CORS_ALLOWED_ORIGINS = [
-# "http://127.0.0.1:8080",
-# "http://localhost:8080"
-# ]
+# CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 # 是否允许发送 Cookie 等凭据信息
-# CORS_ALLOW_CREDENTIALS = True,不能同时设置CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True # 不能同时设置CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+"http://127.0.0.1:8080",
+"http://localhost:8080"
+]
 # 可以根据需要调整允许的方法和头部
-# CORS_ALLOW_METHODS = [
-#     "DELETE",
-#     "GET",
-#     "OPTIONS",
-#     "PATCH",
-#     "POST",
-#     "PUT",
-# ]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
 #
-# CORS_ALLOW_HEADERS = [
-#     "accept",
-#     "accept-encoding",
-#     "authorization",
-#     "content-type",
-#     "dnt",
-#     "origin",
-#     "user-agent",
-#     "x-csrftoken",
-#     "x-requested-with",
-# ]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]

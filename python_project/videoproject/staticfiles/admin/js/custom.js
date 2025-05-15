@@ -1,14 +1,20 @@
 (function($) {
     $(document).ready(function() {
-        var form = $('#content-main form');
-        var submitBtn = form.find('input[type="submit"]');
+        var form = $('#video_form');
+        if (form.length) {
+            console.log('Form found:', form);
+        } else {
+            console.error('Form not found!');
+        }
+        // 创建一个隐藏的加载指示器
         var loadingIndicator = $('<div class="loading-indicator"></div>').appendTo(document.body);
 
-        submitBtn.click(function() {
-            loadingIndicator.show();
+        // 监听表单提交事件
+        form.on('submit', function(event) {
+            loadingIndicator.show(); // 提交时显示加载指示器
         });
 
-        // 如果需要，在表单提交后隐藏指示器（根据实际情况调整）
+        // 可选：如果需要在 AJAX 请求完成后隐藏指示器，请确保在这里处理
         // 注意：对于大型文件上传，浏览器可能会在连接关闭之前保持此界面，
         // 所以可能无法及时隐藏指示器。
     });

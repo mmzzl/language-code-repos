@@ -205,3 +205,27 @@ npm install pm2 -g
 pm2 start ecosystem.config.js
 pm2 save
 
+django 部署
+1. 收集静态文件
+python manage.py collectstatic
+2. 安装 pip install gunicorn
+3. 配置nginx
+4. 创建一个符号链接 使配置生效 sudo ln -s /etc/nginx/sites-available/yourprojectname
+/etc/nginx/sites-enabled
+5. 检测nginx -t 配置是否正确
+6. 重启nginx sudo systemctl restart nginx
+7. 设置gunicorn 服务
+8. 启动gunicorn 服务
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+
+安装certbot 免费获取ssl证书
+pip install certbot
+ln -s /opt/cerbot/bin/certbot /usr/bin/certbot
+certbot certonly --standalone
+
+自签名ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
+sudo nano /etc/nginx/sites-available/default
+nginx -t 检查语法是否错误
+sudo systemctl reload nginx 重启

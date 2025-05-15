@@ -1,0 +1,7 @@
+djangorestframework
+moviepy
+celery
+redis
+flower
+django-cors-headers
+gunicorn

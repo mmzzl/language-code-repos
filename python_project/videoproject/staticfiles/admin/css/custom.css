@@ -1,5 +1,5 @@
 .loading-indicator {
-    display: none;
+    display: none; /* 默认隐藏 */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -12,6 +12,7 @@
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* 添加调试样式 */
+.loading-indicator.visible-for-debug {
+    display: block !important; /* 强制显示 */
 }
