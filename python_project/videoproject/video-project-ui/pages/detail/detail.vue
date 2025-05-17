@@ -39,6 +39,7 @@
 </template>
 
 <script>
+const baseUrl = Vue.prototype.$BASE_URL; // 全局变量
 export default {
   data() {
     return {
@@ -49,8 +50,7 @@ export default {
       seriesId: null,      // 系列ID
       playCount: 0,        // 当前剧集播放量
       description: "",
-      isDescriptionExpanded: false,
-	  apiBaseURL: "http://192.168.43.21:8000"
+      isDescriptionExpanded: false
     };
   },
   onLoad(options) {
@@ -104,8 +104,8 @@ export default {
     async fetchPlayCount(video_id) {
       try {
         const res = await uni.request({
-          url: `${this.apiBaseURL}/api/videos/playcount/${video_id}`,
-          method: 'GET',
+          url: `${baseUrl}/api/videos/playcount/${video_id}`,
+          method: 'GET'
         });
         if (res.statusCode === 200 && typeof res.data.number === 'number') {
           this.playCount = res.data.number;
@@ -121,8 +121,8 @@ export default {
     async incrementPlayCount(video_id) {
       try {
         await uni.request({
-          url: `${this.apiBaseURL}/api/videos/played/${video_id}`,
-          method: 'POST',
+          url: `${baseUrl}/api/videos/played/${video_id}`,
+          method: 'POST'
         });
         console.log(`视频ID ${video_id} 的播放量已增加`);
       } catch (error) {
@@ -134,8 +134,8 @@ export default {
     async fetchEpisodes(series_id) {
       try {
         const res = await uni.request({
-          url: `${this.apiBaseURL}/api/videos/episodes/${series_id}`,
-          method: 'GET',
+          url: `${baseUrl}/api/videos/episodes/${series_id}`,
+          method: 'GET'
         });
         if (res.statusCode === 200 && Array.isArray(res.data)) {
           this.episodes = res.data;

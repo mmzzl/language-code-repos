@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    server_name 369924.xyz www.369924.xyz;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name 369924.xyz www.369924.xyz;
+
+    ssl_certificate /etc/letsencrypt/live/369924.xyz/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/369924.xyz/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location /static/ {
+        alias /home/fantom/videoproject/staticfiles/;
+    }
+
+    location / {
+        proxy_pass http://unix:/home/fantom/videoproject/videoproject.sock;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        # 如果后端服务也需要处理跨域请求，确保这些头部信息被正确传递
+        proxy_set_header Access-Control-Allow-Origin *;
+        proxy_set_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+        proxy_set_header Access-Control-Allow-Headers 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
+    }
+}

@@ -49,7 +49,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import uniIcons from '@dcloudio/uni-ui/lib/uni-icons/uni-icons.vue';
-
+const baseUrl = Vue.prototype.$BASE_URL; // 全局变量
+console.log('baseUrl', baseUrl);
 interface VideoItem {
   url?: string;
   title: string;
@@ -94,9 +95,7 @@ export default Vue.extend({
 
       try {
         const page = reset ? 1 : this.currentPage;
-        const baseUrl = "http://192.168.43.21:8000"; // 全局变量
         const apiPath = "/api/videos/series";
-
         const params = this.isSearching
           ? `?title=${encodeURIComponent(this.searchQuery)}&page=${page}`
           : `?page=${page}`;  

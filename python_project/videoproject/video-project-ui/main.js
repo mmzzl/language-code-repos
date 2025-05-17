@@ -1,21 +1,14 @@
 import App from './App'
-
+import BASE_URL from './common/api.js'
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'
 // main.js
 Vue.config.productionTip = false;
-
+const base_url = 'https://121.37.47.63';
 const env = process.env.NODE_ENV;
-
-let apiBaseURL = '';
-if (env === 'development') {
-  apiBaseURL = 'http://192.168.43.21:8000';
-} else {
-  apiBaseURL = 'https://yourdomain.com';
-}
-
-Vue.prototype.$apiBaseURL = apiBaseURL;
+console.log("base url", base_url);
+Vue.prototype.$BASE_URL = base_url;
 App.mpType = 'app'
 const app = new Vue({
   ...App

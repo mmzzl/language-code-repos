@@ -205,6 +205,9 @@ npm install pm2 -g
 pm2 start ecosystem.config.js
 pm2 save
 
+# 添加python虚拟环境
+ python3 -m venv python3env
+
 django 部署
 1. 收集静态文件
 python manage.py collectstatic
@@ -224,8 +227,24 @@ pip install certbot
 ln -s /opt/cerbot/bin/certbot /usr/bin/certbot
 certbot certonly --standalone
 
+# cloudflare 和certbot
+1. sudo apt install python3-certbot-dns-cloudflare
+2. vi /etc/letsencrypt/cloudflare.ini
+3. 设置cloudflare  api 令牌 ,选择区域， DNS, 编辑， 区域资源 包括，特定区域，369924.xyz
+4. sudo certbot certonly   --dns-cloudflare   --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini   --key-type ecdsa   --domain "369924.xyz,*.369924.xyz"
+5. 申请成功后，会有两个文件
+/etc/letsencrypt/live/369924.xyz/fullchain.pem
+/etc/letsencrypt/live/369924.xyz/privkey.pem
+6. 配置定时任务，更新ssl证书
+0 0 * * * /usr/bin/certbot renew --quiet >> /var/log/letsencrypt/renew.log 2>&1
+certbot renew
 自签名ssl
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
 sudo nano /etc/nginx/sites-available/default
 nginx -t 检查语法是否错误
 sudo systemctl reload nginx 重启
+
+生成ssh 密钥
+ssh-keygen -t ed25519 -C "your_email@example.com"
+gunicorn.service 放到这个目录
+    /etc/systemd/system/gunicorn.service

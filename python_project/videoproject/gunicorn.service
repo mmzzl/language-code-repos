@@ -6,7 +6,10 @@ After=network.target
 User=root
 Group=www-data
 WorkingDirectory=/home/fantom/videoproject
-ExecStart=/path/to/your/virtualenv/bin/gunicorn --workers 3 --bind unix:/path/to/your/project/yourprojectname.sock yourprojectname.wsgi:application
+ExecStart=/home/fantom/python3env/bin/gunicorn --workers 3 --bind unix:/home/fantom/videoproject/videoproject.sock videoproject.wsgi:application
+Restart=always
+Environment="PATH=/home/fantom/python3env/bin"
+Environment="DJANGO_SETTINGS_MODULE=videoproject.settings"
 
 [Install]
 WantedBy=multi-user.target
