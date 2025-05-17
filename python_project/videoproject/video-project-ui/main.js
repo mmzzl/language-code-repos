@@ -5,7 +5,7 @@ import Vue from 'vue'
 import './uni.promisify.adaptor'
 // main.js
 Vue.config.productionTip = false;
-const base_url = 'https://121.37.47.63';
+const base_url = 'http://121.37.47.63';
 const env = process.env.NODE_ENV;
 console.log("base url", base_url);
 Vue.prototype.$BASE_URL = base_url;

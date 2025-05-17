@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 const baseUrl = Vue.prototype.$BASE_URL; // 全局变量
 export default {
   data() {

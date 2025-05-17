@@ -11,8 +11,10 @@ urlpatterns = [
     path('videos/playcount/<int:video_id>', video_play_count,
          name='play_count'),
     path('videos/played/<int:video_id>', video_played, name='video_played'),
-    path('videos/episodes/<int:series_id>', VideoModelViewSet.as_view(
-        {'get':'list_by_series'})),
+    path('videos/episodes/<int:series_id>', VideoModelViewSet.as_view({
+        'get': 'list_by_series',
+        'post': 'create'
+    }
+    )),
     path('videos/', include(router.urls))
-
 ]

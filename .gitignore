@@ -7,3 +7,4 @@ python_project/.idea
 node_modules
 python_project/videoproject/video-project-ui/node_modules
 python_project/videoproject/media/
+python_project/videoproject/db.sqlite3

@@ -1,12 +1,32 @@
 server {
     listen 80;
     server_name 369924.xyz www.369924.xyz;
-    return 301 https://$host$request_uri;
+    # return 301 https://$host$request_uri;
+    client_max_body_size 1000M;
+    location /static/ {
+        alias /home/fantom/videoproject/staticfiles/;
+    }
+
+    location /media/ {
+        alias /home/fantom/videoproject/media/;
+    }
+
+    location / {
+        proxy_pass http://unix:/home/fantom/videoproject/videoproject.sock;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        # 如果后端服务也需要处理跨域请求，确保这些头部信息被正确传递
+        proxy_set_header Access-Control-Allow-Origin *;
+        proxy_set_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+        proxy_set_header Access-Control-Allow-Headers 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
+    }
 }
 
 server {
     listen 443 ssl;
     server_name 369924.xyz www.369924.xyz;
+    client_max_body_size 1000M;
 
     ssl_certificate /etc/letsencrypt/live/369924.xyz/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/369924.xyz/privkey.pem;
@@ -25,6 +45,10 @@ server {
 
     location /static/ {
         alias /home/fantom/videoproject/staticfiles/;
+    }
+
+    location /media/ {
+        alias /home/fantom/videoproject/media/;
     }
 
     location / {
