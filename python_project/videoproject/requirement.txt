@@ -5,3 +5,4 @@ redis
 flower
 django-cors-headers
 gunicorn
+django-simpleui

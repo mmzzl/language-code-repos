@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'video',
-    'rest_framework',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
@@ -137,8 +138,6 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-
 # CORS_ALLOW_HEADERS = ("*")
 # CORS_ALLOW_CREDENTIALS = True
 
@@ -148,15 +147,40 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 # CORS_ALLOW_ALL_ORIGINS = True
 
 
-
 # 是否允许发送 Cookie 等凭据信息
-#CORS_ALLOW_CREDENTIALS = True # 不能同时设置CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True # 不能同时设置CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ("*")
-#CORS_ALLOWED_ORIGINS = [
-#"http://127.0.0.1:8080",
-#"http://localhost:8080"
-#]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        '': {  # 这里是根logger，捕获所有未命名logger的日志
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,  # 不传递给更高层次的logger
+        },
+        'yourappname': {  # 替换为你的应用名称
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+# CORS_ALLOWED_ORIGINS = [
+# "http://127.0.0.1:8080",
+# "http://localhost:8080"
+# ]
 # 可以根据需要调整允许的方法和头部
 # CORS_ALLOW_METHODS = [
 #     "DELETE",

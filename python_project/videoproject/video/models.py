@@ -59,3 +59,15 @@ class Video(models.Model):
         if self.original_video_file and (is_new or old_file != self.original_video_file):
             video_processed_task.delay(self.id)
 
+
+class RetryRecord(models.Model):
+    series = models.ForeignKey(Series, on_delete=models.CASCADE, verbose_name="系列", null=True, default=None)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name="视频", null=True, default=None)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+
+    class Meta:
+        verbose_name = "重试记录"
+        verbose_name_plural = "重试记录"
+
+    def __str__(self):
+        return f"系列 {self.series.title if self.series else '未知'}, 视频 {self.video.title if self.video else '未知'}"

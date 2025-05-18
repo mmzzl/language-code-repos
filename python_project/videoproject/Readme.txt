@@ -248,3 +248,6 @@ sudo systemctl reload nginx 重启
 ssh-keygen -t ed25519 -C "your_email@example.com"
 gunicorn.service 放到这个目录
     /etc/systemd/system/gunicorn.service
+
+# 安装django simpleui
+pip install django-simpleui
