@@ -13,7 +13,7 @@ HEADERS = {
     # 如果有认证机制，请填写 Token 或 Cookie
     # "Authorization": "Token your_token_here"
 }
-
+chunk_size = 1024 * 1024  # 1MB
 
 def load_records():
     """加载已上传和已创建的记录"""
@@ -68,6 +68,46 @@ def get_series_id(series_title):
     return records["created_series"].get(series_title)
 
 
+def chunk_upload_video(series_id, title, episode_number, description,
+                       original_video_path):
+    file_size = os.path.getsize(original_video_path)
+    total_chunks = (file_size // chunk_size) + (
+        1 if file_size % chunk_size != 0 else 0)
+    file_name = os.path.basename(original_video_path)
+    url = f'{BASE_URL}upload'
+
+    with open(original_video_path, 'rb') as f:
+        for chunk_index in range(total_chunks):
+            start = chunk_index * chunk_size
+            end = min(start + chunk_size, file_size)
+            f.seek(start)
+            chunk = f.read(end - start)
+
+            files = {'file': (file_name, chunk)}
+            data = {
+                'chunk_index': chunk_index,
+                'total_chunks': total_chunks,
+                'file_name': file_name,
+                'title': title,
+                'episode_number': episode_number,
+                'description': description,
+                'series_id': series_id
+            }
+
+            response = requests.post(url, files=files, data=data)
+            print(response.text)
+
+            if response.status_code != 200 or response.json().get(
+                    'status') != 'chunk_uploaded':
+                break
+
+    if response.json().get('status') == 'completed':
+        print(f"✅ 上传成功: {file_name}")
+        save_record(uploaded_video=file_name)
+    else:
+        print(f"❌ 上传失败: {file_name}")
+
+
 def upload_video(series_id, title, episode_number, description,
                  original_video_path):
     url = f"{BASE_URL}episodes/{series_id}"
@@ -106,8 +146,9 @@ def upload_video(series_id, title, episode_number, description,
 
 if __name__ == "__main__":
     # Step 1: 系列信息
-    series_title = "八年级物理下册"
-    base_dir = os.path.join("C:", 'Users', 'life8', 'Downloads')
+    series_title = "贝叶斯理论"
+    # base_dir = os.path.join("C:", 'Users', 'life8', 'Downloads')
+    base_dir = os.path.join("C:", 'Users', 'User', 'Downloads')
     upload_dir = os.path.join(base_dir, series_title)
 
     series_description = "这是一个示例剧集描述"
@@ -150,18 +191,13 @@ if __name__ == "__main__":
             video_description = video_title
 
             print(f"正在上传: {item}")
-            video_response = upload_video(
+            video_response = chunk_upload_video(
                 series_id=series_id,
                 title=video_title,
                 episode_number=int(episode_number),
                 description=video_description,
                 original_video_path=full_path,
             )
-
-            if video_response and 'id' in video_response:
-                print(f"✅ 上传成功: {item}")
-            else:
-                print(f"❌ 上传失败: {item}")
 
         except Exception as e:
             print(f"处理文件出错: {item}", str(e))

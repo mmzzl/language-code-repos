@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (video_played, SeriesModelViewSet, VideoModelViewSet,
-                    video_play_count)
+                    video_play_count, ChunkedUploadView)
 
 router = DefaultRouter()
 router.register('series', SeriesModelViewSet, basename='series')
@@ -16,5 +16,6 @@ urlpatterns = [
         'post': 'create'
     }
     )),
+    path('videos/upload', ChunkedUploadView.as_view(), name='chunked_upload'),
     path('videos/', include(router.urls))
 ]

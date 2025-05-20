@@ -2,6 +2,12 @@
 /.idea
 .vscode
 .idea/
+*.pyc 
+*.class
+*.iml
+node_modules
+dist
+.vscode
 python_project/crawl_data/data/*
 python_project/.idea
 node_modules
