@@ -1,0 +1,1543 @@
+<body class="nodata" style="">
+<div id="toolbarBox" style="min-height: 48px;"></div>
+
+
+
+
+
+
+
+
+<div class="main_father clearfix d-flex justify-content-center" style="height:100%;">
+<div class="container clearfix" id="mainBox">
+
+<main>
+
+<div class="blog-content-box">
+<div class="article-header-box">
+<div class="article-header">
+<div class="article-title-box">
+<h1 class="title-article" id="articleContentId">基于深度学习的电力负荷预测研究</h1>
+</div>
+<div class="article-info-box">
+<div class="up-time">最新推荐文章于 2025-05-21 21:08:24 发布</div>
+<div class="article-bar-top">
+
+<div class="bar-content">
+<a class="follow-nickName" href="https://blog.csdn.net/qq_63129682" rel="noopener" target="_blank" title="摆烂仙君">摆烂仙君</a>
+
+<span class="time blog-postTime" data-time="2025-05-19 10:01:55">最新推荐文章于 2025-05-21 21:08:24 发布</span>
+<div class="read-count-box">
+
+<span class="read-count">阅读量707</span>
+<a class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}' id="blog_detail_zk_collection">
+
+
+<span class="name">收藏</span>
+<span class="get-collection">
+                              10
+                          </span>
+</a>
+<div class="read-count-box is-like" data-type="top">
+
+
+<span class="read-count" id="blog-digg-num">点赞数
+                            29
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="blog-tags-box">
+<div class="tags-box artic-tag-box">
+<span class="label">文章标签：</span>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"深度学习","ab":"new","extra":"{\"searchword\":\"深度学习\"}"}' data-report-query="spm=1001.2101.3001.4223" data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"深度学习","ab":"new","extra":"{\"searchword\":\"深度学习\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" rel="nofollow" target="_blank">深度学习</a>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"人工智能","ab":"new","extra":"{\"searchword\":\"人工智能\"}"}' data-report-query="spm=1001.2101.3001.4223" data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"人工智能","ab":"new","extra":"{\"searchword\":\"人工智能\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" rel="nofollow" target="_blank">人工智能</a>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"功能测试","ab":"new","extra":"{\"searchword\":\"功能测试\"}"}' data-report-query="spm=1001.2101.3001.4223" data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"功能测试","ab":"new","extra":"{\"searchword\":\"功能测试\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" rel="nofollow" target="_blank">功能测试</a>
+</div>
+</div>
+<div class="slide-content-box">
+<div class="article-copyright">
+<div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+<div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/qq_63129682/article/details/148056543" target="_blank">https://blog.csdn.net/qq_63129682/article/details/148056543</a>
+</div>
+</div>
+</div>
+<div class="operating">
+<a class="href-article-edit slide-toggle">版权</a>
+</div>
+</div>
+</div>
+</div>
+<div class="" id="blogHuaweiyunAdvert"></div>
+<article class="baidu_pl">
+<div class="article_content clearfix" id="article_content">
+
+
+<div class="htmledit_views atom-one-light" id="content_views">
+<h2>一、深度学习模型框架</h2>
+<p>在当今数字化时代，基于深度学习的电力负荷预测研究正成为保障电力系统稳定、高效运行的关键领域。其模型构建是一个复杂而精妙的过程，涉及多学科知识与前沿技术的融合应用。首先，要明确电力负荷预测的目标，即准确预估未来特定时间段内的电力需求，这关系到电力资源的合理分配与调度。数据收集是模型构建的基石，涵盖历史负荷数据、气象数据、节假日信息、经济指标等诸多变量。历史负荷数据能反映电力需求的周期性、趋势性变化规律；气象数据如温度、湿度、风速等，与人类生活用电行为紧密相关，温度的细微变化可能引发空调等大功率电器使用频率的波动，进而影响负荷；节假日信息可区分工作日与休息日不同的用电模式；经济指标则关联工商业活动强度与居民生活水平，影响整体电力消耗。</p>
+<p class="img-center"></p>
+<p>在数据预处理阶段，需对收集到的原始数据进行清洗，去除噪声、异常值与缺失值，确保数据质量。例如，对于缺失的负荷数据，可采用插值法或基于时间序列的预测算法进行填补；异常值可通过统计分析方法或聚类分析识别并修正，以避免其对模型训练过程的干扰，使模型能基于准确、可靠的数据进行学习。</p>
+<p>深度学习模型的选择至关重要，常见的有循环神经网络（RNN）及其变体长短期记忆网络（LSTM）、门控循环单元（GRU）。RNN 能处理序列数据，但存在梯度消失问题，难以捕捉长周期的依赖关系。LSTM 通过引入遗忘门、输入门与输出门结构，有效缓解了梯度消失，能记忆长时间序列中的关键信息，对电力负荷这类具有明显时间先后关联的数据有良好适应性；GRU 在 LSTM 基础上进行简化，将遗忘门与输入门整合为更新门，减少参数数量，提高训练效率，在处理部分电力负荷数据时可取得与 LSTM 相当甚至更优的效果。</p>
+<p class="img-center"></p>
+<p>以 LSTM 为例，其模型构建细节如下。输入层接收预处理后的多维数据，包括历史负荷值、对应时刻的气象参数等，数据维度需根据实际数据特征与模型输入要求合理设置。隐藏层由多个 LSTM 单元构成，这些单元相互连接，形成时间序列处理链路。每个 LSTM 单元内部，遗忘门决定了先前时刻记忆信息中有多少被保留或舍弃；输入门控制当前输入数据进入单元状态的程度；输出门则依据单元状态输出有价值的信息用于后续预测。隐藏层的层数与每层神经元数量需通过反复试验确定，过多可能导致过拟合，过少则预测精度不足。输出层通常采用线性激活函数，输出未来特定时间点或时间段的电力负荷预测值。</p>
+<p>在模型训练过程中，定义合适的损失函数是关键。对于电力负荷预测这类回归问题，均方误差（MSE）、平均绝对误差（MAE）是常用损失函数，它们衡量预测值与真实值之间的偏差大小，模型训练旨在最小化该误差。采用优化算法如随机梯度下降（SGD）、Adam 等调整模型参数，根据损失函数梯度更新 LSTM 单元的权重与偏置，不断优化模型预测能力。训练过程中需划分训练集、验证集与测试集，利用训练集对模型进行初步训练，通过验证集监控模型在未见数据上的表现，防止过拟合，当验证集误差不再显著下降时停止训练，最后在测试集上评估模型最终性能，确保其在实际应用中具备良好的泛化能力。</p>
+<h2>二、网络模型优化</h2>
+<p>在深度学习模型构建过程中，以下三种优化技术被广泛用于提高模型的性能和泛化能力：(1)<strong>超参数调优</strong>：超参数的选择对模型性能影响巨大，包括学习率、隐藏层数量、神经元数量等。利用网格搜索或随机搜索等方法，通过在验证集上评估不同超参数组合的表现，选择最优的超参数组合。(2)<strong>正则化</strong>：防止模型过拟合，主要通过L1和L2正则化实现。L2正则化在损失函数中加入权重的平方和，而L1正则化加入权重的绝对值之和，限制模型复杂度，提高泛化能力。(3)<strong>数据增强</strong>：通过生成新的训练样本来扩充数据集，如对历史负荷数据进行平移、添加噪声扰动，增强模型对数据变化的适应能力，提高泛化性能。</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras import regularizers
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from tensorflow.keras.callbacks import EarlyStopping
+
+# 读取数据
+data = pd.read_csv('electric_load_data.csv')
+features = data[['temperature', 'humidity', 'historical_load', 'holiday_flag']]
+labels = data['target_load']
+
+# 数据预处理
+scaler_features = MinMaxScaler()
+scaler_labels = MinMaxScaler()
+features_scaled = scaler_features.fit_transform(features)
+labels_scaled = scaler_labels.fit_transform(labels.values.reshape(-1, 1))
+
+# 数据增强
+def data_augmentation(features, labels):
+    augmented_features = []
+    augmented_labels = []
+    for feature, label in zip(features, labels):
+        # 添加噪声扰动
+        noise = np.random.normal(0, 0.01, feature.shape)
+        augmented_features.append(feature + noise)
+        augmented_labels.append(label)
+    return np.array(augmented_features), np.array(augmented_labels)
+
+augmented_features, augmented_labels = data_augmentation(features_scaled, labels_scaled)
+
+# 数据集划分
+X_train, X_val, y_train, y_val = train_test_split(augmented_features, augmented_labels, test_size=0.2, random_state=42)
+
+# 构建LSTM模型
+def build_lstm_model(input_shape):
+    model = Sequential()
+    model.add(LSTM(64, input_shape=input_shape, return_sequences=True, kernel_regularizer=regularizers.l2(0.01)))
+    model.add(Dropout(0.2))
+    model.add(LSTM(32, kernel_regularizer=regularizers.l1(0.01)))
+    model.add(Dropout(0.2))
+    model.add(Dense(1, activation='linear'))
+    model.compile(optimizer='adam', loss='mse')
+    return model
+
+model = build_lstm_model((X_train.shape[1], X_train.shape[2]))
+
+# 学习率调度器
+def learning_rate_scheduler(epoch, lr):
+    if epoch &lt; 10:
+        return lr
+    else:
+        return lr * 0.95
+
+callbacks = [
+    EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+    tf.keras.callbacks.LearningRateScheduler(learning_rate_scheduler)
+]
+
+# 模型训练
+history = model.fit(X_train, y_train, epochs=50, batch_size=32,
+                    validation_data=(X_val, y_val), callbacks=callbacks)
+
+# 模型评估
+loss = model.evaluate(X_val, y_val)
+print(f"Validation Loss: {loss}")
+
+# 预测结果反归一化
+predicted = model.predict(X_val)
+predicted_load = scaler_labels.inverse_transform(predicted)
+true_load = scaler_labels.inverse_transform(y_val)
+
+# 计算预测误差
+mse = mean_squared_error(true_load, predicted_load)
+print(f"Mean Squared Error: {mse}")</code></pre>
+<h2>三、测试结果分析</h2>
+<p>在电力负荷预测中，准确评估模型的预测性能至关重要。我们主要关注以下几个方面：（1）<strong>预测误差分析</strong>：计算预测值与真实值之间的误差，包括平均绝对误差（MAE）、均方根误差（RMSE）和决定系数（R²）等指标，以定量评估模型的预测精度。（2）<strong>结果可视化</strong>：通过绘制预测值与真实值的对比图，直观展示模型的预测效果，并分析预测曲线与实际曲线的吻合程度。（3）<strong>模型性能评估</strong>：综合考虑模型在不同时间段的表现，评估其在处理不同负荷模式时的适应性和稳定性,其定性分析的结果如下图所示。</p>
+<p class="img-center"></p>
+<p>通过对模型预测结果的详细分析，我们可以全面评估模型的性能和可靠性。低预测误差和高R²值表明模型能够较好地捕捉电力负荷的变化趋势，为电力系统调度和资源分配提供有力支持。可视化结果进一步验证了模型的预测效果，使其在实际应用中具有较高的参考价值。</p>
+</div>
+</div>
+</article>
+
+</div>
+<div class="hide-article-box hide-article-pos text-center">
+<a class="btn-readmore no-login" data-report-click='{"mod":"popu_376","spm":"1001.2101.3001.4248","dest":"https://blog.csdn.net/qq_63129682/article/details/148056543","strategy":"fans-readmore-login","ab":"new","extend1":"粉丝未登录阅读更多"}' data-report-view='{"mod":"popu_376","spm":"1001.2101.3001.4248","dest":"https://blog.csdn.net/qq_63129682/article/details/148056543","strategy":"fans-readmore-login","ab":"new"}' id="btn-no-login" rel="noopener" target="_blank">
+<span class="follow-text">关注博主即可阅读全文</span>
+
+</a>
+</div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+<div class="directory-boxshadow-dialog-box">
+</div>
+<div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+
+<div class="vip-limited-time-top">
+        确定要放弃本次机会？
+      </div>
+<span class="vip-limited-time-text">福利倒计时</span>
+<div class="limited-time-box-new">
+<span class="time-hour"></span>
+<i>:</i>
+<span class="time-minite"></span>
+<i>:</i>
+<span class="time-second"></span>
+</div>
+<div class="limited-time-vip-box">
+<p>
+
+<span class="def">立减 ¥</span>
+<span class="active limited-num"></span>
+</p>
+<span class="">普通VIP年卡可用</span>
+</div>
+<a class="limited-time-btn-new" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query="spm=1001.2101.3001.9621" href="https://mall.csdn.net/vip">立即使用</a>
+</div>
+</div>
+<div class="more-toolbox-new more-toolbar" id="toolBarBox">
+<div class="left-toolbox">
+<div class="toolbox-left">
+<div class="profile-box">
+<a class="profile-href" href="https://blog.csdn.net/qq_63129682" target="_blank">
+<span class="profile-name">
+                  摆烂仙君
+                </span>
+</a>
+</div>
+<div class="profile-attend">
+<a class="tool-attend tool-bt-button tool-bt-attend" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}' href="javascript:;">关注</a>
+<a class="tool-item-follow active-animation" style="display:none;">关注</a>
+</div>
+</div>
+<div class="toolbox-middle">
+<ul class="toolbox-list">
+<li class="tool-item tool-item-size tool-active is-like" data-type="bottom" id="is-like">
+<a class="tool-item-href">
+
+
+
+<span class="count" id="spanCount">
+                    29
+                </span>
+</a>
+<div class="tool-hover-tip"><span class="text space">点赞</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+<a class="tool-item-href">
+
+
+<span class="count" id="unlikeCount"></span>
+</a>
+<div class="tool-hover-tip"><span class="text space">踩</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-collection">
+<a class="tool-item-href" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}' href="javascript:;">
+
+
+
+<span class="count get-collection" data-num="10" id="get-collection">
+                    10
+                </span>
+</a>
+<div class="tool-hover-tip collect">
+<div class="collect-operate-box">
+<span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+</div>
+</div>
+<div class="tool-active-list">
+<div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+
+</div>
+</div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-item-comment">
+<div class="guide-rr-first">
+
+<button class="btn-guide-known">知道了</button>
+</div>
+<a class="tool-item-href" data-report-click='{"spm":"1001.2101.3001.7009"}' href="#commentBox">
+
+<span class="count">
+                      0
+                </span>
+</a>
+<div class="tool-hover-tip"><span class="text space">评论</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+<a class="tool-item-href" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}' href="javascript:;">
+
+<span class="count">分享</span>
+</a>
+<div class="QRcode" id="tool-QRcode">
+<div class="share-bg-box">
+<div class="share-content">
+<a class="btn-share" data-type="link" id="copyPosterUrl">复制链接</a>
+</div>
+<div class="share-content">
+<a class="btn-share" data-type="qq">分享到 QQ</a>
+</div>
+<div class="share-content">
+<a class="btn-share" data-type="weibo">分享到新浪微博</a>
+</div>
+<div class="share-code">
+<div class="share-code-box" id="shareCode"></div>
+<div class="share-code-text">
+扫一扫
+                    </div>
+</div>
+</div>
+</div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-item-reward">
+<a class="tool-item-href" data-report-click='{"mod":"popu_830","spm":"1001.2101.3001.4237","dest":"","ab":"new"}' href="javascript:;">
+
+<span class="count">打赏</span>
+</a>
+<div class="tool-hover-tip"><span class="text space">打赏</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-more" id="is-more">
+<a class="tool-item-href">
+
+<span class="count"></span>
+</a>
+<div class="more-opt-box">
+<div class="mini-box">
+<a class="tool-item-href" data-report-click='{"spm":"3001.4237","extra":"{\"type\":\"hide\"}"}' id="rewardBtNewHide">
+
+<span class="count">打赏</span>
+</a>
+<a class="tool-item-href" id="toolReportBtnHide">
+
+<span class="count">举报</span>
+</a>
+</div>
+<div class="normal-box">
+<a class="tool-item-href" id="toolReportBtnHideNormal">
+
+<span class="count">举报</span>
+</a>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="toolbox-right">
+</div>
+</div>
+</div>
+
+
+
+<div class="first-recommend-box recommend-box">
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogOpenSearchComplete~PaidSort-1-127238206-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~PaidSort","dest":"https://weibaohang.blog.csdn.net/article/details/127238206"}' data-url="https://weibaohang.blog.csdn.net/article/details/127238206">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogOpenSearchComplete~PaidSort-1-127238206-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~PaidSort","dest":"https://weibaohang.blog.csdn.net/article/details/127238206"}' data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7EPaidSort-1-127238206-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7EPaidSort-1-127238206-blog-148056543.235%5Ev43%5Econtrol" href="https://weibaohang.blog.csdn.net/article/details/127238206" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于BiGRU短期<em>电力负荷</em><em>预测</em>方法</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/m0_47256162" target="_blank"><span class="blog-title">CSDN 精品推荐</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">10-16</span>
+<span class="info-block read">
+					3766
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogOpenSearchComplete~PaidSort-1-127238206-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~PaidSort","dest":"https://weibaohang.blog.csdn.net/article/details/127238206"}' data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7EPaidSort-1-127238206-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7EPaidSort-1-127238206-blog-148056543.235%5Ev43%5Econtrol" href="https://weibaohang.blog.csdn.net/article/details/127238206" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">本数据集为某地区2009年-2015年的用电负荷，时间片为每分钟与RNN计算流程类似，BiRNN在其基础上添加了反向的运算。可以理解为把输入的序列反转，重新按照RNN的方式计算一遍输出，最终的结果为正向RNN的结果与反向RNN的结果的简单堆叠。这样，模型就可以实现考虑上下文信息了，所以这种RNN叫做Bidirectional recurrent neural network。</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="second-recommend-box recommend-box">
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-1-140277141-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/VYVxTkJs/article/details/140277141"}' data-url="https://blog.csdn.net/VYVxTkJs/article/details/140277141">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-1-140277141-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/VYVxTkJs/article/details/140277141"}' data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-1-140277141-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-1-140277141-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/VYVxTkJs/article/details/140277141" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em>方法<em>研究</em>与实验评估，智能电网中的<em>深度学习</em>应用：基于时间序列<em>预测</em>的<em>电力负荷</em>案例分析</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/VYVxTkJs" target="_blank"><span class="blog-title">VYVxTkJs的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">07-08</span>
+<span class="info-block read">
+					1248
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-1-140277141-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/VYVxTkJs/article/details/140277141"}' data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-1-140277141-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-1-140277141-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/VYVxTkJs/article/details/140277141" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">在过去的几十年里，传统的统计模型被广泛应用于<em>电力负荷</em><em>预测</em>，然而，由于其对数据特征的线性假设以及对高阶非线性关系的无法捕捉，传统模型的<em>预测</em>准确度受到了限制。总而言之，本文通过对不同<em>深度学习</em>模型在<em>电力负荷</em><em>预测</em>问题上的应用进行实验评估，验证了<em>深度学习</em>在短期负荷<em>预测</em>中的有效性。关键词：智能电网，<em>电力负荷</em><em>预测</em>，时间序列<em>预测</em>，<em>深度学习</em>，循环神经网络，LSTM，GRU，时间卷积神经网络，序列对序列模型。智能电网，<em>电力负荷</em><em>预测</em>，时间序列<em>预测</em>，<em>深度学习</em>，循环神经网络，lstm, gru，时间卷积神经网络，序列对序列模型。</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+<a id="commentBox" name="commentBox"></a>
+
+<div class="recommend-box insert-baidu-box recommend-box-style">
+<div class="recommend-item-box no-index" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-2-135731233-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135731233"}' data-url="https://devpress.csdn.net/v1/article/detail/135731233">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-2-135731233-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135731233"}' data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-2-135731233-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-2-135731233-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/135731233" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">毕业设计：基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/qq_37340229" target="_blank"><span class="blog-title">Hai_Lang_IT的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">01-21</span>
+<span class="info-block read">
+					2664
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-2-135731233-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135731233"}' data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-2-135731233-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-2-135731233-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/135731233" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">毕业设计：基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em>利用<em>深度学习</em>算法和计算机视觉技术，通过分析历史<em>电力负荷</em>数据和相关环境特征，实现了准确的短期负荷<em>预测</em>。本设计为电力行业提供了一种高效、智能的负荷管理解决方案，同时为计算机毕业生提供了一个富有创新和<em>研究</em>价值的课题方向。对于计算机专业、软件工程专业、<em>人工智能</em>专业、大数据专业的毕业生而言，提供了一个具有挑战性和创新性的<em>研究</em>课题。无论您对<em>深度学习</em>技术保持浓厚兴趣，还是希望探索机器学习、算法或<em>人工智能</em>的领域的同学，能为您提供灵感和指导。</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-3-139234594-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/2301_79809972/article/details/139234594"}' data-url="https://blog.csdn.net/2301_79809972/article/details/139234594">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-3-139234594-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/2301_79809972/article/details/139234594"}' data-report-query="spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-3-139234594-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-3-139234594-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/2301_79809972/article/details/139234594" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>Python LSTM的多特征<em>电力负荷</em><em>预测</em></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/2301_79809972" target="_blank"><span class="blog-title">2301_79809972的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-27</span>
+<span class="info-block read">
+					1415
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-3-139234594-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/2301_79809972/article/details/139234594"}' data-report-query="spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-3-139234594-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-3-139234594-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/2301_79809972/article/details/139234594" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">一、项目背景与意义<em>电力负荷</em><em>预测</em>是电力系统规划和运行的关键环节，对于电网调度、电力供给、电力资源配置等具有重要意义。随着能源管理和优化的需求日益增长，准确<em>预测</em><em>电力负荷</em>成为了一个迫切的需求。近年来，<em>深度学习</em>技术的快速发展为<em>电力负荷</em><em>预测</em>提供了新的解决方案。本项目旨在利用Python编程语言和长短期记忆网络（LSTM）<em>深度学习</em>模型，通过整合多种特征对<em>电力负荷</em>进行精准<em>预测</em>。二、项目目标。</div>
+</a>
+</div>
+</div>
+</div>
+<dl class="recommend-item-box type_blog clearfix" id="recommend-item-box-tow">
+</dl>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-4-126231045-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_46039719/article/details/126231045"}' data-url="https://blog.csdn.net/weixin_46039719/article/details/126231045">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-4-126231045-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_46039719/article/details/126231045"}' data-report-query="spm=1001.2101.3001.6650.4&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-4-126231045-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-4-126231045-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_46039719/article/details/126231045" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的多特征<em>电力负荷</em><em>预测</em>（Python代码实现）</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_46039719" target="_blank"><span class="blog-title">weixin_46039719的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">08-08</span>
+<span class="info-block read">
+					1861
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-4-126231045-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_46039719/article/details/126231045"}' data-report-query="spm=1001.2101.3001.6650.4&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-4-126231045-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-4-126231045-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_46039719/article/details/126231045" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">电能负荷<em>预测</em>按细粒度划分可分为粗度<em>预测</em>和细度<em>预测</em>。其中粗度<em>预测</em>则是将整个时间段的电能负荷数据进行训练，进而进行<em>预测</em>。而细度<em>预测</em>这是要考虑电能负荷季节，时间周期影响因子。利用上一时刻的电能负荷（power），温度（温度），湿度（湿度），风速（speed）<em>预测</em>此刻的电能负荷利用上一时刻的电能负荷（power）和此刻的温度（温度），湿度（湿度），风速（speed）<em>预测</em>此刻的电能负荷利用上一若干时刻的电能负荷（power），温度（温度），湿度（湿度），风速（speed）<em>预测</em>此刻的电能负荷。...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-5-142913593-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_51740477/article/details/142913593"}' data-url="https://blog.csdn.net/weixin_51740477/article/details/142913593">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-5-142913593-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_51740477/article/details/142913593"}' data-report-query="spm=1001.2101.3001.6650.5&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-5-142913593-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-5-142913593-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_51740477/article/details/142913593" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于Transformer的<em>电力负荷</em><em>预测</em>代码示例</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_51740477" target="_blank"><span class="blog-title">weixin_51740477的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">10-15</span>
+<span class="info-block read">
+					928
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-5-142913593-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/weixin_51740477/article/details/142913593"}' data-report-query="spm=1001.2101.3001.6650.5&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-5-142913593-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-5-142913593-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_51740477/article/details/142913593" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">我们有一个<em>电力负荷</em>的数据集，包含日期时间和相应的负荷值。此处提供数据集的具体内容，数据集只有两个特征，一个为日期时间，另一个为相应日期的<em>电力负荷</em>值。</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-6-135922163-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135922163"}' data-url="https://devpress.csdn.net/v1/article/detail/135922163">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-6-135922163-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135922163"}' data-report-query="spm=1001.2101.3001.6650.6&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-6-135922163-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-6-135922163-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/135922163" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">毕业设计：基于<em>深度学习</em>的电力数据负荷<em>预测</em>系统</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/2301_79555157" target="_blank"><span class="blog-title">2301_79555157的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">01-29</span>
+<span class="info-block read">
+					2484
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-6-135922163-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/135922163"}' data-report-query="spm=1001.2101.3001.6650.6&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-6-135922163-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-6-135922163-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/135922163" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的电力数据负荷<em>预测</em>系统的毕业设计。该系统利用<em>深度学习</em>算法对历史电力数据进行分析和学习，从而准确<em>预测</em>未来的<em>电力负荷</em>情况。通过构建神经网络模型，系统能够根据多个变量（如时间、天气等）对<em>电力负荷</em>进行<em>预测</em>，帮助电力供应商进行合理的资源规划和能源调度。对于计算机专业、软件工程专业、<em>人工智能</em>专业、大数据专业的毕业生而言，提供了一个具有挑战性和创新性的<em>研究</em>课题。无论您对<em>深度学习</em>技术保持浓厚兴趣，还是希望探索机器学习、算法或<em>人工智能</em>的领域的同学，能为您提供灵感和指导</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-7-112801615-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/Cyril_KI/article/details/112801615"}' data-url="https://blog.csdn.net/Cyril_KI/article/details/112801615">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-7-112801615-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/Cyril_KI/article/details/112801615"}' data-report-query="spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-7-112801615-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-7-112801615-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/Cyril_KI/article/details/112801615" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1"><em>深度学习</em>方法在负荷<em>预测</em>中的应用综述（论文阅读）</div>
+<div class="tag">热门推荐</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/Cyril_KI" target="_blank"><span class="blog-title">KI的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">01-19</span>
+<span class="info-block read">
+					6万+
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-7-112801615-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://blog.csdn.net/Cyril_KI/article/details/112801615"}' data-report-query="spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-7-112801615-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-7-112801615-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/Cyril_KI/article/details/112801615" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">2017第16届IEEE机器学习与应用国际会议：A Review of Deep Learning Methods Applied on Load Forecasting--阅读笔记。</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-8-134068639-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://catcoder.blog.csdn.net/article/details/134068639"}' data-url="https://catcoder.blog.csdn.net/article/details/134068639">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-8-134068639-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://catcoder.blog.csdn.net/article/details/134068639"}' data-report-query="spm=1001.2101.3001.6650.8&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-8-134068639-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-8-134068639-blog-148056543.235%5Ev43%5Econtrol" href="https://catcoder.blog.csdn.net/article/details/134068639" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">Python深度数据挖掘之电力系统负荷<em>预测</em></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_43178406" target="_blank"><span class="blog-title">weixin_43178406的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">10-27</span>
+<span class="info-block read">
+					8739
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~Rate-8-134068639-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~BlogOpenSearchComplete~Rate","dest":"https://catcoder.blog.csdn.net/article/details/134068639"}' data-report-query="spm=1001.2101.3001.6650.8&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-8-134068639-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-8-134068639-blog-148056543.235%5Ev43%5Econtrol" href="https://catcoder.blog.csdn.net/article/details/134068639" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">本案例将根据已收集到的电力数据，深度挖掘各电力设备的电流、电压和功率等情况，分析各电力设备的实际用电量，进而为电力公司制定电能能源策略提供一定的参考依据。更多详细内容请参考《Python数据挖掘：入门进阶与实用案例分析》一书。</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-9-128459426-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/128459426"}' data-url="https://devpress.csdn.net/v1/article/detail/128459426">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-9-128459426-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/128459426"}' data-report-query="spm=1001.2101.3001.6650.9&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-9-128459426-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-9-128459426-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/128459426" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">毕业设计-基于机器学习的短期负荷<em>预测</em>算法</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/qq_37340229" target="_blank"><span class="blog-title">Hai_Lang_IT的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">12-28</span>
+<span class="info-block read">
+					3735
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogOpenSearchComplete~activity-9-128459426-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~BlogOpenSearchComplete~activity","dest":"https://devpress.csdn.net/v1/article/detail/128459426"}' data-report-query="spm=1001.2101.3001.6650.9&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-9-128459426-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7Eactivity-9-128459426-blog-148056543.235%5Ev43%5Econtrol" href="https://devpress.csdn.net/v1/article/detail/128459426" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">毕业设计-基于机器学习的短期负荷<em>预测</em>算法：为维持电网稳定,各种负荷<em>预测</em>方法层出不穷,但由于算法泛化能力、模型复杂度等自身特点不同,使其对于负荷<em>预测</em>的适用性存在差异。短期<em>电力负荷</em><em>预测</em>是电力系统运行和规划的基础,准确的负荷<em>预测</em>可以保证电力系统安全稳定运行,降低发电成本,提高经济效益。随着电力行业的发展、分布式能源的增多,短期负荷<em>预测</em>工作显得愈发重要。考虑到<em>电力负荷</em>数据的非线性、异方差、非平稳等特点,短期负荷<em>预测</em>难度也显著增加,因此,具有强大非线性学习能力的机器学习算法可以为本<em>研究</em>提供良好的技术手段。在众多</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-89915507-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/s44359487yad/89915507"}' data-url="https://download.csdn.net/download/s44359487yad/89915507">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-89915507-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/s44359487yad/89915507"}' data-report-query="spm=1001.2101.3001.6650.10&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-89915507-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-89915507-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/s44359487yad/89915507" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码+文档说明</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block">10-23</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-89915507-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/s44359487yad/89915507"}' data-report-query="spm=1001.2101.3001.6650.10&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-89915507-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-89915507-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/s44359487yad/89915507" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码+文档说明基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码+文档说明基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码+文档说明基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码+文档说明基于...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-11-90523230-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_55305220/90523230"}' data-url="https://download.csdn.net/download/weixin_55305220/90523230">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-11-90523230-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_55305220/90523230"}' data-report-query="spm=1001.2101.3001.6650.11&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-90523230-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-90523230-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/weixin_55305220/90523230" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码（高分毕设）</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block">03-23</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-11-90523230-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_55305220/90523230"}' data-report-query="spm=1001.2101.3001.6650.11&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-90523230-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-90523230-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/weixin_55305220/90523230" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码（高分毕设）基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码（高分毕设）基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码（高分毕设）基于<em>深度学习</em>的<em>电力负荷</em><em>预测</em><em>研究</em>Python源码...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-85287549-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/admin_maxin/85287549"}' data-url="https://download.csdn.net/download/admin_maxin/85287549">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-85287549-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/admin_maxin/85287549"}' data-report-query="spm=1001.2101.3001.6650.12&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-85287549-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-85287549-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/admin_maxin/85287549" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1"><em>人工智能</em>-项目实践-<em>电力负荷</em>-基于LSTM的<em>电力负荷</em><em>预测</em></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block">05-04</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-85287549-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/admin_maxin/85287549"}' data-report-query="spm=1001.2101.3001.6650.12&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-85287549-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-85287549-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/admin_maxin/85287549" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">总的来说，这个项目展示了如何利用LSTM这一<em>深度学习</em>工具处理<em>电力负荷</em><em>预测</em>问题，通过高质量的<em>预测</em>，有助于电力企业优化调度、降低运营成本，同时提升电力系统的整体效率和稳定性。深入<em>研究</em>和理解该项目，不仅可以掌握...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-88274796-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/DeepLearning_/88274796"}' data-url="https://download.csdn.net/download/DeepLearning_/88274796">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-88274796-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/DeepLearning_/88274796"}' data-report-query="spm=1001.2101.3001.6650.13&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-88274796-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-88274796-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/DeepLearning_/88274796" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码.zip</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block">08-30</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-88274796-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/DeepLearning_/88274796"}' data-report-query="spm=1001.2101.3001.6650.13&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-88274796-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-88274796-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/DeepLearning_/88274796" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码.zip 基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码.zip 基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码.zip 【说明】 该项目是个人毕设项目，答辩评审分达到95分，代码都经过调试...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-89276974-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/ma_nong33/89276974"}' data-url="https://download.csdn.net/download/ma_nong33/89276974">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-89276974-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/ma_nong33/89276974"}' data-report-query="spm=1001.2101.3001.6650.14&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-89276974-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-89276974-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/ma_nong33/89276974" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码+文档说明.zip</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block">05-07</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-89276974-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/ma_nong33/89276974"}' data-report-query="spm=1001.2101.3001.6650.14&amp;utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-89276974-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-89276974-blog-148056543.235%5Ev43%5Econtrol" href="https://download.csdn.net/download/ma_nong33/89276974" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码+文档说明.zip基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码+文档说明.zip基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码+文档说明.zip基于<em>深度学习</em>的区域<em>电力负荷</em><em>预测</em>python源码+...</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-15-148069807-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/ak47maker/article/details/148069807"}' data-url="https://blog.csdn.net/ak47maker/article/details/148069807">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-15-148069807-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/ak47maker/article/details/148069807"}' data-report-query="spm=1001.2101.3001.6650.15&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-15-148069807-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-15-148069807-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/ak47maker/article/details/148069807" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1"><em>深度学习</em>之用CelebA_Spoof数据集搭建一个活体检测-用MNN来推理时候如何利用Conan对软件包进行管理</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/ak47maker" target="_blank"><span class="blog-title">ak47maker的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-20</span>
+<span class="info-block read">
+					1038
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-15-148069807-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/ak47maker/article/details/148069807"}' data-report-query="spm=1001.2101.3001.6650.15&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-15-148069807-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-15-148069807-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/ak47maker/article/details/148069807" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">本文介绍了使用Conan作为C/C++包管理器来管理项目依赖的详细步骤。Conan是一个专为C/C++设计的去中心化包管理器，支持多平台和交叉编译，能够自动下载和编译所需的库文件，简化了依赖管理的过程。文章首先提到了在<em>深度学习</em>项目中如何使用MNN进行模型推理，并指出Conan在编译和依赖管理中的重要性。接着，详细说明了如何安装和配置Conan，并展示了项目结构中的关键配置文件conanfile.txt和CMakeLists.txt。conanfile.txt用于声明项目依赖的第三方库及版本，配置构建选项和生</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-16-148119557-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BLOGTAG~default","dest":"https://michaelbeechan.blog.csdn.net/article/details/148119557"}' data-url="https://michaelbeechan.blog.csdn.net/article/details/148119557">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-16-148119557-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BLOGTAG~default","dest":"https://michaelbeechan.blog.csdn.net/article/details/148119557"}' data-report-query="spm=1001.2101.3001.6650.16&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-16-148119557-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-16-148119557-blog-148056543.235%5Ev43%5Econtrol" href="https://michaelbeechan.blog.csdn.net/article/details/148119557" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">计算机视觉与<em>深度学习</em> ｜ Python实现CEEMDAN-ABC-VMD-DBO-CNN-LSTM时间序列<em>预测</em>（完整源码和数据)</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/u011344545" target="_blank"><span class="blog-title">尘世冰封的专栏</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-21</span>
+<span class="info-block read">
+					376
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-16-148119557-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BLOGTAG~default","dest":"https://michaelbeechan.blog.csdn.net/article/details/148119557"}' data-report-query="spm=1001.2101.3001.6650.16&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-16-148119557-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-16-148119557-blog-148056543.235%5Ev43%5Econtrol" href="https://michaelbeechan.blog.csdn.net/article/details/148119557" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">以下是一个结合CEEMDAN、ABC优化VMD、DBO优化CNN-LSTM的完整时间序列<em>预测</em>实现方案。该方案包含完整的数据生成、算法实现和模型构建代码。</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-17-148123944-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/crasher123/article/details/148123944"}' data-url="https://blog.csdn.net/crasher123/article/details/148123944">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-17-148123944-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/crasher123/article/details/148123944"}' data-report-query="spm=1001.2101.3001.6650.17&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-17-148123944-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-17-148123944-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/crasher123/article/details/148123944" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">DL00987-基于<em>深度学习</em>YOLOv11的红外鸟类目标检测含完整数据集</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/crasher123" target="_blank"><span class="blog-title">crasher123的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-21</span>
+<span class="info-block read">
+					368
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-17-148123944-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/crasher123/article/details/148123944"}' data-report-query="spm=1001.2101.3001.6650.17&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-17-148123944-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-17-148123944-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/crasher123/article/details/148123944" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">针对科研人员，尤其是<em>研究</em>生们，是否在鸟类目标检测中遇到过数据不够精准、处理困难等问题？现在，我们为你提供一款基于<em>深度学习</em>YOLOv11的。，让你的科研工作更高效、更精准！，帮助你轻松解决这些难题！</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-18-147795388-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/weixin_59251911/article/details/147795388"}' data-url="https://blog.csdn.net/weixin_59251911/article/details/147795388">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-18-147795388-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/weixin_59251911/article/details/147795388"}' data-report-query="spm=1001.2101.3001.6650.18&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-18-147795388-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-18-147795388-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_59251911/article/details/147795388" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">31-35【动手学<em>深度学习</em>】<em>深度学习</em>硬件</div>
+<div class="tag">最新发布</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_59251911" target="_blank"><span class="blog-title">weixin_59251911的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-21</span>
+<span class="info-block read">
+					422
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BLOGTAG~default-18-147795388-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~BLOGTAG~default","dest":"https://blog.csdn.net/weixin_59251911/article/details/147795388"}' data-report-query="spm=1001.2101.3001.6650.18&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-18-147795388-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBLOGTAG%7Edefault-18-147795388-blog-148056543.235%5Ev43%5Econtrol" href="https://blog.csdn.net/weixin_59251911/article/details/147795388" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">本文主要讨论<em>深度学习</em>的硬件基础知识</div>
+</a>
+</div>
+</div>
+</div>
+<div class="recommend-item-box type_c_download clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-c_download-2~default~OPENSEARCH~Position-19-5813xfwp4y-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"19","strategy":"2~default~OPENSEARCH~Position","dest":"https://wenku.csdn.net/doc/5813xfwp4y"}' data-url="https://wenku.csdn.net/doc/5813xfwp4y">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-c_download-2~default~OPENSEARCH~Position-19-5813xfwp4y-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"19","strategy":"2~default~OPENSEARCH~Position","dest":"https://wenku.csdn.net/doc/5813xfwp4y"}' data-report-query="spm=1001.2101.3001.6650.19&amp;utm_medium=distribute.pc_relevant.none-task-c_download-2%7Edefault%7EOPENSEARCH%7EPosition-19-5813xfwp4y-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-c_download-2%7Edefault%7EOPENSEARCH%7EPosition-19-5813xfwp4y-blog-148056543.235%5Ev43%5Econtrol" href="https://wenku.csdn.net/doc/5813xfwp4y" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1"></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info display-flex">
+<span class="info-block"></span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-c_download-2~default~OPENSEARCH~Position-19-5813xfwp4y-blog-148056543.235^v43^control\",\"dist_request_id\":\"1747928385133_51186\"}","dist_request_id":"1747928385133_51186","ab_strategy":"landing_bge_commercial_hanlp","index":"19","strategy":"2~default~OPENSEARCH~Position","dest":"https://wenku.csdn.net/doc/5813xfwp4y"}' data-report-query="spm=1001.2101.3001.6650.19&amp;utm_medium=distribute.pc_relevant.none-task-c_download-2%7Edefault%7EOPENSEARCH%7EPosition-19-5813xfwp4y-blog-148056543.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-c_download-2%7Edefault%7EOPENSEARCH%7EPosition-19-5813xfwp4y-blog-148056543.235%5Ev43%5Econtrol" href="https://wenku.csdn.net/doc/5813xfwp4y" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1"></div>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+
+ </main>
+<aside class="blog_container_aside">
+<div class="aside-box active" id="asideProfile">
+<div class="profile-intro d-flex">
+<div class="avatar-box d-flex justify-content-center flex-column">
+<a data-report-click='{"mod":"popu_379","spm":"3001.4121","dest":"https://blog.csdn.net/qq_63129682","ab":"new"}' href="https://blog.csdn.net/qq_63129682" target="_blank">
+
+</a>
+</div>
+<div class="user-info d-flex flex-column profile-intro-name-box">
+<div class="profile-intro-name-boxTop">
+<a class="" data-report-click='{"mod":"popu_379","spm":"3001.4122","dest":"https://blog.csdn.net/qq_63129682","ab":"new"}' href="https://blog.csdn.net/qq_63129682" id="uid" target="_blank" title="摆烂仙君">
+<span class="name" username="qq_63129682">摆烂仙君</span>
+</a>
+</div>
+<div class="profile-intro-name-boxFooter-new">
+<p class="profile-intro-name-leve">
+<span>
+                  博客等级
+                </span>
+
+</p>
+<span class="profile-intro-name-years" title="已加入 CSDN 4年">码龄4年</span>
+</div>
+</div>
+</div>
+<div class="profile-intro-Identity-information">
+<p class="profile-information-box">
+
+<span>人工智能领域优质创作者</span>
+</p>
+</div>
+<div class="profile-intro-rank-information">
+<dl>
+<a data-report-click='{"mod":"1598321000_001","spm":"3001.4310"}' data-report-query="t=1" href="https://blog.csdn.net/qq_63129682">
+<dd><span>162</span></dd>
+<dt>原创</dt>
+</a>
+</dl>
+<dl title="3023">
+<dd>3023</dd>
+<dt>点赞</dt>
+</dl>
+<dl title="3767">
+<dd>3767</dd>
+<dt>收藏</dt>
+</dl>
+<dl id="fanBox" title="14049">
+<dd><span id="fan">1万+</span></dd>
+<dt>粉丝</dt>
+</dl>
+</div>
+<div class="profile-intro-name-boxOpration">
+<div class="opt-letter-watch-box">
+<a class="personal-watch bt-button" id="btnAttent">关注</a>
+</div>
+<div class="opt-letter-watch-box">
+<a class="bt-button personal-letter" href="https://im.csdn.net/chat/qq_63129682" rel="nofollow" target="_blank">私信</a>
+</div>
+</div>
+</div>
+<div class="swiper-slide-box-remuneration">
+<a data-report-click='{"spm":"3001.9728","extra":{"index":"0"}}' data-report-view='{"spm":"3001.9728","extra":{"index":"0"}}' href="https://mpbeta.csdn.net/edit?utm_source=blog" target="_blank">
+
+</a>
+</div>
+<div class="box-shadow mb8" data-pid="blog" style="min-height:250px;">
+<div class="aside-content text-center" id="cpro_u2734133">
+<div data-pid="56" id="kp_box_56"></div>
+</div>
+</div>
+<div class="aside-box" id="asideHotArticle">
+<h3 class="aside-title">热门文章</h3>
+<div class="aside-content">
+<ul class="hotArticle-list">
+<li>
+<a data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/147778798" target="_blank">
+				无偿帮写毕业论文(一天搞定，有不懂的欢迎私信博主)
+					
+<span class="read">12906</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/qq_63129682/article/details/128666230","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/128666230" target="_blank">
+				2000年 数模国赛 b题 钢管订购与运输
+					
+<span class="read">12263</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/qq_63129682/article/details/144093460","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/144093460" target="_blank">
+				注意力（Attention）机制详解（附代码）
+					
+<span class="read">9741</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/qq_63129682/article/details/127998484","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/127998484" target="_blank">
+				红外线发射器与接收器模块使用教学
+					
+<span class="read">9196</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/qq_63129682/article/details/144073511","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/144073511" target="_blank">
+				CUDA：out of memory的解决方法（实测有效）
+					
+<span class="read">8248</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="aside-box flexible-box-new" id="asideCategory">
+<h3 class="aside-title">分类专栏</h3>
+<div class="aside-content" id="aside-content">
+<ul>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12830802.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12830802.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        论文
+                    </span>
+</a>
+<span class="special-column-num">17篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115669.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115669.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        物联网
+                    </span>
+</a>
+<span class="special-column-num">5篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115660.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115660.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        arduino
+                    </span>
+</a>
+<span class="special-column-num">3篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115661.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115661.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        esp8266
+                    </span>
+</a>
+<span class="special-column-num">2篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110754.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110754.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        matlab
+                    </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110973.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110973.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        脑科学与认知科学
+                    </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110974.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110974.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        脑控系统
+                    </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110975.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110975.html">
+<div class="special-column-bar"></div>
+
+<span class="title oneline">
+                        脑机接口
+                    </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+</ul>
+</div>
+<p class="text-center">
+<a class="flexible-btn-new" data-fbox="#aside-content" data-flag="flag" data-maxheight="0" data-minheight="208px" data-report-click='{"spm":"3001.10779","strategy":"展开全部"}'><span class="text">展开全部</span> </a>
+<a class="flexible-btn-new-close" data-fbox="#aside-content" data-flag="flag" data-minheight="208px" data-report-click='{"spm":"3001.10779","strategy":"收起"}' data-scroll="true"><span class="text">收起</span> </a>
+</p>
+</div>
+<div class="aside-box" id="asideNewComments">
+<h3 class="aside-title">最新评论</h3>
+<div class="aside-content">
+<ul class="newcomment-list">
+<li>
+<a class="title text-truncate" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/144093460#comments_37283733","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/144093460#comments_37283733","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/144093460#comments_37283733" target="_blank">注意力（Attention）机制详解（附代码）</a>
+<p class="comment ellipsis">
+<a class="user-name" href="https://blog.csdn.net/qq_63129682" target="_blank">摆烂仙君: </a>
+<span class="code-comments">说真的，我都不知道为什么我这么多篇博文，只有这篇火了，有人能告诉我一下吗</span>
+</p>
+</li>
+<li>
+<a class="title text-truncate" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241303","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241303","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241303" target="_blank">无偿帮写毕业论文(一天搞定，有不懂的欢迎私信博主)</a>
+<p class="comment ellipsis">
+<a class="user-name" href="https://blog.csdn.net/qq_63129682" target="_blank">摆烂仙君: </a>
+<span class="code-comments">【怎么样才能降低AIGC（亲测好用） - CSDN App】https://blog.csdn.net/qq_63129682/article/details/147991179?sharetype=blog&amp;shareId=147991179&amp;sharerefer=APP&amp;sharesource=qq_63129682&amp;sharefrom=link</span>
+</p>
+</li>
+<li>
+<a class="title text-truncate" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241302","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241302","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241302" target="_blank">无偿帮写毕业论文(一天搞定，有不懂的欢迎私信博主)</a>
+<p class="comment ellipsis">
+<a class="user-name" href="https://blog.csdn.net/qq_63129682" target="_blank">摆烂仙君: </a>
+<span class="code-comments">可以看博主的另外一篇文章，如何降低aigc</span>
+</p>
+</li>
+<li>
+<a class="title text-truncate" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241041","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241041","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/147778798#comments_37241041" target="_blank">无偿帮写毕业论文(一天搞定，有不懂的欢迎私信博主)</a>
+<p class="comment ellipsis">
+<a class="user-name" href="https://blog.csdn.net/2501_90279456" target="_blank">2501_90279456: </a>
+<span class="code-comments">可惜要查AIGC</span>
+</p>
+</li>
+<li>
+<a class="title text-truncate" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147930688#comments_37237449","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/qq_63129682/article/details/147930688#comments_37237449","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/147930688#comments_37237449" target="_blank">抖音怎么快速涨粉（抖音推流算法研究）</a>
+<p class="comment ellipsis">
+<a class="user-name" href="https://blog.csdn.net/2301_78933554" target="_blank">AI大白: </a>
+<span class="code-comments">那我问你，你为什么不玩抖音</span>
+</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="aside-box" id="asideArchive" style="display:block!important; width:300px;">
+<h3 class="aside-title">最新文章</h3>
+<div class="aside-content">
+<ul class="inf_list clearfix">
+<li class="clearfix">
+<a data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/qq_63129682/article/details/148150646","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_63129682/article/details/148150646","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/148150646" target="_blank">腾讯2025年校招笔试真题手撕（三）</a>
+</li>
+<li class="clearfix">
+<a data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/qq_63129682/article/details/148150369","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_63129682/article/details/148150369","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/148150369" target="_blank">腾讯2025年校招笔试真题手撕（二）</a>
+</li>
+<li class="clearfix">
+<a data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/qq_63129682/article/details/148150311","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_63129682/article/details/148150311","ab":"new"}' href="https://blog.csdn.net/qq_63129682/article/details/148150311" target="_blank">腾讯2025年校招笔试真题手撕（一）</a>
+</li>
+</ul>
+<div class="archive-bar"></div>
+<div class="archive-box">
+<div class="archive-title">2025</div>
+<div class="archive-content">
+<div class="archive-item">
+<a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=05"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=05" target="_blank">
+<span class="time">05月</span>
+<span class="count">39篇</span>
+</a>
+</div>
+<div class="archive-item">
+<a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=04"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=04" target="_blank">
+<span class="time">04月</span>
+<span class="count">7篇</span>
+</a>
+</div>
+<div class="archive-item">
+<a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=02"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2025&amp;month=02" target="_blank">
+<span class="time">02月</span>
+<span class="count">9篇</span>
+</a>
+</div>
+</div>
+<div class="archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2024&amp;month=12"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2024&amp;month=12" target="_blank"><span class="year">2024年</span><span class="num">72篇</span></a></div>
+<div class="archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2023&amp;month=11"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2023&amp;month=11" target="_blank"><span class="year">2023年</span><span class="num">27篇</span></a></div>
+<div class="archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qq_63129682?type=blog&amp;year=2022&amp;month=12"}' href="https://blog.csdn.net/qq_63129682?type=blog&amp;year=2022&amp;month=12" target="_blank"><span class="year">2022年</span><span class="num">8篇</span></a></div>
+</div>
+</div>
+</div>
+<div class="isShowFooterAds" id="footerRightAds">
+<div class="aside-box">
+<div data-pid="57" id="kp_box_57">
+<!-- PC-博客详情页-左侧视窗2-300*600 -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-1076724771190722" data-ad-slot="6543699332" style="display:inline-block;width:300px;height:600px"></ins>
+</div>
+</div>
+</div>
+<!-- 详情页显示目录 -->
+<!--文章目录-->
+<div class="aside-box" id="asidedirectory">
+<div class="groupfile groupfile-active" id="directory">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item" id="align-items-stretch">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+<p class="flexible-btn-new active" data-fbox="#align-items-stretch" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10780","strategy":"展开全部"}' id="flexible-btn-groupfile"><span class="text">展开全部</span> </p>
+<p class="flexible-btn-new-close active" data-fbox="#align-items-stretch" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10780","strategy":"收起"}'><span class="text">收起</span> </p>
+</div>
+</div>
+</aside>
+
+
+ </div>
+<div class="recommend-right align-items-stretch clearfix" data-type="recommend" id="rightAside">
+<aside class="recommend-right_aside">
+<div class="rightside-fixed-hide">
+<div class="programmer1Box">
+<div data-pid="530" id="kp_box_530">
+<!-- PC-博文内页-右侧视窗1-0224 -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-1076724771190722" data-ad-slot="4134929977" style="display:inline-block;width:300px;height:600px"></ins>
+</div>
+</div>
+</div>
+<div id="recommend-right">
+<div class="flex-column aside-box groupfile groupfile-active" id="groupfile">
+<div class="groupfile-div">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item" id="align-items-stretch-right">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+<p class="flexible-btn-new" data-fbox="#align-items-stretch-right" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10782","strategy":"展开全部"}' data-traigger="true" id="flexible-btn-groupfile"><span class="text">展开全部</span> </p>
+<p class="flexible-btn-new-close close" data-fbox="#align-items-stretch-right" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10782","strategy":"收起"}' data-traigger="true"><span class="text">收起</span> </p>
+</div>
+</div>
+<div id="recommendAdBox">
+<div data-pid="479" id="kp_box_479"><div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:10px;margin-bottom:10px;background-color: #fff;"></div>
+
+</div>
+</div>
+<div class="aside-box kind_person d-flex flex-column flexible-box-new">
+<h3 class="aside-title">分类专栏</h3>
+<div class="align-items-stretch kindof_item" id="kind_person_column">
+<div class="aside-content" id="aside-content-column">
+<ul>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12830802.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12830802.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          论文
+                                      </span>
+</a>
+<span class="special-column-num">17篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115669.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115669.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          物联网
+                                      </span>
+</a>
+<span class="special-column-num">5篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115660.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115660.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          arduino
+                                      </span>
+</a>
+<span class="special-column-num">3篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12115661.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12115661.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          esp8266
+                                      </span>
+</a>
+<span class="special-column-num">2篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110754.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110754.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          matlab
+                                      </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110973.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110973.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          脑科学与认知科学
+                                      </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110974.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110974.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          脑控系统
+                                      </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_63129682/category_12110975.html","ab":"new"}' href="https://blog.csdn.net/qq_63129682/category_12110975.html">
+<div class="special-column-bar"></div>
+
+<span class="">
+                                          脑机接口
+                                      </span>
+</a>
+<span class="special-column-num">1篇</span>
+</li>
+</ul>
+</div>
+<p class="text-center">
+<a class="flexible-btn-new" data-fbox="#aside-content-column" data-flag="flag" data-maxheight="0" data-minheight="208px" data-report-click='{"spm":"3001.10783","strategy":"展开全部"}' data-traigger="true"><span class="text">展开全部</span> </a>
+<a class="flexible-btn-new-close" data-fbox="#aside-content-column" data-flag="flag" data-minheight="208px" data-report-click='{"spm":"3001.10783","strategy":"收起"}' data-scroll="true" data-traigger="true"><span class="text">收起</span> </a>
+</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<div class="recommend-right1 align-items-stretch clearfix" data-type="recommend" id="rightAsideConcision">
+<aside class="recommend-right_aside">
+<div id="recommend-right-concision">
+<div class="flex-column aside-box groupfile" id="groupfileConcision">
+<div class="groupfile-div1">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<div class="mask-dark"></div>
+
+<div class="skin-boxshadow"></div>
+<div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+<div class="comment-side-tit">
+<span class="comment-side-tit-count">评论</span>
+</div>
+
+<div class="pc-flodcomment-sidebox" id="pcFlodCommentSideBox">
+<div class="comment-fold-tit"><span class="back" id="lookUnFlodComment"></span>被折叠的 <span class="count"></span> 条评论
+		 <a class="tip" href="https://blogdev.blog.csdn.net/article/details/122245662" target="_blank">为什么被折叠?</a>
+<a class="park" href="https://bbs.csdn.net/forums/FreeZone" target="_blank">
+到【灌水乐园】发言</a>
+</div>
+<div class="comment-fold-content"></div>
+<div class="look-bad-comment side-look-comment" id="lookBadComment">
+<a class="look-more-comment">查看更多评论</a>
+</div>
+</div>
+</div>
+<div class="comment-rewarddialog-box">
+<div class="form-box">
+<div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+</div>
+<form id="commentRewardForm">
+<div class="ipt-box">
+<label for="txtName">祝福语</label>
+<div class="ipt-btn-box">
+<input autocomplete="off" id="txtName" maxlength="50" name="name" type="text"/>
+<a class="btn-ipt btn-random"></a>
+</div>
+<p class="notice">请填写红包祝福语或标题</p>
+</div>
+<div class="ipt-box">
+<label for="txtSendAmount">红包数量</label>
+<div class="ipt-txt-box">
+<input autocomplete="off" id="txtSendAmount" maxlength="4" name="sendAmount" placeholder="请填写红包数量(最小10个)" type="text"/>
+<span class="after-txt">个</span>
+</div>
+<p class="notice">红包个数最小为10个</p>
+</div>
+<div class="ipt-box">
+<label for="txtMoney">红包总金额</label>
+<div class="ipt-txt-box error">
+<input autocomplete="off" id="txtMoney" maxlength="5" name="money" placeholder="请填写总金额(最低5元)" type="text"/>
+<span class="after-txt">元</span>
+</div>
+<p class="notice">红包金额最低5元</p>
+</div>
+<div class="balance-info-box">
+<label>余额支付</label>
+<div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a class="link-charge" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank">前往充值 &gt;</a>
+</div>
+</div>
+<div class="opt-box">
+<div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+<button class="ml-auto btn-cancel" type="button">取消</button>
+<button class="ml8 btn-submit" disabled="true" type="button">确定</button>
+</div>
+</form>
+</div>
+</div>
+<div class="rr-guide-box">
+<div class="rr-first-box">
+
+<button class="btn-guide-known next">下一步</button>
+</div>
+<div class="rr-second-box">
+
+<button class="btn-guide-known known">知道了</button>
+</div>
+</div>
+</div>
+<div class="redEnvolope" id="redEnvolope">
+<div class="env-box">
+<div class="env-container">
+<div class="pre-open" id="preOpen">
+<div class="top">
+<header>
+
+<div class="author">成就一亿技术人!</div>
+</header>
+<div class="bot-icon"></div>
+</div>
+<footer>
+<div class="red-openbtn open-start"></div>
+<div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+</div>
+</footer>
+</div>
+<div class="opened" id="opened">
+<div class="bot-icon">
+<header>
+<a class="creatorUrl" href="" target="_blank">
+
+</a>
+<div class="author">
+<div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+</header>
+</div>
+<div class="receive-box">
+<header></header>
+<div class="receive-list">
+</div>
+</div>
+</div>
+</div>
+<div class="close-btn"></div>
+</div>
+</div>
+<div class="reward-popupbox-new" id="rewardNew">
+<p class="rewad-title">打赏作者<span class="reward-close"></span></p>
+<dl class="profile-box">
+<dd>
+<a data-report-click='{"mod":"popu_379","dest":"https://blog.csdn.net/qq_63129682","ab":"new"}' href="https://blog.csdn.net/qq_63129682">
+
+</a>
+</dd>
+<dt>
+<p class="blog-name">摆烂仙君</p>
+<p class="blog-discript">你的鼓励将是我创作的最大动力</p>
+</dt>
+</dl>
+<div class="reward-box-new">
+<div class="reward-content"><div class="reward-right"></div></div>
+</div>
+<div class="money-box">
+<span class="choose-money choosed" data-id="1">¥1</span>
+<span class="choose-money" data-id="2">¥2</span>
+<span class="choose-money" data-id="4">¥4</span>
+<span class="choose-money" data-id="6">¥6</span>
+<span class="choose-money" data-id="10">¥10</span>
+<span class="choose-money" data-id="20">¥20</span>
+</div>
+<div class="sure-box">
+<div class="sure-box-money">
+<div class="code-box">
+<div class="code-num-box">
+<span class="code-name">扫码支付：</span><span class="code-num">¥1</span>
+</div>
+<div class="code-img-box">
+<div class="renovate">
+
+<span>获取中</span>
+</div>
+</div>
+<div class="code-pay-box">
+
+
+<span>扫码支付</span>
+</div>
+</div>
+</div>
+<div class="sure-box-blance">
+<p class="tip">您的余额不足，请更换扫码支付或<a class="go-invest" data-report-click='{"mod":"1597646289_003","spm":"1001.2101.3001.4302"}' href="https://i.csdn.net/#/wallet/balance/recharge?utm_source=RewardVip" target="_blank">充值</a></p>
+<p class="is-have-money"><a class="reward-sure">打赏作者</a></p>
+</div>
+</div>
+</div>
+<div class="pay-code">
+<div class="pay-money">实付<span class="pay-money-span" data-nowprice="" data-oldprice="">元</span></div>
+<div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+<div class="content-code">
+<div data-id="" id="payCode">
+<div class="renovate">
+
+<span>点击重新获取</span>
+</div>
+</div>
+<div class="pay-style"><span></span><span></span><span></span><span class="text">扫码支付</span></div>
+</div>
+<div class="bt-close">
+<svg class="icon" height="12" p-id="10924" t="1567152543821" version="1.1" viewbox="0 0 1024 1024" width="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+
+</defs>
+<path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+</svg>
+</div>
+<div class="pay-balance">
+<input class="pay-code-radio" data-type="details" type="radio"/>
+<span class="span">钱包余额</span>
+<span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+<div class="pay-code-tile">
+
+<div class="pay-code-content">
+<div class="span">
+<p class="title">抵扣说明：</p>
+<p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br/> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+</div>
+</div>
+</div>
+</div>
+<a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><span>余额充值</span></a>
+</div>
+<div style="display:none;">
+
+</div>
+<div class="keyword-dec-box" id="keywordDecBox"></div>
+</body>

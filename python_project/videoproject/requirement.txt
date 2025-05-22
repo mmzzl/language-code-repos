@@ -6,3 +6,7 @@ flower
 django-cors-headers
 gunicorn
 django-simpleui
+feedparser
+requests
+beautifulsoup4
+lxml

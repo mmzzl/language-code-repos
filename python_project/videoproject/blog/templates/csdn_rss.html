@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSDN RSS</title>
+</head>
+<body>
+    <h1>CSDN 最新文章</h1>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <a href="{{ entry.link }}" target="_blank">{{ entry.title }}</a>
+                <p>{{ entry.summary }}</p>
+                <small>{{ entry.published }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

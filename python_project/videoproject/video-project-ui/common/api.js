@@ -1,5 +1,6 @@
-const BASE_URL = 'https://www.369924.xyz'
+// api.js
+import request from './request'
 
-export default {
-	BASE_URL
+export function fetchCsdnRss() {
+  return request.get('http://127.0.0.1:8000/blog/csdn/rss')
 }

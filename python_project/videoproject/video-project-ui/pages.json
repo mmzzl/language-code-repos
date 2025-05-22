@@ -20,6 +20,13 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/blog/blog",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {
@@ -27,6 +34,24 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "list": [
+	      {
+	        "pagePath": "pages/index/index",
+	        "text": "视频",
+	        "iconPath": "static/tabs/video.png",          // 本地图片路径（建议使用项目内的图标）
+	        "selectedIconPath": "static/tabs/video_active.png"  // 选中时的图标
+	      },
+	      {
+	        "pagePath": "pages/blog/blog",
+	        "text": "文章",
+	        "iconPath": "static/tabs/blog.png",
+	        "selectedIconPath": "static/tabs/blog_active.png"
+	      }
+	    ],
+	    "color": "#999",           // 未选中文字颜色
+	    "selectedColor": "#ff0000" // 选中文字颜色
 	},
 	"uniIdRouter": {},
 	
