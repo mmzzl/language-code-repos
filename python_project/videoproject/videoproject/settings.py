@@ -152,7 +152,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 # CORS_ALLOW_CREDENTIALS = True # 不能同时设置CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ("*")
-
+APPEND_SLASH = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

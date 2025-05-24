@@ -43,6 +43,7 @@
     <view v-if="isSearching && videos.length === 0" class="no-result">
       没有找到相关视频
     </view>
+	<custom-tab-bar></custom-tab-bar>
   </view>
 </template>
 
@@ -68,7 +69,9 @@ interface ApiResponse {
 }
 
 export default Vue.extend({
-  components: { uniIcons },
+  components: { 
+	uniIcons
+  },
   data() {
     return {
       videos: [] as Array<VideoItem>,
@@ -152,6 +155,8 @@ export default Vue.extend({
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  padding-bottom: env(safe-area-inset-bottom); /* 自动调整底部内边距 */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom)); /* 结合固定值和安全区域值 */
 }
 
 .search-wrapper {

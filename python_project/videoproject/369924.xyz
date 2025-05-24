@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name 369924.xyz www.369924.xyz;
+    server_name 121.37.47.63 369924.xyz www.369924.xyz;
     # return 301 https://$host$request_uri;
     client_max_body_size 1000M;
     location /static/ {
@@ -25,7 +25,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name 369924.xyz www.369924.xyz;
+    server_name 121.37.47.63 369924.xyz www.369924.xyz;
     client_max_body_size 1000M;
 
     ssl_certificate /etc/letsencrypt/live/369924.xyz/fullchain.pem;

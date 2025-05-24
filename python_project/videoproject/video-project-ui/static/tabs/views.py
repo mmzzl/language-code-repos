@@ -24,51 +24,34 @@ def get_tabbar(request):
     # 获取当前请求的路径
     current_path = request.path
 
-    # 获取当前请求的完整域名
-    host = request.get_host()
-
     # Tab 配置
     tabs = [
         {
-            'pagePath': "pages/index/index",
+            'pagePath': "/pages/index/index",
             'text': "视频",
             'iconPath': "tabs/video.png",
             'selectedIconPath': 'tabs/video.png'
         },
         {
-            'pagePath': 'pages/blog/blog',
+            'pagePath': '/pages/blog/blog',
             'text': '文章',
             'iconPath': 'tabs/article.png',
             'selectedIconPath': 'tabs/article.png'
-        },
-        {
-            'pagePath': 'pages/blog/blog',
-            'text': '聊天',
-            'iconPath': 'tabs/聊天.png',
-            'selectedIconPath': 'tabs/聊天.png'
-        },
-        {
-            'pagePath': 'pages/blog/blog',
-            'text': '通讯录',
-            'iconPath': 'tabs/通讯录.png',
-            'selectedIconPath': 'tabs/通讯录.png'
-        },
-
+        }
     ]
 
     # 动态设置 active 状态
     for tab in tabs:
         tab['active'] = (tab['pagePath'] == current_path)
 
-    # 拼接 iconPath 和 selectedIconPath 为 http 开头的链接
+    # 拼接 iconPath 和 selectedIconPath
     static_url = settings.STATIC_URL  # 获取静态文件的 URL 前缀（通常是 /static/）
-    protocol = 'http://'  # 使用 http 协议
-
     for tab in tabs:
-        tab['iconPath'] = f"{protocol}{host}{static_url}{tab['iconPath']}"
-        tab['selectedIconPath'] = f"{protocol}{host}{static_url}{tab['selectedIconPath']}"
+        tab['iconPath'] = static_url + tab['iconPath']
+        tab['selectedIconPath'] = static_url + tab['selectedIconPath']
 
     return JsonResponse({'tabs': tabs})
+
 
 @csrf_exempt
 def video_played(request, video_id):

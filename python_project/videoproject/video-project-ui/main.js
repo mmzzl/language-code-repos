@@ -3,6 +3,8 @@ import BASE_URL from './common/api.js'
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'
+import CustomTabBar from '@/common/CustomTabBar.vue'
+Vue.component('custom-tab-bar', CustomTabBar);
 // main.js
 Vue.config.productionTip = false;
 const base_url = 'http://121.37.47.63';

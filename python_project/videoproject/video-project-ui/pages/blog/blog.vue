@@ -2,47 +2,34 @@
   <view class="container">
     <!-- RSS 文章列表 -->
     <view class="post-list">
-      <view v-for="(entry, index) in entries" :key="index" class="post" @click="showArticle(entry)">
+      <view v-for="(entry, index) in entries" :key="index" class="post" @click="navigateToArticleDetail(entry)">
         <text class="title">{{ entry.title }}</text>
-        <p>{{ entry.summary }}</p>
+        <p>{{ truncateSummary(entry.summary) }}</p>
         <small>{{ entry.published }}</small>
       </view>
     </view>
-
-    <!-- 文章预览区域 -->
-	<!-- <view v-if="selectedArticleHtml" class="article-preview">
-	  <rich-text :nodes="selectedArticleHtml"></rich-text>
-	</view> -->
-	<view v-if="selectedArticleHtml" class="article-preview" v-html="selectedArticleHtml"></view>
+    <custom-tab-bar></custom-tab-bar>
   </view>
 </template>
 
 <script>
+import Vue from 'vue';
+const baseUrl = Vue.prototype.$BASE_URL; // 全局变量
+
 export default {
   data() {
     return {
-      entries: [],
-      selectedArticleHtml: null
+      entries: []
     };
   },
   onLoad() {
     this.fetchData();
   },
   methods: {
-	handleContentClick(e) {
-	      // 阻止所有子元素的点击冒泡导致的页面跳转
-	      e.preventDefault();
-	      e.stopPropagation();
-	  
-	      const target = e.target;
-	      if (target.tagName === 'A') {
-	        uni.showToast({ title: '此链接已在应用内展示', icon: 'none' });
-	        return false;
-	      }
-	},
     fetchData() {
+      const url = baseUrl + '/blog/csdn/rss';
       uni.request({
-        url: 'http://127.0.0.1:8000/blog/csdn/rss',
+        url: url,
         method: 'GET',
         success: (res) => {
           if (res.statusCode === 200) {
@@ -56,31 +43,17 @@ export default {
         }
       });
     },
-    showArticle(entry) {
-      const encodedUrl = encodeURIComponent(entry.link);
-      uni.request({
-        url: `http://127.0.0.1:8000/blog/api/csdn-article/?url=${encodedUrl}`,
-        success: (res) => {
-          if (res.statusCode === 200 && res.data.content) {
-            this.selectedArticleHtml = res.data.content;
-			// 	const parser = new DOMParser();
-			// 	const doc = parser.parseFromString(res.data.content, 'text/html');
-			// 	// 提取 body 中的 HTML 内容
-			// 	const bodyContent = doc.body.innerHTML;
-			
-			// 	this.selectedArticleHtml = bodyContent;
-				
-				// 将 HTML 转为 JSON 节点树（需自己实现或使用库如 htmlparser2）
-			 // 打印看是否是合法 HTML
-          } else {
-            this.selectedArticleHtml = '<p>加载文章内容失败</p>';
-          }
-        },
-        fail: (err) => {
-          console.error('文章内容请求失败:', err);
-          this.selectedArticleHtml = '<p>网络错误，请重试</p>';
-        }
+    navigateToArticleDetail(entry) {
+      // 使用 uni.navigateTo 跳转到 articleDetail 页面并传递参数
+      uni.navigateTo({
+        url: `/pages/blog/articleDetail?url=${encodeURIComponent(entry.link)}&title=${encodeURIComponent(entry.title)}`
       });
+    },
+    truncateSummary(summary) {
+      if (summary.length > 100) {
+        return summary.substring(0, 100) + '...';
+      }
+      return summary;
     }
   }
 };
@@ -89,6 +62,8 @@ export default {
 <style scoped>
 .container {
   padding: 20px;
+  padding-bottom: env(safe-area-inset-bottom); /* 自动调整底部内边距 */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom)); /* 结合固定值和安全区域值 */
 }
 
 .post {
@@ -103,27 +78,11 @@ export default {
   color: #007AFF;
 }
 
-.article-preview {
-  margin-top: 20px;
-  width: 100%;
-  height: 500px;
-  border: 1px solid #ddd;
+.summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 控制显示的行数 */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-.article-preview img {
-  max-width: 100%;
-  height: auto;
-}
-
-.article-preview img {
-  max-width: 100%;
-  height: auto;
-}
-.article-preview p,
-.article-preview div,
-.article-preview span {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
 </style>
