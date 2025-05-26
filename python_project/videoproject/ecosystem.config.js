@@ -20,6 +20,17 @@ module.exports = {
         PYTHONPATH: '/home/fantom/videoproject'
       },
       interpreter: 'none',
+    },
+    {
+     name: 'mattermost',
+     script: '/home/fantom/mattermost/bin/mattermost',
+     args: '',
+     instances: 'max',
+     exec_mode: 'fork',
+     cwd: '/home/fantom/mattermost',
+     env: {
+        NODE_ENV: 'production'
+     }
     }
   ]
 };

@@ -251,3 +251,43 @@ gunicorn.service 放到这个目录
 
 # 安装django simpleui
 pip install django-simpleui
+
+# 在liunx 环境上部署 mattermost
+
+sudo  apt-get update
+sudo apt-get install -y wget curl unzip
+
+sudo apt-get install -y postgresql postgresql-contrib
+
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+sudo -u postgres psql
+
+CREATE DATABASE mattermost;
+CREATE USER mattermost WITH PASSWORD 'your_password';
+ALTER ROLE mattermost SET client_encoding TO 'utf8';
+ALTER ROLE mattermost SET default_transaction_isolation TO 'read committed';
+ALTER ROLE mattermost SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE mattermost TO mattermost;
+\q
+登陆postgresql, 授予mattermost权限
+sudo -u postgres psql
+\c mattermost
+GRANT ALL PRIVILEGES ON SCHEMA public TO mattermost;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO mattermost;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO mattermos
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO mattermost;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON SEQUENCES TO mattermost;
+\q
+
+wget  https://releases.mattermost.com/10.8.1/mattermost-team-10.8.1-linux-amd64.tar.gz
+tar -zxvf mattermost-team-10.8.1-linux-amd64.tar.gz  -C /home/fantom/
+cd mattermost
+mkdir data
+vi  config/config.json, 修改
+"DriverName": "postgres",
+"DataSource": "postgres://xxxxx:xxxx@localhost:5432/mattermost?sslmode=disable&connect_timeout=10&binary_parameters=yes",
+启动
+./bin/mattermost
+
+用pm2 管理mattermost
