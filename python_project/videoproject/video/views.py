@@ -16,9 +16,13 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer
 
 
-from django.conf import settings
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 def get_tabbar(request):
     # 获取当前请求的路径
@@ -42,18 +46,11 @@ def get_tabbar(request):
             'selectedIconPath': 'tabs/article.png'
         },
         {
-            'pagePath': 'pages/blog/blog',
+            'pagePath': 'pages/wechat/wechat',
             'text': '聊天',
             'iconPath': 'tabs/聊天.png',
             'selectedIconPath': 'tabs/聊天.png'
-        },
-        {
-            'pagePath': 'pages/blog/blog',
-            'text': '通讯录',
-            'iconPath': 'tabs/通讯录.png',
-            'selectedIconPath': 'tabs/通讯录.png'
-        },
-
+        }
     ]
 
     # 动态设置 active 状态
@@ -66,9 +63,11 @@ def get_tabbar(request):
 
     for tab in tabs:
         tab['iconPath'] = f"{protocol}{host}{static_url}{tab['iconPath']}"
-        tab['selectedIconPath'] = f"{protocol}{host}{static_url}{tab['selectedIconPath']}"
+        tab[
+            'selectedIconPath'] = f"{protocol}{host}{static_url}{tab['selectedIconPath']}"
 
     return JsonResponse({'tabs': tabs})
+
 
 @csrf_exempt
 def video_played(request, video_id):

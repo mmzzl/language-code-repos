@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenRefreshView
+from .serializers import MyTokenObtainPairSerializer
 from .views import (video_played, SeriesModelViewSet, VideoModelViewSet,
-                    video_play_count, ChunkedUploadView, get_tabbar)
+                    video_play_count, ChunkedUploadView, get_tabbar,
+                    MyTokenObtainPairView)
 
 router = DefaultRouter()
 router.register('series', SeriesModelViewSet, basename='series')
@@ -18,5 +21,7 @@ urlpatterns = [
     )),
     path('videos/upload/', ChunkedUploadView.as_view(), name='chunked_upload'),
     path('videos/', include(router.urls)),
-    path('tabbar/', get_tabbar, name='get_tabbar')
+    path('tabbar/', get_tabbar, name='get_tabbar'),
+    path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]

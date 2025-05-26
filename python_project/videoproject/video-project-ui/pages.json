@@ -27,6 +27,13 @@
 			{
 				"navigationBarTitleText" : "文章详情"
 			}
+		},
+		{
+			"path" : "pages/wechat/wechat",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {

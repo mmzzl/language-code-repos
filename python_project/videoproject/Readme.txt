@@ -291,3 +291,7 @@ vi  config/config.json, 修改
 ./bin/mattermost
 
 用pm2 管理mattermost
+
+# django 用户扩展字段， settings.py 中添加
+AUTH_USER_MODEL = 'yourapp.CustomUser'  # yourapp 是你的应用名称
+

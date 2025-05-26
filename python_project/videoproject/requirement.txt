@@ -10,3 +10,4 @@ feedparser
 requests
 beautifulsoup4
 lxml
+djangorestframework-simplejwt

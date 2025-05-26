@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+from datetime import timedelta
 
 from django.conf.global_settings import STATICFILES_DIRS
 
@@ -24,13 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hq)46wz4xm21t68^cw))4tm62t(l)0k&d!2_4=jky4)lbc!+8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 # ALLOWED_HOSTS = ["www.369924.xyz", "369924.xyz", "121.37.47.63"]
 
 ALLOWED_HOSTS = ["*"]
 # Application definition
+
+# AUTH_USER_MODEL = 'video.CustomUser'  # yourapp 是你的应用名称
 
 INSTALLED_APPS = [
     'simpleui',
@@ -43,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'video',
     'rest_framework',
-    'blog'
+    'blog',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -133,7 +137,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'video.pagination.CustomPagination',
     'PAGE_SIZE': 10,  # 默认每页数量(如果未使用自定义分页类),
-    'EXCEPTION_HANDLER': 'video.utils.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'video.utils.custom_exception_handler',
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication'
+    # )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFY': True,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),  # 请求头中的 token 类型
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -6,6 +6,8 @@ from .form import RetryForm
 from .models import Series, Video, RetryRecord
 from django.shortcuts import render
 from .tasks import video_processed_task
+# from .models import CustomUser
+from django.contrib.auth.admin import UserAdmin
 
 admin.site.site_header = '新手学堂管理后台'
 admin.site.site_title = '新手学堂管理后台'
@@ -21,8 +23,14 @@ class VideoAdmin(admin.ModelAdmin):
     list_filter = ('series',)
     search_fields =  ('id','title')
 
+# class CustomUserAdmin(UserAdmin):
+#     model = CustomUser
+#     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'nickname', 'openid')
+
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Series, SeriesModelAdmin)
+# admin.site.register(CustomUser, CustomUserAdmin)
 
 
 @admin.register(RetryRecord)
