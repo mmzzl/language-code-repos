@@ -1,35 +1,18 @@
 server {
     listen 80;
-    server_name 121.37.47.63 369924.xyz www.369924.xyz;
-    # return 301 https://$host$request_uri;
-    client_max_body_size 1000M;
-    location /static/ {
-        alias /home/fantom/videoproject/staticfiles/;
-    }
-
-    location /media/ {
-        alias /home/fantom/videoproject/media/;
-    }
-
-    location / {
-        proxy_pass http://unix:/home/fantom/videoproject/videoproject.sock;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        # 如果后端服务也需要处理跨域请求，确保这些头部信息被正确传递
-        proxy_set_header Access-Control-Allow-Origin *;
-        proxy_set_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
-        proxy_set_header Access-Control-Allow-Headers 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
-    }
+    server_name life233.top www.life222.top;
+    return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
-    server_name 121.37.47.63 369924.xyz www.369924.xyz;
+    server_name life233.top www.life222.top;
+
     client_max_body_size 1000M;
 
-    ssl_certificate /etc/letsencrypt/live/369924.xyz/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/369924.xyz/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/life233.top/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/life233.top/privkey.pem;
+
 
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
@@ -43,6 +26,7 @@ server {
     resolver_timeout 5s;
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
+
     location /static/ {
         alias /home/fantom/videoproject/staticfiles/;
     }
@@ -56,9 +40,29 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        # 如果后端服务也需要处理跨域请求，确保这些头部信息被正确传递
-        proxy_set_header Access-Control-Allow-Origin *;
-        proxy_set_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
-        proxy_set_header Access-Control-Allow-Headers 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
+    }
+
+    location /mattermost {
+        proxy_pass http://127.0.0.1:8065;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # 可能移除或修改 CSP 设置
+        # add_header Content-Security-Policy "frame-ancestors 'self' http://localhost:8080;" always;
+
+        # CORS 设置
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+        add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, X-Requested-With' always;
+
+        # 处理预检请求
+        if ($request_method = OPTIONS ) {
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
     }
 }

@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "视频列表",
+				"navigationBarTitleText": "视频",
 				"onReachBottomDistance": 50
 			}
 		},
@@ -18,7 +18,7 @@
 			"path" : "pages/blog/blog",
 			"style" : 
 			{
-				"navigationBarTitleText" : "文章列表"
+				"navigationBarTitleText" : "文章"
 			}
 		},
 		{
@@ -32,7 +32,7 @@
 			"path" : "pages/wechat/wechat",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "聊天"
 			}
 		}
 	],

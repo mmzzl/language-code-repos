@@ -8,7 +8,7 @@ Vue.component('custom-tab-bar', CustomTabBar);
 // main.js
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;
-Vue.prototype.$BASE_URL = 'http://121.37.47.63';
+Vue.prototype.$BASE_URL = 'https://www.life233.top';
 App.mpType = 'app'
 const app = new Vue({
   ...App

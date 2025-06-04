@@ -59,7 +59,7 @@ def get_tabbar(request):
 
     # 拼接 iconPath 和 selectedIconPath 为 http 开头的链接
     static_url = settings.STATIC_URL  # 获取静态文件的 URL 前缀（通常是 /static/）
-    protocol = 'http://'  # 使用 http 协议
+    protocol = 'https://'  # 使用 http 协议
 
     for tab in tabs:
         tab['iconPath'] = f"{protocol}{host}{static_url}{tab['iconPath']}"
