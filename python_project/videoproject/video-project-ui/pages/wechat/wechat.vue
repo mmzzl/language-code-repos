@@ -1,6 +1,5 @@
 <template>
   <view class="webview-container">
-    <!-- 注意：web-view 不再设置 margin-bottom -->
     <web-view :src="url" class="web-view" @load="handleLoad"></web-view>
     <custom-tab-bar class="custom-tab-bar"></custom-tab-bar>
   </view>
@@ -10,17 +9,18 @@
 export default {
   data() {
     return {
-      url: 'https://www.life233.top/mattermost'
+      url: 'https://www.life233.top/mattermost',
+      statusbar: 0,
+      height: 0,
+      originalHeight: 0 // 新增变量用于保存原始高度
     };
   },
   onLoad(option) {
-    let statusbar = 0;
-    let height = 0;
-
     uni.getSystemInfo({
       success: (sysinfo) => {
-        statusbar = sysinfo.statusBarHeight;
-        height = sysinfo.windowHeight;
+        this.statusbar = sysinfo.statusBarHeight;
+        this.height = sysinfo.windowHeight;
+        this.originalHeight = this.height - this.statusbar - 50;
       }
     });
 
@@ -28,13 +28,29 @@ export default {
 
     setTimeout(() => {
       const wv = currentWebview.children()[0];
-
-      // 设置 WebView 的 top 和 height，避开状态栏 + 底部菜单
       wv.setStyle({
-        top: statusbar + 50, // 避开状态栏
-        height: height - statusbar - 50, // 屏幕高 - 状态栏 - 底部菜单
+        top: this.statusbar + 50,
+        height: this.originalHeight
       });
     }, 200);
+  },
+  onReady() {
+    uni.onKeyboardHeightChange(res => {
+      let currentWebview = this.$scope.$getAppWebview();
+      const wv = currentWebview.children()[0];
+
+      if (res.height > 0) {
+        // 输入法弹出，缩小 WebView 高度
+        wv.setStyle({
+          height: this.originalHeight - res.height
+        });
+      } else {
+        // 输入法关闭，恢复原始高度
+        wv.setStyle({
+          height: this.originalHeight
+        });
+      }
+    });
   },
   methods: {
     handleLoad(event) {
@@ -53,7 +69,6 @@ export default {
 
 .web-view {
   width: 100%;
-  /* 移除 flex 和 margin-bottom，由 JS 动态控制 */
 }
 
 .custom-tab-bar {
