@@ -295,3 +295,8 @@ vi  config/config.json, 修改
 # django 用户扩展字段， settings.py 中添加
 AUTH_USER_MODEL = 'yourapp.CustomUser'  # yourapp 是你的应用名称
 
+selenium 下载blibli 视频
+firefox 下载 驱动
+https://github.com/mozilla/geckodriver/releases
+下载后，放到path 环境变量中
+

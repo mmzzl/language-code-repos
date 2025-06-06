@@ -1,6 +1,6 @@
 <template>
   <view class="webview-container">
-    <web-view :src="url" class="web-view" @load="handleLoad"></web-view>
+    <web-view v-show="showWebView" :src="url" class="web-view" @load="handleLoad"></web-view>
     <custom-tab-bar class="custom-tab-bar"></custom-tab-bar>
   </view>
 </template>
@@ -12,7 +12,8 @@ export default {
       url: 'https://www.life233.top/mattermost',
       statusbar: 0,
       height: 0,
-      originalHeight: 0 // 新增变量用于保存原始高度
+      originalHeight: 0 ,// 新增变量用于保存原始高度
+	  showWebView: true
     };
   },
   onLoad(option) {
@@ -56,7 +57,14 @@ export default {
     handleLoad(event) {
       const loadedUrl = event.target.url;
       console.log('Loaded URL:', loadedUrl);
+	  localStorage.setItem('lastVisitedUrl', loadedUrl);
     }
+  },
+  mounted() {
+	  const lastVisitedUrl = localStorage.getItem('lastVisitedUrl');
+	  if (lastVisitedUrl) {
+		  this.url = lastVisitedUrl;
+	  }
   }
 };
 </script>
