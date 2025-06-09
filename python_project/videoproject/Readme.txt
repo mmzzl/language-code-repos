@@ -300,3 +300,7 @@ firefox 下载 驱动
 https://github.com/mozilla/geckodriver/releases
 下载后，放到path 环境变量中
 
+自动管理版本工具
+webdriver-manager
+pip install webdriver-manager
+

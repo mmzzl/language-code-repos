@@ -4,7 +4,7 @@ import json
 import requests
 
 # 替换为你的服务器地址
-BASE_URL = "http://121.37.47.63/api/videos/"
+BASE_URL = "https://www.life233.top/api/videos/"
 
 # 已上传记录文件
 RECORD_FILE = "uploaded_records.json"
@@ -74,7 +74,7 @@ def chunk_upload_video(series_id, title, episode_number, description,
     total_chunks = (file_size // chunk_size) + (
         1 if file_size % chunk_size != 0 else 0)
     file_name = os.path.basename(original_video_path)
-    url = f'{BASE_URL}upload'
+    url = f'{BASE_URL}upload/'
 
     with open(original_video_path, 'rb') as f:
         for chunk_index in range(total_chunks):
@@ -146,9 +146,9 @@ def upload_video(series_id, title, episode_number, description,
 
 if __name__ == "__main__":
     # Step 1: 系列信息
-    series_title = "贝叶斯理论"
-    # base_dir = os.path.join("C:", 'Users', 'life8', 'Downloads')
-    base_dir = os.path.join("C:", 'Users', 'User', 'Downloads')
+    series_title = "初中地理"
+    base_dir = os.path.join("C:", 'Users', 'life8', 'Downloads')
+    # base_dir = os.path.join("C:", 'Users', 'User', 'Downloads')
     upload_dir = os.path.join(base_dir, series_title)
 
     series_description = "这是一个示例剧集描述"

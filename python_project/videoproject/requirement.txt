@@ -11,3 +11,8 @@ requests
 beautifulsoup4
 lxml
 djangorestframework-simplejwt
+selenium
+webdriver-manger
+blinker==1.7.0
+selenium-wire
+opencv-python
