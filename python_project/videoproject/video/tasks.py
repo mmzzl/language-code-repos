@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from celery import shared_task
-import time
 from .utils import process_video
 
 @shared_task

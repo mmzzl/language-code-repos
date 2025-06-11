@@ -304,3 +304,6 @@ https://github.com/mozilla/geckodriver/releases
 webdriver-manager
 pip install webdriver-manager
 
+启动没有依赖的celery
+python -m celery -A celery_app.app worker -l info -P eventlet
+python -m celery -A celery_app.app worker -l info -P eventlet -c 10 --hostname=worker1@%h

@@ -23,6 +23,14 @@ class Series(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+# 动态设置上传路径的函数
+def get_processed_video_upload_path(instance, filename):
+    # instance 是 Video 实例，可以访问其外键字段 series
+    return os.path.join('videos', 'processed', instance.series.title, filename)
+
+def get_thumbnails_upload_path(instance, filename):
+    # instance 是 Video 实例，可以访问其外键字段 series
+    return os.path.join('videos', 'thumbnails', instance.series.title, filename)
 
 class Video(models.Model):
     series = models.ForeignKey(Series, on_delete=models.CASCADE,
@@ -33,12 +41,11 @@ class Video(models.Model):
         verbose_name='原始视频文件', blank=True,
         null=True)
     processed_video_file = models.FileField(
-        upload_to=os.path.join('videos', 'processed'),
+        upload_to=get_processed_video_upload_path,
         blank=True, null=True,
         verbose_name='处理后的文件'
     )
-    thumbnail = models.ImageField(upload_to=os.path.join('videos',
-                                                         'thumbnails'),
+    thumbnail = models.ImageField(upload_to=get_thumbnails_upload_path,
                                   verbose_name='缩略图', blank=True, null=True,
                                   )
     episode_number = models.IntegerField(verbose_name='集数')
@@ -53,23 +60,23 @@ class Video(models.Model):
     def __str__(self):
         return f'{self.series.title} - {self.title}'
 
-    def save(self, *args, **kwargs):
-        # 获取旧的实例（如果是更新）
-        is_new = self._state.adding
-        old_file = None
-        if not is_new:
-            try:
-                old_instance = Video.objects.get(pk=self.pk)
-                old_file = old_instance.original_video_file
-            except Video.DoesNotExist:
-                pass
-
-        super().save(*args, **kwargs)
-
-        # 如果是新增 或者 文件被修改过
-        if self.original_video_file and (
-                is_new or old_file != self.original_video_file):
-            video_processed_task.delay(self.id)
+    # def save(self, *args, **kwargs):
+    #     # 获取旧的实例（如果是更新）
+    #     is_new = self._state.adding
+    #     old_file = None
+    #     if not is_new:
+    #         try:
+    #             old_instance = Video.objects.get(pk=self.pk)
+    #             old_file = old_instance.original_video_file
+    #         except Video.DoesNotExist:
+    #             pass
+    #
+    #     super().save(*args, **kwargs)
+    #
+    #     # 如果是新增 或者 文件被修改过
+    #     if self.original_video_file and (
+    #             is_new or old_file != self.original_video_file):
+    #         video_processed_task.delay(self.id)
 
 
 class RetryRecord(models.Model):

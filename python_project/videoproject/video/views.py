@@ -119,6 +119,7 @@ class ChunkedUploadView(View):
             total_chunks = int(request.POST.get('total_chunks', -1))
             file_name = request.POST.get('file_name')
             series_id = request.POST.get('series_id')
+            series_title = request.POST.get('series_title')
             title = request.POST.get('title')
             episode_number = request.POST.get('episode_number')
             description = request.POST.get('description')
@@ -153,7 +154,7 @@ class ChunkedUploadView(View):
 
             # 构建文件路径
             upload_dir = os.path.join(settings.MEDIA_ROOT, 'videos',
-                                      'original')
+                                      "processed", series_title)
             os.makedirs(upload_dir, exist_ok=True)
             file_path = os.path.join(upload_dir, file_name)
 
@@ -164,16 +165,20 @@ class ChunkedUploadView(View):
 
             # 如果是最后一个 chunk，创建 Video 对象
             if chunk_index == total_chunks - 1:
-                video_instance = Video(
-                    series_id=series_id,
-                    title=title,
-                    original_video_file=os.path.join('videos/original',
-                                                     file_name),
-                    episode_number=episode_number,
-                    description=description,
-                    uploaded_at=timezone.now()
-                )
-                video_instance.save()
+                if file_name.endswith('m3u8'):
+                    video_instance = Video(
+                        series_id=series_id,
+                        title=title,
+                        processed_video_file=os.path.join('videos',
+                                                          'processed',
+                                                          series_title,
+                                                          file_name
+                                                          ),
+                        episode_number=episode_number,
+                        description=description,
+                        uploaded_at=timezone.now()
+                    )
+                    video_instance.save()
                 return JsonResponse(
                     {'status': 'completed', 'file_name': file_name})
 

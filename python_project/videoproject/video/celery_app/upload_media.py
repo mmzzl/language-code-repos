@@ -2,6 +2,7 @@
 import os
 import json
 import requests
+from PIL.ImageOps import cover
 
 # 替换为你的服务器地址
 BASE_URL = "https://www.life233.top/api/videos/"
@@ -69,14 +70,14 @@ def get_series_id(series_title):
 
 
 def chunk_upload_video(series_id, title, episode_number, description,
-                       original_video_path):
-    file_size = os.path.getsize(original_video_path)
+                       processed_video_file, video_name, series_title):
+    file_size = os.path.getsize(processed_video_file)
     total_chunks = (file_size // chunk_size) + (
         1 if file_size % chunk_size != 0 else 0)
-    file_name = os.path.basename(original_video_path)
+    file_name = os.path.basename(processed_video_file)
     url = f'{BASE_URL}upload/'
 
-    with open(original_video_path, 'rb') as f:
+    with open(processed_video_file, 'rb') as f:
         for chunk_index in range(total_chunks):
             start = chunk_index * chunk_size
             end = min(start + chunk_size, file_size)
@@ -91,7 +92,8 @@ def chunk_upload_video(series_id, title, episode_number, description,
                 'title': title,
                 'episode_number': episode_number,
                 'description': description,
-                'series_id': series_id
+                'series_id': series_id,
+                'series_title': series_title
             }
 
             response = requests.post(url, files=files, data=data)
@@ -102,8 +104,12 @@ def chunk_upload_video(series_id, title, episode_number, description,
                 break
 
     if response.json().get('status') == 'completed':
-        print(f"✅ 上传成功: {file_name}")
-        save_record(uploaded_video=file_name)
+        print(f"✅ 上传成功: {video_name}")
+        if file_name.endswith("m3u8"):
+            save_record(uploaded_video=video_name)
+            save_record(uploaded_video=file_name)
+        else:
+            save_record(uploaded_video=file_name)
     else:
         print(f"❌ 上传失败: {file_name}")
 
@@ -143,20 +149,13 @@ def upload_video(series_id, title, episode_number, description,
         print("打开文件失败:", str(e))
         return None
 
-
-if __name__ == "__main__":
-    # Step 1: 系列信息
-    series_title = "初中数学"
-    base_dir = os.path.join("C:", 'Users', 'life8', 'Downloads')
-    # base_dir = os.path.join("C:", 'Users', 'User', 'Downloads')
-    upload_dir = os.path.join(base_dir, series_title)
-
+def upload_main(instance):
+    upload_dir = os.path.dirname(instance['video_path'])
+    series_title = instance['series_name']
     series_description = "这是一个示例剧集描述"
-    cover_image_path = os.path.join(upload_dir, "cover.jpeg")  # 替换为你本地封面图路径
-
-    # 加载上传记录和已创建的系列
+    cover_image_path = os.path.join(upload_dir, "cover.jpeg")
     records = load_records()
-    uploaded_files = set(records["uploaded_videos"])
+    uploaded_files = set(records['uploaded_videos'])
     series_id = get_series_id(series_title)
 
     # 检查系列是否已经创建，如果没有则创建新系列
@@ -169,35 +168,25 @@ if __name__ == "__main__":
         series_id = series_data['id']
     else:
         print(f"系列 {series_title} 已经存在，ID: {series_id}")
-
-    # 遍历目录下的视频文件进行上传
-    for item in os.listdir(upload_dir):
-        full_path = os.path.join(upload_dir, item)
-        if not os.path.isfile(full_path) or not item.lower().endswith(
-                ('.mp4', '.avi', '.mkv')):
-            continue  # 跳过非视频文件
-
-        if item in uploaded_files:
-            print(f"【跳过】{item} 已上传过")
-            continue
-
-        try:
-            parts = item.split('.')
-            if len(parts) < 2:
-                print(f"【跳过】文件名格式错误: {item}")
+    processed_video_path = os.path.dirname(instance['processed_video_path'])
+    try:
+        for item in os.listdir(processed_video_path):
+            if item in uploaded_files:
+                print(f"【跳过】{item} 已上传过")
                 continue
-
-            episode_number, video_title = parts[0], '.'.join(parts[:-1])
-            video_description = video_title
-
-            print(f"正在上传: {item}")
+            full_path = os.path.join(processed_video_path, item)
+            episode_number = instance['episode_number']
+            video_description = instance['name']
             video_response = chunk_upload_video(
                 series_id=series_id,
-                title=video_title,
+                title=instance['name'],
                 episode_number=int(episode_number),
                 description=video_description,
-                original_video_path=full_path,
+                processed_video_file=full_path,
+                video_name=instance['filename'],
+                series_title =series_title
             )
+    except Exception as e:
+        print(f"处理文件出错: {item}", str(e))
 
-        except Exception as e:
-            print(f"处理文件出错: {item}", str(e))
+
