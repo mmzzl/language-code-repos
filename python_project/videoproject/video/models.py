@@ -41,11 +41,12 @@ class Video(models.Model):
         verbose_name='原始视频文件', blank=True,
         null=True)
     processed_video_file = models.FileField(
-        upload_to=get_processed_video_upload_path,
+        upload_to=os.path.join('videos', 'processed'),
         blank=True, null=True,
         verbose_name='处理后的文件'
     )
-    thumbnail = models.ImageField(upload_to=get_thumbnails_upload_path,
+    thumbnail = models.ImageField(upload_to=os.path.join('videos',
+                                                         'processed'),
                                   verbose_name='缩略图', blank=True, null=True,
                                   )
     episode_number = models.IntegerField(verbose_name='集数')

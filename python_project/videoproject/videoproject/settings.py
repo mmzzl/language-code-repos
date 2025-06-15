@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hq)46wz4xm21t68^cw))4tm62t(l)0k&d!2_4=jky4)lbc!+8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 # ALLOWED_HOSTS = ["www.369924.xyz", "369924.xyz", "121.37.47.63"]
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'videoproject.middleware.ExceptionLoggingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
@@ -177,28 +178,23 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ("*")
 APPEND_SLASH = True
+import os
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_errors.log'),
         },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
     },
     'loggers': {
-        '': {  # 这里是根logger，捕获所有未命名logger的日志
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,  # 不传递给更高层次的logger
-        },
-        'yourappname': {  # 替换为你的应用名称
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
         },
     },
 }

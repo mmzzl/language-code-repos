@@ -1395,6 +1395,7 @@ var render = function () {
           "enable-play-gesture": true,
           autoplay: true,
           "show-progress": true,
+          "@error": _vm._$g(1, "a-@error"),
           "show-fullscreen-btn": true,
           _i: 1,
         },
@@ -1568,7 +1569,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 保持原有样式不变 */\n.video-player[data-v-1262b4f6] {\n  width: 100%;\n  height: 500rpx;\n}\n.episode-list[data-v-1262b4f6] {\n  margin-top: 20rpx;\n}\n.episode-item[data-v-1262b4f6] {\n  padding: 20rpx;\n  border-bottom: 1rpx solid #eee;\n}\n.episode-item.active[data-v-1262b4f6] {\n  color: #007AFF;\n  font-weight: bold;\n}\n.description-box[data-v-1262b4f6] {\n  padding: 20rpx;\n  background-color: #f9f9f9;\n}\n.description-text[data-v-1262b4f6] {\n  display: -webkit-box;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  font-size: 28rpx;\n  color: #666;\n}\n.description-text.expanded[data-v-1262b4f6] {\n  -webkit-line-clamp: unset;\n}\n.toggle-btn[data-v-1262b4f6] {\n  color: #007AFF;\n  margin-top: 10rpx;\n  font-size: 26rpx;\n  display: inline-block;\n}\n.play-count[data-v-1262b4f6] {\n  font-size: 24rpx;\n  color: #999;\n  margin-top: 10rpx;\n  display: block;\n}\n.episode-list-horizontal[data-v-1262b4f6] {\n  white-space: nowrap;\n  overflow-x: auto;\n  padding: 20rpx;\n  border-top: 1rpx solid #eee;\n  border-bottom: 1rpx solid #eee;\n  margin-top: 20rpx;\n}\n.episode-item-horizon[data-v-1262b4f6] {\n  display: inline-block;\n  padding: 15rpx 30rpx;\n  margin-right: 20rpx;\n  font-size: 28rpx;\n  color: #333;\n}\n.episode-item-horizon.active[data-v-1262b4f6] {\n  color: red;\n  font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 保持原有样式不变 */\n.video-player[data-v-1262b4f6] {\n  width: 100%;\n  height: 500rpx;\n}\n.episode-list[data-v-1262b4f6] {\n  margin-top: 20rpx;\n}\n.episode-item[data-v-1262b4f6] {\n  padding: 20rpx;\n  border-bottom: 1rpx solid #eee;\n}\n.episode-item.active[data-v-1262b4f6] {\n  color: #007AFF;\n  font-weight: bold;\n}\n.description-box[data-v-1262b4f6] {\n  padding: 20rpx;\n  background-color: #f9f9f9;\n}\n.description-text[data-v-1262b4f6] {\n  display: -webkit-box;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  font-size: 28rpx;\n  color: #666;\n}\n.description-text.expanded[data-v-1262b4f6] {\n  -webkit-line-clamp: unset;\n}\n.toggle-btn[data-v-1262b4f6] {\n  color: #007AFF;\n  margin-top: 10rpx;\n  font-size: 26rpx;\n  display: inline-block;\n}\n.play-count[data-v-1262b4f6] {\n  font-size: 24rpx;\n  color: #999;\n  margin-top: 10rpx;\n  display: block;\n}\n.episode-list-horizontal[data-v-1262b4f6] {\n  white-space: nowrap;\n  overflow-x: auto;\n  padding: 20rpx;\n  border-top: 1rpx solid #eee;\n  border-bottom: 1rpx solid #eee;\n  margin-top: 20rpx;\n}\n.episode-item-horizon[data-v-1262b4f6] {\n  display: inline-block;\n  padding: 15rpx 30rpx;\n  margin-right: 20rpx;\n  font-size: 28rpx;\n  color: #333;\n}\n.episode-item-horizon.active[data-v-1262b4f6] {\n  color: red;\n  font-weight: bold;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -2083,6 +2084,14 @@ var render = function () {
     { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
     [
       _c("v-uni-web-view", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm._$g(1, "v-show"),
+            expression: "_$g(1,'v-show')",
+          },
+        ],
         staticClass: _vm._$g(1, "sc"),
         attrs: { src: _vm._$g(1, "a-src"), _i: 1 },
         on: {
@@ -2190,7 +2199,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.webview-container[data-v-89ffe954] {\n  width: 100%;\n  height: 100%; /* 使用 100% 而不是 100vh */\n}\n.web-view[data-v-89ffe954] {\n  width: 100%;\n  /* 移除 flex 和 margin-bottom，由 JS 动态控制 */\n}\n.custom-tab-bar[data-v-89ffe954] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.webview-container[data-v-89ffe954] {\n  width: 100%;\n  height: 100%; /* 使用 100% 而不是 100vh */\n}\n.web-view[data-v-89ffe954] {\n  width: 100%;\n}\n.custom-tab-bar[data-v-89ffe954] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 50px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

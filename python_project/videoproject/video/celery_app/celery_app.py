@@ -10,6 +10,6 @@ app = Celery(
     include=['tasks']
 )
 
-app.conf.update(
-    result_expire=86400 * 7
-)
+# app.conf.update(
+#     result_expire=86400 * 7
+# )

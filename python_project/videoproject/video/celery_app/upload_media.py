@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 import json
 import requests
 from PIL.ImageOps import cover
+
+
+
 
 # 替换为你的服务器地址
 BASE_URL = "https://www.life233.top/api/videos/"
@@ -15,6 +19,13 @@ HEADERS = {
     # "Authorization": "Token your_token_here"
 }
 chunk_size = 1024 * 1024  # 1MB
+
+
+def clean_string(input_string):
+    # 使用正则表达式去除括号、空格和《》
+    cleaned_string = re.sub(r'[()《》\s]', '', input_string)
+    return cleaned_string
+
 
 def load_records():
     """加载已上传和已创建的记录"""
@@ -63,10 +74,7 @@ def create_series(title, description, cover_image_path):
         return None
 
 
-def get_series_id(series_title):
-    """获取已存在的系列ID"""
-    records = load_records()
-    return records["created_series"].get(series_title)
+
 
 
 def chunk_upload_video(series_id, title, episode_number, description,
@@ -88,7 +96,7 @@ def chunk_upload_video(series_id, title, episode_number, description,
             data = {
                 'chunk_index': chunk_index,
                 'total_chunks': total_chunks,
-                'file_name': file_name,
+                'file_name': clean_string(file_name),
                 'title': title,
                 'episode_number': episode_number,
                 'description': description,
@@ -104,7 +112,7 @@ def chunk_upload_video(series_id, title, episode_number, description,
                 break
 
     if response.json().get('status') == 'completed':
-        print(f"✅ 上传成功: {video_name}")
+        print(f"✅ {video_name}上传成功: {file_name}")
         if file_name.endswith("m3u8"):
             save_record(uploaded_video=video_name)
             save_record(uploaded_video=file_name)
@@ -149,44 +157,5 @@ def upload_video(series_id, title, episode_number, description,
         print("打开文件失败:", str(e))
         return None
 
-def upload_main(instance):
-    upload_dir = os.path.dirname(instance['video_path'])
-    series_title = instance['series_name']
-    series_description = "这是一个示例剧集描述"
-    cover_image_path = os.path.join(upload_dir, "cover.jpeg")
-    records = load_records()
-    uploaded_files = set(records['uploaded_videos'])
-    series_id = get_series_id(series_title)
-
-    # 检查系列是否已经创建，如果没有则创建新系列
-    if not series_id:
-        series_data = create_series(series_title, series_description,
-                                    cover_image_path)
-        if not series_data or 'id' not in series_data:
-            print("无法创建系列，请检查接口和权限")
-            exit(1)
-        series_id = series_data['id']
-    else:
-        print(f"系列 {series_title} 已经存在，ID: {series_id}")
-    processed_video_path = os.path.dirname(instance['processed_video_path'])
-    try:
-        for item in os.listdir(processed_video_path):
-            if item in uploaded_files:
-                print(f"【跳过】{item} 已上传过")
-                continue
-            full_path = os.path.join(processed_video_path, item)
-            episode_number = instance['episode_number']
-            video_description = instance['name']
-            video_response = chunk_upload_video(
-                series_id=series_id,
-                title=instance['name'],
-                episode_number=int(episode_number),
-                description=video_description,
-                processed_video_file=full_path,
-                video_name=instance['filename'],
-                series_title =series_title
-            )
-    except Exception as e:
-        print(f"处理文件出错: {item}", str(e))
 
 

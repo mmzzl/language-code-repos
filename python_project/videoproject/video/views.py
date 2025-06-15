@@ -71,11 +71,6 @@ def get_tabbar(request):
 
 @csrf_exempt
 def video_played(request, video_id):
-    if request.method != 'POST':
-        return JsonResponse({
-            'success': False,
-            'error': 'Method not allowed. Use POST.'
-        }, status=405)  # 返回 405 Method Not Allowed
     try:
         video = Video.objects.get(id=video_id)
     except Video.DoesNotExist:
@@ -154,7 +149,7 @@ class ChunkedUploadView(View):
 
             # 构建文件路径
             upload_dir = os.path.join(settings.MEDIA_ROOT, 'videos',
-                                      "processed", series_title)
+                                      "processed", series_title, title)
             os.makedirs(upload_dir, exist_ok=True)
             file_path = os.path.join(upload_dir, file_name)
 
@@ -172,6 +167,7 @@ class ChunkedUploadView(View):
                         processed_video_file=os.path.join('videos',
                                                           'processed',
                                                           series_title,
+                                                          title,
                                                           file_name
                                                           ),
                         episode_number=episode_number,

@@ -9,6 +9,7 @@
       :autoplay="true"
       style="width: 100%; height: 500rpx;"
       :show-progress="true"
+	  :@error="handleVdieoError"
       :show-fullscreen-btn="true"
     ></video>
 
@@ -70,6 +71,9 @@ export default {
     toggleDescription() {
       this.isDescriptionExpanded = !this.isDescriptionExpanded;
     },
+	handleVdieoError(error) {
+		console.log("play error", error);
+	},
 
     // 播放时调用播放接口
     async onPlay() {
@@ -105,7 +109,7 @@ export default {
     async fetchPlayCount(video_id) {
       try {
         const res = await uni.request({
-          url: `${baseUrl}/api/videos/playcount/${video_id}`,
+          url: `${baseUrl}/api/videos/playcount/${video_id}/`,
           method: 'GET'
         });
         if (res.statusCode === 200 && typeof res.data.number === 'number') {
@@ -121,11 +125,12 @@ export default {
     // 增加播放量
     async incrementPlayCount(video_id) {
       try {
-        await uni.request({
-          url: `${baseUrl}/api/videos/played/${video_id}`,
+        const ret = await uni.request({
+          url: `${baseUrl}/api/videos/played/${video_id}/`,
           method: 'POST'
         });
-        console.log(`视频ID ${video_id} 的播放量已增加`);
+		
+        console.log(`${ret.statusCode} 视频ID ${video_id} 的播放量已增加`);
       } catch (error) {
         console.error(`增加视频ID ${video_id} 的播放量失败:`, error);
       }
@@ -135,7 +140,7 @@ export default {
     async fetchEpisodes(series_id) {
       try {
         const res = await uni.request({
-          url: `${baseUrl}/api/videos/episodes/${series_id}`,
+          url: `${baseUrl}/api/videos/episodes/${series_id}/`,
           method: 'GET'
         });
         if (res.statusCode === 200 && Array.isArray(res.data)) {

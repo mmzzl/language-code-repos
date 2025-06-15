@@ -17,8 +17,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 # 新建文件目录
 counter = 1
 base_path = r"C:\Users\life8\Downloads"
-dir_name = "初中重要几何模型"
-url = 'https://www.bilibili.com/video/BV1NN1xYvENb?spm_id_from=333.788.videopod.episodes&vd_source=a7ae190e67243ecda7824979cda776d3'
+dir_name = "上下五千年"
+url = 'https://www.bilibili.com/video/BV1YT5jzXEuK/?spm_id_from=333.337.search-card.all.click&vd_source=a7ae190e67243ecda7824979cda776d3'
 download_path = os.path.join(base_path, dir_name)
 if not os.path.exists(download_path):
     os.makedirs(download_path)
@@ -55,7 +55,7 @@ def selenium_init():
     options.add_argument(f"--profile-directory={profile_dir}")
     # 创建浏览器对象
     driver = webdriver.Chrome(service=service, options=options)
-    driver.maximize_window()
+    # driver.maximize_window()
     return driver
 
 
@@ -65,6 +65,68 @@ def open_web_page(driver):
     print("正在加载页面...")
     driver.get(url)
     time.sleep(5)
+
+def pop_up_download(filename):
+    # 等待弹出出现
+    timeout = 10
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        try:
+            location = pyautogui.locateOnScreen('location.png',
+                                                confidence=0.8)
+            if location:
+                print("🔍 弹窗已出现")
+                break
+        except:
+            pass
+        time.sleep(1)
+    # 模拟按下 Ctrl + L 聚焦地址栏（部分系统有效）
+    pyautogui.hotkey('ctrl', 'l')
+    time.sleep(0.5)
+    # 输入目录路径
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.press('delete')
+    # 目录操作
+    pyperclip.copy(download_path)
+    pyautogui.hotkey('ctrl', 'v')
+    time.sleep(0.5)
+    pyautogui.press('enter')
+    time.sleep(0.5)
+    print("输入文件名...")
+    time.sleep(1)
+
+    file_name_input_area = pyautogui.locateOnScreen('filename_input.png',
+                                                    confidence=0.8)
+    if file_name_input_area:
+        center_x, center_y = pyautogui.center(file_name_input_area)
+        offset_x = 60
+        new_x = center_x + offset_x
+        new_y = center_y
+        pyautogui.click(new_x, new_y)
+        pyperclip.copy(filename)
+        time.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'v')
+    else:
+        print("未找到输入框")
+
+    save_button_area = pyautogui.locateOnScreen('save.png',
+                                                confidence=0.8)
+    if save_button_area:
+        save_button_center = pyautogui.center(save_button_area)
+        pyautogui.click(save_button_center)
+        time.sleep(0.5)
+        try:
+            confirm_location = pyautogui.locateOnScreen('confirm.png',
+                                                        confidence=0.8)
+            if confirm_location:
+                confirm_location_center = pyautogui.center(
+                    confirm_location)
+                pyautogui.click(confirm_location_center)
+        except:
+            print("未找到确认保存")
+    else:
+        print("未找到保存按钮")
+    print(f"🎯 已设置保存路径: {download_path}，文件名: {filename}")
 
 
 def do_same_operation(driver, filename):
@@ -91,65 +153,7 @@ def do_same_operation(driver, filename):
         hd_720p_button.click()
         print("✅ 已点击【高清 720P】")
         print("目标元素已出现，可以进行下一步操作")
-        # 等待弹出出现
-        timeout = 10
-        start_time = time.time()
-        while time.time() - start_time < timeout:
-            try:
-                location = pyautogui.locateOnScreen('location.png',
-                                                    confidence=0.8)
-                if location:
-                    print("🔍 弹窗已出现")
-                    break
-            except:
-                pass
-            time.sleep(1)
-        # 模拟按下 Ctrl + L 聚焦地址栏（部分系统有效）
-        pyautogui.hotkey('ctrl', 'l')
-        time.sleep(0.5)
-        # 输入目录路径
-        pyautogui.hotkey('ctrl', 'a')
-        pyautogui.press('delete')
-        # 目录操作
-        pyperclip.copy(download_path)
-        pyautogui.hotkey('ctrl', 'v')
-        time.sleep(0.5)
-        pyautogui.press('enter')
-        time.sleep(0.5)
-        print("输入文件名...")
-        time.sleep(1)
-        file_name_input_area = pyautogui.locateOnScreen('filename_input.png',
-                                                        confidence=0.8)
-        if file_name_input_area:
-            center_x, center_y = pyautogui.center(file_name_input_area)
-            offset_x = 60
-            new_x = center_x + offset_x
-            new_y = center_y
-            pyautogui.click(new_x, new_y)
-            pyperclip.copy(filename)
-            time.sleep(0.5)
-            pyautogui.hotkey('ctrl', 'v')
-        else:
-            print("未找到输入框")
-
-        save_button_area = pyautogui.locateOnScreen('save.png',
-                                                    confidence=0.8)
-        if save_button_area:
-            save_button_center = pyautogui.center(save_button_area)
-            pyautogui.click(save_button_center)
-            time.sleep(0.5)
-            try:
-                confirm_location = pyautogui.locateOnScreen('confirm.png',
-                                                            confidence=0.8)
-                if confirm_location:
-                    confirm_location_center = pyautogui.center(
-                        confirm_location)
-                    pyautogui.click(confirm_location_center)
-            except:
-                print("未找到确认保存")
-        else:
-            print("未找到保存按钮")
-        print(f"🎯 已设置保存路径: {download_path}，文件名: {filename}")
+        pop_up_download(filename)
         # 等待文件下载完成
         timeout = 600
         start_time = time.time()
@@ -229,6 +233,11 @@ def scroll_if_obscured(driver, element):
         # 等待一段时间，确保滚动完成
         time.sleep(0.5)
 
+def clean_string(input_string):
+    # 使用正则表达式去除括号、空格和《》
+    cleaned_string = re.sub(r'[()《》\s]', '', input_string)
+    return cleaned_string
+
 def run():
     driver = selenium_init()
     # try:
@@ -240,6 +249,27 @@ def run():
     # 获取所有视频项
     video_items = video_list_container.find_elements(By.CSS_SELECTOR,
                                                      ".video-pod__item")
+    # 等待元素出现的时候，在获取源码
+    button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, 'bilibiliHelper2HandleButton'))
+    )
+    print("按钮已出现，准备点击")
+    button.click()
+    print("按钮已点击")
+    time.sleep(3)
+    cover_download_location = pyautogui.locateOnScreen(
+        'video_cover_download.png',
+        confidence=0.8)
+    if cover_download_location:
+        cover_location_center = pyautogui.center(
+            cover_download_location)
+        pyautogui.click(cover_location_center)
+        download_location = pyautogui.locateOnScreen('download.png',
+                                                     confidence=0.8)
+        if download_location:
+            download_center = pyautogui.center(download_location)
+            pyautogui.click(download_center)
+            pop_up_download('cover.jpeg')
     for index in range(len(video_items)):
         counter = index + 1
         video_items = video_list_container.find_elements(By.CSS_SELECTOR,
@@ -256,12 +286,14 @@ def run():
             EC.element_to_be_clickable((By.CSS_SELECTOR, ".video-pod__item"))
         )
         # 使用 JS 点击确保成功
-        video_item.click()
+        # video_item.click()
+        driver.execute_script("arguments[0].click()", video_item)
         title_element = video_item.find_element(By.CSS_SELECTOR, '.title-txt')
-        filename = format_filename(title_element.text, counter)
+        filename = clean_string(format_filename(title_element.text, counter))
         # 判断是否已下载
         if filename in downloaded_files:
             print(f"跳过已下载文件：{filename}")
+            time.sleep(3)
             continue
         # 等待一段时间，以便观察点击效果或加载新内容
         time.sleep(2)

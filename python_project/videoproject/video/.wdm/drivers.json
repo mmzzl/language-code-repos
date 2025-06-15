@@ -2,5 +2,9 @@
     "win64_chromedriver_137.0.7151.68_for_137.0.7151": {
         "timestamp": "08/06/2025",
         "binary_path": "D:\\work\\new\\language-code-repos\\python_project\\videoproject\\video\\.wdm\\drivers\\chromedriver\\win64\\137.0.7151.68\\chromedriver-win32/chromedriver.exe"
+    },
+    "win64_chromedriver_137.0.7151.70_for_137.0.7151": {
+        "timestamp": "15/06/2025",
+        "binary_path": "D:\\work\\new\\language-code-repos\\python_project\\videoproject\\video\\.wdm\\drivers\\chromedriver\\win64\\137.0.7151.70\\chromedriver-win32/chromedriver.exe"
     }
 }
