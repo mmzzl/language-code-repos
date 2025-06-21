@@ -1,5 +1,4 @@
 #include <Arduino.h>
-// #include "zh_28.h"
 #include "solar2lunar.h"
 #include "zh_32.c"
 #include "zh_20.c"
@@ -11,148 +10,455 @@
 #include <NTPClient.h>
 #include "my_lv_ports.h"
 #include "weather.h"
-#include "caishengye.h"
-#define RND_NUM         64
-static uint32_t rnd_act;
-// #include "lv_demo.h"
+// 在文件顶部添加图片包含
+#include "images/15/baoyu15X15.c"
+#include "images/15/duoyun15X15.c"
+#include "images/15/leiyu15X15.c"
+#include "images/15/xiaoyu15X15.c"
+#include "images/15/yin15X15.c"
+#include "images/15/yu15X15.c"
+#include "images/15/zhongyu15X15.c"
+#include "images/15/unknow15X15.c"
+#include "images/15/qing15X15.c"
+#include "images/15/dayu15X15.c"
 
-LV_IMG_DECLARE(caishengye);
-
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP,"ntp1.aliyun.com",60*60*8,30*60*1000);
-
-typedef struct _lv_clock
-{
-    lv_obj_t *time_label; // 时间标签
-    lv_obj_t *date_label; // 日期标签
-    lv_obj_t *weekday_label; // 星期标签
-    lv_obj_t *lunar_label; // 农历标签
-    lv_obj_t *lunar_term_label; //节气标签
-    lv_obj_t *weather_icon; // 天气图标
-    lv_obj_t *weather_label; // 天气标签
-}lv_clock_t;
-
-static const uint32_t rnd_map[] = {
-  0xbd13204f, 0x67d8167f, 0x20211c99, 0xb0a7cc05,
-  0x06d5c703, 0xeafb01a7, 0xd0473b5c, 0xc999aaa2,
-  0x86f9d5d9, 0x294bdb29, 0x12a3c207, 0x78914d14,
-  0x10a30006, 0x6134c7db, 0x194443af, 0x142d1099,
-  0x376292d5, 0x20f433c5, 0x074d2a59, 0x4e74c293,
-  0x072a0810, 0xdd0f136d, 0x5cca6dbc, 0x623bfdd8,
-  0xb645eb2f, 0xbe50894a, 0xc9b56717, 0xe0f912c8,
-  0x4f6b5e24, 0xfe44b128, 0xe12d57a8, 0x9b15c9cc,
-  0xab2ae1d3, 0xb4dc5074, 0x67d457c8, 0x8e46b00c,
-  0xa29a1871, 0xcee40332, 0x80f93aa1, 0x85286096,
-  0x09bd6b49, 0x95072088, 0x2093924b, 0x6a27328f,
-  0xa796079b, 0xc3b488bc, 0xe29bcce0, 0x07048a4c,
-  0x7d81bd99, 0x27aacb30, 0x44fc7a0e, 0xa2382241,
-  0x8357a17d, 0x97e9c9cc, 0xad10ff52, 0x9923fc5c,
-  0x8f2c840a, 0x20356ba2, 0x7997a677, 0x9a7f1800,
-  0x35c7562b, 0xd901fe51, 0x8f4e053d, 0xa5b94923,
-};
+#include "images/duoyun.c"
+#include "images/leiyu.c"
+#include "images/yin.c"
+#include "images/yu.c"
+#include "images/unknow.c"
+#include "images/qing.c"
 
 
-static lv_clock_t lv_clock = { 0 };
-
-static weather_t forecasts[3] = { 0 };  // 获取未来3天的天气
-struct tm last_date = {0};
-
-void update_time_label(lv_timer_t *timer);
-void reconnectWiFi();
-void check_date_and_update_weather(struct tm *current_time);
-void check_time_and_update_weather(struct tm *current_time);
-static int32_t rnd_next(int32_t min, int32_t max);
-void processDate(weather_t *forecast);
 #define MAX_TOKENS 3
 #define DATE_LENGTH 16
 
-// put function declarations here:
-// 更新标签文本的函数
-// 更新标签文本的函数
-void update_time_label(lv_timer_t *timer) {
-  const char *weekday_names[] = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
-  timeClient.update();
-  // 获取当前时间戳
-  time_t now = timeClient.getEpochTime();
-  struct tm * local_time = localtime(&now);
-  char time_str[20];
-  char year_str[5];
-  char month_str[3];
-  char day_str[3];
-  char full_time_str[50];
-  char weather_str[50];
-  const char *weekday_str;
-  const char *city_name;
-  strftime(time_str, sizeof(time_str), "%H:%M:%S", local_time);
-  strftime(year_str, sizeof(year_str), "%Y", local_time);
-  strftime(month_str, sizeof(month_str), "%m", local_time);
-  strftime(day_str, sizeof(day_str), "%d", local_time);
-  snprintf(full_time_str, sizeof(full_time_str), "%s/%s", month_str, day_str);
-  cnDate solar = Solar2Lunar(atoi(year_str), atoi(month_str), atoi(day_str));
-  uint32_t lunar_dd = solar.lunarDay;
-  uint32_t lunar_mm = solar.lunarMonth;
-  bool is_leap_month = solar.isLeapMonth;
-  char *lunar_date = convertChineseString(lunar_mm, lunar_dd, is_leap_month);
-  unsigned char  solar_num = Solar2Term(atoi(year_str), atoi(month_str), atoi(day_str));
-  char *solar_term = convertSolarString(solar_num);
-  weekday_str = weekday_names[local_time->tm_wday];
-  // check_date_and_update_weather(local_time);
-  check_time_and_update_weather(local_time);
-  if (forecasts[0].city[0] == '\0')
-  {
-    city_name = "深圳市";
-  } else {
-    city_name = forecasts[0].city;
-  }
+// 全局对象实例
+NetworkManager networkManager;
+LunarCalendar lunarCalendar;
+LVGLManager lvglManager;
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "ntp1.aliyun.com", 60*60*8, 24 * 60 * 60 * 1000);
 
-  if (timer != NULL && timer->user_data != NULL) 
-  {
-    lv_clock_t * clock = (lv_clock_t *)(timer->user_data);
-    if (clock->time_label != NULL)
-    {
-      lv_label_set_text(clock->time_label, time_str);
-      lv_obj_align_to(clock->time_label, lv_obj_get_parent(clock->time_label), LV_ALIGN_BOTTOM_LEFT, 0, 5);
+// UI结构体
+typedef struct {
+    lv_obj_t *time_label;
+    lv_obj_t *date_label;
+    lv_obj_t *weekday_label;
+    lv_obj_t *lunar_label;
+    lv_obj_t *lunar_term_label;
+    lv_obj_t *weather_icon;
+    lv_obj_t *weather_label;
+    
+    // 新增底部预报区域元素
+    lv_obj_t *forecast_day_label[3];   // 三个日期标签
+    lv_obj_t *forecast_weather_icon[3]; // 三个天气图标
+    lv_obj_t *forecast_weather_label[3]; // 三个天气描述标签
+} lv_clock_t;
+
+
+static lv_clock_t lv_clock = {0};
+static weather_t forecasts[3] = {0};  // 获取未来3天的天气
+struct tm last_date = {0};
+
+
+// 函数声明
+void update_time_label(lv_timer_t *timer);
+void check_date_and_update_weather(struct tm *current_time);
+void check_time_and_update_weather(struct tm *current_time);
+void processDate(weather_t *forecast);
+void split_and_combine(char *date);
+void create_ui();
+void setup_ui_styles();
+void align_ui_elements();
+void setup_timer();
+
+// 主程序入口
+void setup() {
+    Serial.begin(115200);
+    pinMode(11, OUTPUT);
+    digitalWrite(11, HIGH);
+    // 网络初始化
+    String topic = WiFi.macAddress().substring(8);
+    topic.replace(":", "");
+    networkManager.loadConfig();
+    networkManager.apConfig(topic);
+    networkManager.reconnectWiFi();
+    
+    // 时间服务初始化
+    timeClient.begin();
+    
+    // LVGL初始化
+    lv_init();
+    lvglManager.init();
+    
+    // 创建UI界面
+    create_ui();
+    setup_ui_styles();
+    align_ui_elements();
+    
+    // 设置定时器
+    setup_timer();
+    
+    Serial.println("Setup done");
+}
+
+void loop() {
+    lv_timer_handler();
+    if (!WiFi.isConnected()) {
+        networkManager.reconnectWiFi();
     }
-    if (clock->weekday_label != NULL)
-    {
-      lv_label_set_text(clock->weekday_label, weekday_str);
-      lv_obj_align_to(clock->weekday_label, lv_obj_get_parent(clock->weekday_label), LV_ALIGN_TOP_RIGHT, 0, 0);
+    delay(5);
+}
+
+
+// UI创建函数
+void create_ui() {
+    // 1. 创建全屏背景
+    // static lv_obj_t *img_bg = lv_img_create(lv_scr_act());
+    // lv_img_set_src(img_bg, &caishengye);
+    // lv_obj_set_size(img_bg, 240, 320);
+    // lv_obj_align(img_bg, LV_ALIGN_TOP_LEFT, 0, 0);
+    // lv_obj_move_background(img_bg);
+
+    // 2. 顶部区域：当前天气
+    lv_obj_t *weather_now = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(weather_now); // 透明背景
+    lv_obj_set_size(weather_now, 320, 50);  // 高度减小
+    lv_obj_align(weather_now, LV_ALIGN_TOP_MID, 0, 5);  // 上边距减小
+
+    // 天气图标 - 设置固定大小
+    lv_clock.weather_icon = lv_img_create(weather_now);
+    lv_img_set_src(lv_clock.weather_icon, &qing);
+    lv_obj_set_size(lv_clock.weather_icon, 40, 40);  // 固定图标大小
+    lv_obj_align(lv_clock.weather_icon, LV_ALIGN_LEFT_MID, 10, 0);
+
+    // 天气描述
+    lv_clock.weather_label = LVGLManager::createLabel(weather_now, "晴");
+    lv_obj_align_to(lv_clock.weather_label, lv_clock.weather_icon, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    lv_obj_set_style_text_font(lv_clock.weather_label, &zh_20, 0);
+
+    // 3. 中部区域：日期时间
+    lv_obj_t *datetime_area = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(datetime_area);
+    lv_obj_set_size(datetime_area, 320, 100);  // 高度减小
+    lv_obj_align(datetime_area, LV_ALIGN_CENTER, 0, -10);  // 上移10像素
+
+    // 日期 (格式: 05/20)
+    lv_clock.date_label = LVGLManager::createLabel(datetime_area, "05/20");
+    lv_obj_align(lv_clock.date_label, LV_ALIGN_TOP_MID, 0, 5);
+    lv_obj_set_style_text_font(lv_clock.date_label, &lv_font_28, 0);
+
+    // 星期
+    lv_clock.weekday_label = LVGLManager::createLabel(datetime_area, "周一");
+    lv_obj_align_to(lv_clock.weekday_label, lv_clock.date_label, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);  // 间距减小
+    lv_obj_set_style_text_font(lv_clock.weekday_label, &zh_20, 0);
+
+    // 农历
+    lv_clock.lunar_label = LVGLManager::createLabel(datetime_area, "闰四月廿四");
+    lv_obj_align_to(lv_clock.lunar_label, lv_clock.date_label, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);  // 间距减小
+    lv_obj_set_style_text_font(lv_clock.lunar_label, &zh_20, 0);
+
+    // 时间 (格式: 14:30:45)
+    lv_clock.time_label = LVGLManager::createLabel(datetime_area, "14:30:45");
+    lv_obj_align_to(lv_clock.time_label, lv_clock.weekday_label, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);  // 间距减小
+    lv_obj_set_style_text_font(lv_clock.time_label, &lv_font_montserrat_48, 0);
+
+
+    // 4. 底部区域：未来三天预报
+    lv_obj_t *forecast_area = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(forecast_area);
+    lv_obj_set_size(forecast_area, 320, 60);
+    lv_obj_align(forecast_area, LV_ALIGN_BOTTOM_MID, 0, -5);
+
+    // 创建三个预报区块
+    for (int i = 0; i < 3; i++) {
+        lv_obj_t *day_box = lv_obj_create(forecast_area);
+        lv_obj_remove_style_all(day_box);
+        lv_obj_set_size(day_box, 100, 55);
+        lv_obj_align(day_box, LV_ALIGN_LEFT_MID, 10 + i*105, 0);
+        
+        // 日期标签 - 存储到结构体中
+        lv_clock.forecast_day_label[i] = lv_label_create(day_box);
+        lv_label_set_text(lv_clock.forecast_day_label[i], "05/21");
+        lv_obj_align(lv_clock.forecast_day_label[i], LV_ALIGN_TOP_MID, 0, 2);
+        lv_obj_set_style_text_font(lv_clock.forecast_day_label[i], &zh_20, 0);
+        
+        // 天气图标 - 存储到结构体中
+        lv_clock.forecast_weather_icon[i] = lv_img_create(day_box);
+        lv_img_set_src(lv_clock.forecast_weather_icon[i], &qing);
+        lv_obj_set_size(lv_clock.forecast_weather_icon[i], 15, 15);
+        lv_obj_align(lv_clock.forecast_weather_icon[i], LV_ALIGN_CENTER, 0, 0);
+        
+        // 天气描述 - 存储到结构体中
+        lv_clock.forecast_weather_label[i] = lv_label_create(day_box);
+        lv_label_set_text(lv_clock.forecast_weather_label[i], "晴");
+        lv_obj_align(lv_clock.forecast_weather_label[i], LV_ALIGN_BOTTOM_MID, 0, 2);
+        lv_obj_set_style_text_font(lv_clock.forecast_weather_label[i], &zh_20, 0);
     }
-    if (clock->date_label != NULL)
-    {
-      lv_label_set_text(clock->date_label, full_time_str);
-      lv_obj_align_to(clock->date_label, lv_obj_get_parent(clock->date_label), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+
+}
+
+
+
+// 设置UI样式
+void setup_ui_styles() {
+    // 全局背景样式
+    static lv_style_t bg_style;
+    lv_style_init(&bg_style);
+    lv_style_set_bg_opa(&bg_style, LV_OPA_COVER);
+    lv_style_set_bg_color(&bg_style, lv_color_black());
+    lv_obj_add_style(lv_scr_act(), &bg_style, LV_STATE_DEFAULT);
+    
+    // 时间标签样式
+    static lv_style_t time_style;
+    lv_style_init(&time_style);
+    lv_style_set_text_color(&time_style, lv_color_white());
+    lv_style_set_text_font(&time_style, &lv_font_40);
+    lv_obj_add_style(lv_clock.time_label, &time_style, LV_STATE_DEFAULT);
+    
+    // 日期标签样式
+    static lv_style_t date_style;
+    lv_style_init(&date_style);
+    lv_style_set_text_color(&date_style, lv_color_white());
+    lv_style_set_text_font(&date_style, &lv_font_28);
+    lv_obj_add_style(lv_clock.date_label, &date_style, LV_STATE_DEFAULT);
+    
+    // 星期标签样式
+    static lv_style_t weekday_style;
+    lv_style_init(&weekday_style);
+    lv_style_set_text_color(&weekday_style, lv_color_white());
+    lv_style_set_text_font(&weekday_style, &zh_20);
+    lv_obj_add_style(lv_clock.weekday_label, &weekday_style, LV_STATE_DEFAULT);
+
+    // 农历标签样式
+    static lv_style_t lunar_style;
+    lv_style_init(&lunar_style);
+    lv_style_set_text_color(&lunar_style, lv_color_white());
+    lv_obj_add_style(lv_clock.lunar_label, &lunar_style, LV_STATE_DEFAULT);
+    
+    // 天气标签样式
+    static lv_style_t weather_style;
+    lv_style_init(&weather_style);
+    lv_style_set_text_color(&weather_style, lv_color_white());
+    lv_style_set_text_font(&weather_style, &zh_20);
+    lv_obj_add_style(lv_clock.weather_label, &weather_style, LV_STATE_DEFAULT);
+    
+    // 预报区块样式
+    static lv_style_t forecast_style;
+    lv_style_init(&forecast_style);
+    lv_style_set_text_color(&forecast_style, lv_color_white());
+    lv_style_set_bg_opa(&forecast_style, LV_OPA_TRANSP);
+    lv_style_set_border_width(&forecast_style, 0);
+    
+    // 应用预报区块样式
+    lv_obj_t* forecast_area = lv_obj_get_child(lv_scr_act(), -1);
+    if(forecast_area) {
+        lv_obj_add_style(forecast_area, &forecast_style, LV_STATE_DEFAULT);
     }
-    if (clock->lunar_label != NULL)
-    {
-      lv_label_set_text(clock->lunar_label, lunar_date);
-      lv_obj_align_to(clock->lunar_label, lv_obj_get_parent(clock->lunar_label), LV_ALIGN_TOP_LEFT, 0, 0);
+}
+
+
+// 对齐UI元素
+void align_ui_elements() {
+    // 顶部天气区域
+    lv_obj_align(lv_clock.weather_icon, LV_ALIGN_LEFT_MID, 10, 0);
+    lv_obj_align_to(lv_clock.weather_label, lv_clock.weather_icon, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    
+    // 中部时间区域
+    lv_obj_align(lv_clock.date_label, LV_ALIGN_TOP_MID, 0, 5);
+    lv_obj_align_to(lv_clock.weekday_label, lv_clock.date_label, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
+    lv_obj_align_to(lv_clock.time_label, lv_clock.weekday_label, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
+    
+    // 底部预报区域
+    lv_obj_t* forecast_area = lv_obj_get_child(lv_scr_act(), -1);
+    if(forecast_area) {
+        lv_obj_align(forecast_area, LV_ALIGN_BOTTOM_MID, 0, -5);
+        
+        // 对齐每个预报区块
+        for(int i = 0; i < 3; i++) {
+            lv_obj_t* day_box = lv_obj_get_child(forecast_area, i);
+            if(day_box) {
+                lv_obj_align(day_box, LV_ALIGN_LEFT_MID, 10 + i*105, 0);
+                
+                // 对齐区块内元素
+                lv_obj_t* day_label = lv_obj_get_child(day_box, 0);
+                lv_obj_t* weather_icon = lv_obj_get_child(day_box, 1);
+                lv_obj_t* weather_label = lv_obj_get_child(day_box, 2);
+                
+                if(day_label) lv_obj_align(day_label, LV_ALIGN_TOP_MID, 0, 0);
+                if(weather_icon) lv_obj_align(weather_icon, LV_ALIGN_CENTER, 0, 0);
+                if(weather_label) lv_obj_align(weather_label, LV_ALIGN_BOTTOM_MID, 0, 2);
+            }
+        }
     }
-    if (clock->lunar_term_label != NULL)
-    {
-      lv_label_set_text(clock->lunar_term_label, solar_term);
-      lv_obj_align_to(clock->lunar_term_label, lv_obj_get_parent(clock->lunar_term_label), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+}
+
+
+// 设置定时器
+void setup_timer() {
+    // 创建定时器，每200ms更新一次时间
+    lv_timer_t *timer = lv_timer_create(update_time_label, 200, &lv_clock);
+    
+    // 检查定时器是否创建成功
+    if (!timer) {
+        Serial.println("Error: Failed to create timer");
     }
-    if (clock->weather_label != NULL) 
-    {
-      char weather_str[256] = {0};  // 用于存储拼接后的字符串
-      // 先显示城市名
-      snprintf(weather_str, sizeof(weather_str), "%s\n", city_name);
-  
-      // 拼接三天的天气信息
-      for (int i = 0; i < 3; i++) {
-          char temp_str[128];
-          // processDate(&forecasts[i]);
-          snprintf(temp_str, sizeof(temp_str), "%s %s\n", forecasts[i].date, forecasts[i].dayweather);
-          strncat(weather_str, temp_str, sizeof(weather_str) - strlen(weather_str) - 1);
-      }
-      // Serial.printf(weather_str);
-      // 设置标签文本
-      lv_label_set_text(clock->weather_label, weather_str);
-      // 对齐标签
-      lv_obj_align_to(clock->weather_label, lv_obj_get_parent(clock->weather_label), LV_ALIGN_TOP_LEFT, 0, 0);
+}
+
+void update_time_label(lv_timer_t *timer) {
+    const char *weekday_names[] = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+    timeClient.update();
+    
+    // 获取当前时间
+    time_t now = timeClient.getEpochTime();
+    struct tm *local_time = localtime(&now);
+    char time_str[20], year_str[5], month_str[3], day_str[3], full_time_str[50];
+    strftime(time_str, sizeof(time_str), "%H:%M:%S", local_time);
+    strftime(year_str, sizeof(year_str), "%Y", local_time);
+    strftime(month_str, sizeof(month_str), "%m", local_time);
+    strftime(day_str, sizeof(day_str), "%d", local_time);
+    snprintf(full_time_str, sizeof(full_time_str), "%s/%s", month_str, day_str);
+    
+    // 获取农历信息
+    LunarCalendar::cnDate solar = lunarCalendar.solarToLunar(atoi(year_str), atoi(month_str), atoi(day_str));
+    unsigned char solar_num = lunarCalendar.solarToTerm(atoi(year_str), atoi(month_str), atoi(day_str));
+    LunarCalendar::cnLunarDate cnLunar = lunarCalendar.lunarToChinese(solar, solar_num);
+    
+    // 获取星期信息
+    const char *weekday_str = weekday_names[local_time->tm_wday];
+    
+    // 更新天气信息
+    check_time_and_update_weather(local_time);
+    if (forecasts == nullptr) {
+      Serial.println("Error: Failed to get weather");
+      return;
     }
-  }
+    const char *city_name = (forecasts[0].city[0] == '\0') ? "深圳市" : forecasts[0].city;
+
+    // 更新UI元素
+    if (timer != NULL && timer->user_data != NULL) {
+        lv_clock_t *clock = (lv_clock_t *)(timer->user_data);
+        
+        if (clock->time_label) {
+            lv_label_set_text(clock->time_label, time_str);
+            lv_obj_align_to(clock->time_label, lv_obj_get_parent(clock->time_label), LV_ALIGN_BOTTOM_LEFT, 0, 5);
+        }
+        
+        if (clock->weekday_label) {
+            lv_label_set_text(clock->weekday_label, weekday_str);
+            lv_obj_align_to(clock->weekday_label, lv_obj_get_parent(clock->weekday_label), LV_ALIGN_TOP_RIGHT, 0, 0);
+        }
+        
+        if (clock->date_label) {
+            lv_label_set_text(clock->date_label, full_time_str);
+            lv_obj_align_to(clock->date_label, lv_obj_get_parent(clock->date_label), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+        }
+        
+        if (clock->lunar_label) {
+            // 在 update_time_label 函数中修改
+            String lunarText = cnLunar.cn_month + cnLunar.cn_date;
+            lv_label_set_text(clock->lunar_label, lunarText.c_str());
+            lv_obj_align_to(clock->lunar_label, lv_obj_get_parent(clock->lunar_label), LV_ALIGN_TOP_LEFT, 0, 0);
+        }
+        
+        if (clock->lunar_term_label) {
+            lv_label_set_text(clock->lunar_term_label, cnLunar.cn_term.c_str());
+            lv_obj_align_to(clock->lunar_term_label, lv_obj_get_parent(clock->lunar_term_label), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+        }
+
+        // 在 update_time_label 函数中修改顶部天气图标部分
+        if (clock->weather_icon) {
+            // 直接使用顶部天气图标对象
+            const char *weather = forecasts[0].dayweather;
+            if (strstr(weather, "晴")) {
+                lv_img_set_src(clock->weather_icon, &qing);
+            } else if (strstr(weather, "多云")) {
+                lv_img_set_src(clock->weather_icon, &duoyun);
+            } else if (strstr(weather, "阴")) {
+                lv_img_set_src(clock->weather_icon, &yin);
+            } else if (strstr(weather, "雨")) {
+                lv_img_set_src(clock->weather_icon, &yu);
+            } else if (strstr(weather, "雷")) {
+                lv_img_set_src(clock->weather_icon, &leiyu);
+            } else {
+                lv_img_set_src(clock->weather_icon, &unknow);
+            }
+        }
+
+        
+        if (clock->weather_label) {
+            char weather_str[256];
+            snprintf(weather_str, sizeof(weather_str), "%s\n%s %s\n",
+                     city_name,
+                     forecasts[0].date, forecasts[0].dayweather);
+             // 天气图标 - 存储到结构体中
+              
+            lv_label_set_text(clock->weather_label, weather_str);
+            lv_obj_align_to(clock->weather_label, lv_obj_get_parent(clock->weather_label), LV_ALIGN_TOP_LEFT, 60, 5);
+            // 更新底部预报区域
+            for (int i = 0; i < 3; i++) {
+                // 确保forecasts数组有数据
+                if (lv_clock.forecast_day_label[i]) {
+                  // 创建日期副本进行处理（避免修改原始数据）
+                      char date_copy[16];
+                      strncpy(date_copy, forecasts[i].date, sizeof(date_copy));
+                      date_copy[sizeof(date_copy)-1] = '\0'; // 确保终止符
+                      // 定义 date_str 变量
+                      char date_str[16] = {0}; // ✅ 添加这行
+                      // 使用临时指针处理副本
+                      char *token = strtok(date_copy, "-");
+                      if (token) { // 跳过年份
+                          token = strtok(NULL, "-"); // 月份
+                          char *month = token;
+                          token = strtok(NULL, "-"); // 日
+                          if (token) {
+                              char day[3] = {0};
+                              strncpy(day, token, 2); // 取日前两位
+                              snprintf(date_str, sizeof(date_str), "%s/%s", month, day);
+                              lv_label_set_text(lv_clock.forecast_day_label[i], date_str);
+                          }
+                      }
+                    }
+                    
+                    // 更新天气图标
+                    if (lv_clock.forecast_weather_icon[i]) {
+                        // 根据天气描述选择图标
+                        const char *weather = forecasts[i].dayweather;
+                        if (strstr(weather, "晴")) {
+                            lv_img_set_src(lv_clock.forecast_weather_icon[i], &qing15X15);
+                        } else if (strstr(weather, "多云")) {
+                            lv_img_set_src(lv_clock.forecast_weather_icon[i], &duoyun15X15);
+                        } else if (strstr(weather, "阴")) {
+                            lv_img_set_src(lv_clock.forecast_weather_icon[i], &yin15X15);
+                        } else if (strstr(weather, "雨")) {
+                            if (strstr(weather, "小雨")) {
+                                lv_img_set_src(lv_clock.forecast_weather_icon[i], &xiaoyu15X15);
+                            } else if (strstr(weather, "中雨")) {
+                                lv_img_set_src(lv_clock.forecast_weather_icon[i], &zhongyu15X15);
+                            } else if (strstr(weather, "大雨")) {
+                                lv_img_set_src(lv_clock.forecast_weather_icon[i], &dayu15X15);
+                            } else if (strstr(weather, "暴雨")) {
+                                lv_img_set_src(lv_clock.forecast_weather_icon[i], &baoyu15X15);
+                            } else {
+                                lv_img_set_src(lv_clock.forecast_weather_icon[i], &yu15X15);
+                            }
+                        } else if (strstr(weather, "雷")) {
+                            lv_img_set_src(lv_clock.forecast_weather_icon[i], &leiyu15X15);
+                        } else {
+                            lv_img_set_src(lv_clock.forecast_weather_icon[i], &unknow15X15);
+                        }
+                    }
+                    
+                    // 更新天气描述
+                    if (lv_clock.forecast_weather_label[i]) {
+                        lv_label_set_text(lv_clock.forecast_weather_label[i], forecasts[i].dayweather);
+                    }
+                }
+          }
+
+        }
+    
 }
 
 // 检测日期变化并更新天气
@@ -210,359 +516,4 @@ void processDate(weather_t *forecast) {
   split_and_combine(forecast->date);
 }
 
-static int32_t rnd_next(int32_t min, int32_t max)
-{
-    if(min == max)
-        return min;
-
-    if(min > max) {
-        int32_t t = min;
-        min = max;
-        max = t;
-    }
-
-    int32_t d = max - min;
-    int32_t r = (rnd_map[rnd_act] % d) + min;
-
-    rnd_act++;
-    if(rnd_act >= RND_NUM) rnd_act = 0;
-
-    return r;
-
-}
-
-
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
-  // 初始化看门狗定时器
-  String LVGL_Arduino = "Hello Arduino! ";
-  LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() +
-                  "." + lv_version_patch();
-  String topic = WiFi.macAddress().substring(8); // 取mac地址做主题用
-  topic.replace(":", ""); // 去掉:号
-  loadConfig();//加载存储的数据
-  apConfig(topic);//加载ap
-  reconnectWiFi(); // 初始连接WiFi
-  timeClient.begin();
-  lv_init();
-  my_disp_init();
-  // lv_demo_widgets(); 
-  // lv_demo_music(); 
-  // lv_demo_benchmark();
-  // lv_png_init();
- 
-  lv_obj_t *screen = lv_obj_create(lv_scr_act());
-  lv_obj_set_size(screen, 320, 240);
-  // lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
-  // lv_obj_set_style_bg_opa(screen, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-  
-  static lv_style_t bg_style;
-  lv_style_reset(&bg_style);
-  lv_style_init(&bg_style);
-  lv_style_set_radius(&bg_style, 5);
-  lv_style_set_bg_opa(&bg_style, LV_OPA_20);
-  lv_style_set_border_width(&bg_style, 0);
-  lv_style_set_bg_color(&bg_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
-  
-
-  lv_obj_t *bg_obj = lv_obj_create(screen);
-  if (bg_obj == NULL)
-  {
-      printf("[%s:%d] bg_obj create failed\n", __FUNCTION__, __LINE__);
-      return;
-  }
-  lv_obj_set_size(bg_obj, 320, 240);
-  lv_obj_center(bg_obj);
-  lv_obj_add_style(bg_obj, &bg_style, LV_STATE_DEFAULT); //给time_date_obj对象添加样式
-
-  lv_obj_t *time_obj = lv_obj_create(bg_obj);
-  lv_obj_set_scrollbar_mode(time_obj, LV_SCROLLBAR_MODE_OFF);
-  lv_obj_set_size(time_obj, 320, 110); // 设置对象大小
-  lv_obj_align_to(time_obj, bg_obj, LV_ALIGN_BOTTOM_MID, 0, 0);
-  // lv_coord_t current_y = lv_obj_get_y(time_obj);
-  // // 将对象向下偏移 5 个像素
-  // lv_obj_set_y(time_obj, current_y + 20);
-
-  // lv_obj_align_to(bg_obj, time_obj, LV_ALIGN_CENTER, 0, 10); // 对象居屏幕中间显示
-  if (time_obj == NULL)
-  {
-      printf("[%s:%d] time_obj create failed\n", __FUNCTION__, __LINE__);
-      return;
-  }
-  static lv_style_t time_obj_style;
-  lv_style_reset(&time_obj_style);
-  lv_style_init(&time_obj_style);
-  lv_style_set_bg_opa(&time_obj_style, LV_OPA_20);
-  lv_style_set_bg_color(&time_obj_style, lv_palette_darken(LV_PALETTE_PURPLE, 4));
-  lv_obj_add_style(time_obj, &time_obj_style,  LV_STATE_DEFAULT);
-
-
-  static lv_style_t time_style;
-  lv_style_reset(&time_style);
-  lv_style_init(&time_style);
-  lv_style_set_bg_opa(&time_style, LV_OPA_TRANSP);
-  lv_style_set_text_font(&time_style, &lv_font_40);
-  lv_style_set_text_color(&time_style, lv_color_white());
-
-  // 添加label
-  lv_clock.time_label = lv_label_create(time_obj);
-  lv_obj_add_style(lv_clock.time_label, &time_style, LV_STATE_DEFAULT);
-
-  // lunal style
-  static lv_style_t lunar_style;
-  lv_style_reset(&lunar_style);
-  lv_style_init(&lunar_style);
-  lv_style_set_bg_opa(&lunar_style, LV_OPA_TRANSP);
-  lv_style_set_text_color(&lunar_style, lv_color_white());
-  lv_style_set_text_font(&lunar_style, &zh_32);
-
-  lv_clock.lunar_label = lv_label_create(time_obj);
-  lv_obj_add_style(lv_clock.lunar_label, &lunar_style, LV_STATE_DEFAULT);
-
-
-  lv_clock.weekday_label = lv_label_create(time_obj);
-  lv_obj_add_style(lv_clock.weekday_label, &lunar_style, LV_STATE_DEFAULT);
-
-  lv_obj_t *weather_t = lv_obj_create(bg_obj);
-  lv_obj_set_size(weather_t, 320, 110);
-  lv_obj_set_scrollbar_mode(weather_t, LV_SCROLLBAR_MODE_OFF);
-  lv_obj_align_to(weather_t, bg_obj, LV_ALIGN_TOP_MID, 0, -5);
-
-  static lv_style_t weather_style;
-  lv_style_reset(&weather_style);
-  lv_style_init(&weather_style);
-  lv_style_set_bg_opa(&weather_style, LV_OPA_COVER);
-  lv_style_set_bg_color(&weather_style, lv_color_black());
-  lv_style_set_text_font(&weather_style, &zh_20);
-  lv_style_set_text_color(&weather_style, lv_color_white());
-  lv_obj_add_style(weather_t, &weather_style,  LV_STATE_DEFAULT);
-
-  // /*Create an object with the new style*/
-  static lv_obj_t * img_bg = NULL;
-  img_bg = lv_img_create(weather_t);
-  lv_img_set_src(img_bg, &caishengye);
-  lv_obj_set_style_img_recolor(img_bg, lv_color_hex(rnd_next(0, 0xFFFFF0)), 0);
-  lv_img_set_pivot(img_bg, 50,50);
-  lv_img_set_angle(img_bg, 0);
-  lv_obj_set_pos(img_bg, 4, 5);
-  lv_obj_set_size(img_bg, 75, 133);
-  lv_obj_align_to(img_bg, weather_t, LV_ALIGN_TOP_RIGHT, 0, 0);
-
-
-
-  static lv_style_t data_style;
-  lv_style_reset(&data_style);
-  lv_style_init(&data_style);
-  lv_style_set_bg_opa(&data_style, LV_OPA_TRANSP);
-  lv_style_set_text_font(&data_style, &lv_font_28);
-  lv_style_set_text_color(&data_style, lv_color_white());
-
-
-  lv_clock.date_label = lv_label_create(time_obj);
-  lv_obj_add_style(lv_clock.date_label, &data_style, LV_STATE_DEFAULT);
-
-
-  lv_clock.weather_label = lv_label_create(weather_t);
-  lv_obj_add_style(lv_clock.weather_label, &weather_style, LV_STATE_DEFAULT);
-  
-  lv_obj_align_to(lv_clock.time_label, lv_obj_get_parent(lv_clock.time_label), LV_ALIGN_BOTTOM_LEFT, 0, 5);
-   // 设置时间标签lv_clock.date_label对象基于父对象顶部中间对齐
-  lv_obj_align_to(lv_clock.lunar_label, lv_obj_get_parent(lv_clock.lunar_label), LV_ALIGN_TOP_LEFT, 0, 0);
-  // 设置时间标签lv_clock.weekday_label对象基于父对象底部中间对齐
-  lv_obj_align_to(lv_clock.weekday_label, lv_obj_get_parent(lv_clock.weekday_label),LV_ALIGN_TOP_RIGHT, 0, 0);
-  lv_obj_align_to(lv_clock.weather_label, lv_obj_get_parent(lv_clock.weather_label),LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_align_to(lv_clock.date_label, lv_obj_get_parent(lv_clock.date_label), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-
-
- 
-  // 添加定时任务，获取当前设备时间
-  lv_timer_t *timer = lv_timer_create(update_time_label, 200, (void *)&lv_clock);
-  if (timer == NULL) {
-    printf("[%s:%d] lv_timer_create failed\n", __FUNCTION__, __LINE__);
-  }
-
-
-
-  
-
-  // lv_obj_set_style_img_recolor_opa(img_bg, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-  // lv_obj_set_style_img_opa(img_bg, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
-  // lv_obj_set_style_radius(img_bg, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-  // lv_obj_set_style_clip_corner(img_bg, true, LV_PART_MAIN|LV_STATE_DEFAULT);
-
-  
-  // static lv_style_t date_time_clock_style;
-  // lv_style_reset(&date_time_clock_style);
-  // lv_style_init(&date_time_clock_style);
-  // lv_style_set_radius(&date_time_clock_style, 5); //设置圆角样式
-  // lv_style_set_bg_opa(&date_time_clock_style,  LV_OPA_20); //设置背景透明度
-  // lv_style_set_border_width(&date_time_clock_style, 0); //设置边框宽度
-  // lv_style_set_bg_color(&date_time_clock_style, lv_color_black());
-  // lv_style_set_pad_left(&date_time_clock_style, 1); // 设置样式左边padding填充宽度
-  // lv_style_set_pad_right(&date_time_clock_style, 0); //设置样式右边padding填充宽度
-  // lv_style_set_pad_top(&date_time_clock_style, 0); //设置样式上边padding填充宽度
-  // lv_style_set_pad_bottom(&date_time_clock_style, 0); //设置样式下边padding填充宽度
-
-  // static lv_style_t time_style;
-  // lv_style_reset(&time_style);
-  // lv_style_init(&time_style);
-  // lv_style_set_bg_opa(&time_style, LV_OPA_COVER);
-  // lv_style_set_border_width(&time_style, 0);
-  // lv_style_set_radius(&time_style, 5);
-  // lv_style_set_bg_color(&time_style, lv_palette_darken(LV_PALETTE_BLUE, 3));
-  // lv_style_set_pad_left(&time_style, 0);
-  // lv_style_set_pad_right(&time_style, 0);
-  // lv_style_set_pad_top(&time_style, 0);
-  // lv_style_set_pad_bottom(&time_style, 0);
-
-  // static lv_style_t weather_style;
-  // lv_style_reset(&weather_style);
-  // lv_style_init(&weather_style);
-  // lv_style_set_bg_opa(&weather_style, LV_OPA_COVER);
-  // lv_style_set_border_width(&weather_style, 0);
-  // lv_style_set_radius(&weather_style, 5);
-  // lv_style_set_bg_color(&weather_style, lv_color_black());
-  // lv_style_set_pad_left(&weather_style, 0);
-  // lv_style_set_pad_right(&weather_style, 0);
-  // lv_style_set_pad_top(&weather_style, 0);
-  // lv_style_set_pad_bottom(&weather_style, 0);
-
-  // static lv_style_t date_style;
-  // lv_style_reset(&date_style);
-  // lv_style_init(&date_style);
-  // lv_style_set_bg_opa(&date_style, LV_OPA_COVER);
-  // lv_style_set_border_width(&date_style, 0);
-  // lv_style_set_radius(&date_style, 5);
-  // lv_style_set_bg_color(&date_style, lv_palette_darken(LV_PALETTE_BLUE, 3));
-  // lv_style_set_pad_left(&date_style, 0);
-  // lv_style_set_pad_right(&date_style, 0);
-
-  // static lv_style_t time_label_style; //实际标签样式
-  // lv_style_reset(&time_label_style);
-  // lv_style_init(&time_label_style);
-  // lv_style_set_text_color(&time_label_style, lv_color_white());
-  // lv_style_set_text_font(&time_label_style, &lv_font_montserrat_32);
-
-  // static lv_style_t date_label_style;
-  // lv_style_reset(&date_label_style);
-  // lv_style_init(&date_label_style);
-  // lv_style_set_text_opa(&date_label_style, LV_OPA_COVER);
-  // lv_style_set_bg_opa(&date_label_style, LV_OPA_0);
-  // lv_style_set_text_color(&date_label_style, lv_color_white());
-  // lv_style_set_text_font(&date_label_style, &lv_font_montserrat_18);
-
-  // static lv_style_t week_label_style;
-  // lv_style_reset(&week_label_style);
-  // lv_style_init(&week_label_style);
-  // // lv_style_set_text_opa(&week_label_style, LV_OPA_COVER);
-  // lv_style_set_bg_opa(&week_label_style, LV_OPA_0);
-  // lv_style_set_text_color(&week_label_style, lv_palette_main(LV_PALETTE_YELLOW));
-  // lv_style_set_text_font(&week_label_style, &zh_18);  
-  
-
-  // lv_obj_t *time_date_obj = lv_obj_create(lv_scr_act()); // 基于屏幕创建时间日期对象
-  // if (time_date_obj == NULL)
-  //   {
-  //       printf("[%s:%d] time_date_obj create failed\n", __FUNCTION__, __LINE__);
-  //       return;
-  //   }
- 
-	// lv_obj_set_size(time_date_obj, 320, 100); // 设置对象大小
-  // lv_obj_center(time_date_obj); // 对象居屏幕中间显示
-	// lv_obj_add_style(time_date_obj, &date_time_clock_style, LV_STATE_DEFAULT); //给time_date_obj对象添加样式
- 
-  // /*Time display*/
-  // lv_obj_t *time_obj = lv_obj_create(time_date_obj); // 基于time_date_obj对象创建时间对象
-  // if (time_obj == NULL)
-  // {
-  //     printf("[%s:%d] time_obj create failed\n", __FUNCTION__, __LINE__);
-  //     return;
-  // }
- 
-  // lv_obj_set_size(time_obj, 158, 100); // 设置对象大小
-  // lv_obj_align_to(time_obj, time_date_obj, LV_ALIGN_LEFT_MID, 0, 0); // 设置time_obj对象基于time_date_obj对象左边中间对齐
-  // lv_obj_add_style(time_obj, &time_style, LV_STATE_DEFAULT);  // 给time_obj对象添加样式
-
-  
-  // lv_clock.time_label = lv_label_create(time_obj);
-  // lv_obj_add_style(lv_clock.time_label, &time_label_style, LV_STATE_DEFAULT);
-  // // 创建一个定时器，每 1 秒调用一次 update_time_label 函数
-  
-  
-  // lv_clock.weekday_label = lv_label_create(time_obj);
-  // lv_obj_add_style(lv_clock.weekday_label, &week_label_style, LV_STATE_DEFAULT);
-
-  // lv_clock.date_label = lv_label_create(time_obj);
-  // lv_obj_add_style(lv_clock.date_label, &week_label_style, LV_STATE_DEFAULT);
-
-  // lv_clock.lunar_label = lv_label_create(time_obj);
-  // lv_obj_add_style(lv_clock.lunar_label, &week_label_style, LV_STATE_DEFAULT);
-
-  // lv_clock.lunar_term_label = lv_label_create(time_obj);
-  // lv_obj_add_style(lv_clock.lunar_term_label, &week_label_style, LV_STATE_DEFAULT);
-
-  //  // 设置时间标签lv_clock.time_label对象基于父对象居中对齐
-  // lv_obj_align_to(lv_clock.time_label, lv_obj_get_parent(lv_clock.time_label), LV_ALIGN_CENTER, 0, 0);
-  //  // 设置时间标签lv_clock.date_label对象基于父对象顶部中间对齐
-  // lv_obj_align_to(lv_clock.date_label, lv_obj_get_parent(lv_clock.date_label), LV_ALIGN_TOP_RIGHT, 2, 0);
-  // // 设置时间标签lv_clock.weekday_label对象基于父对象底部中间对齐
-  // lv_obj_align_to(lv_clock.weekday_label, lv_obj_get_parent(lv_clock.weekday_label),LV_ALIGN_TOP_LEFT, 0, 0);
-
-  // lv_obj_align_to(lv_clock.lunar_label, lv_obj_get_parent(lv_clock.lunar_label),LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  // lv_obj_align_to(lv_clock.lunar_term_label, lv_obj_get_parent(lv_clock.lunar_term_label),LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-
-  // // 显示天气信息
-  // lv_obj_t *weather_obj = lv_obj_create(time_date_obj); // 基于time_date_obj对象创建时间对象
-  // if (weather_obj == NULL)
-  // {
-  //     printf("[%s:%d] weather_obj create failed\n", __FUNCTION__, __LINE__);
-  //     return;
-  // }
- 
-  // lv_obj_set_size(weather_obj, 158, 100); // 设置对象大小
-  // lv_obj_align_to(weather_obj, time_date_obj, LV_ALIGN_RIGHT_MID, 0, 0); // 设置time_obj对象基于time_date_obj对象左边中间对齐
-  // lv_obj_add_style(weather_obj, &weather_style, LV_STATE_DEFAULT);  // 给time_obj对象添加样式
-
-  // lv_clock.weather_label = lv_label_create(weather_obj);
-  // lv_obj_add_style(lv_clock.weather_label, &week_label_style, LV_STATE_DEFAULT);
-  // lv_obj_align_to(lv_clock.weather_label, lv_obj_get_parent(lv_clock.weather_label),LV_ALIGN_TOP_LEFT, 0, 0);
-
-  // lv_clock.weather_icon = lv_img_create(weather_obj);
-
-  // lv_timer_t *timer = lv_timer_create(update_time_label, 200, (void *)&lv_clock);
-  // if (timer == NULL) {
-  //   printf("[%s:%d] lv_timer_create failed\n", __FUNCTION__, __LINE__);
-  // }
-
-  // std::string weather_str;
-  // showWeatherIcon(weather_str, weather_obj);
-  Serial.println("Setup done");
-  // 关闭NTP客户端
-  timeClient.end();
-}
-void loop() {
-  // put your main code here, to run repeatedly:
-  lv_timer_handler();
-  if (!WiFi.isConnected()) {
-    reconnectWiFi();
-  }
-  
-  delay(5);
-}
-
-
-void reconnectWiFi() {
-  WiFi.disconnect();
-  WiFi.mode(WIFI_STA);
-  Serial.println("Connecting to WiFi...");
-  WiFi.begin(config.stassid, config.stapsw);
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-  }
-  Serial.println("WiFi connected");
-}
 

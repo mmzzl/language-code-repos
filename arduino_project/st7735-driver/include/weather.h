@@ -25,7 +25,4 @@ typedef struct {
     char nightweather[32];
 } weather_t;
 void getWeather(weather_t *forecasts);
-void getRequestHttp(const char* url, char* body);
-void showWeatherIcon(const char* weather, lv_obj_t *obj) ;
-// void getGeo();
 #endif

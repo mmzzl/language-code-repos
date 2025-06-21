@@ -9,7 +9,6 @@
 #include <Ticker.h>
 #include <network.h>
 
-config_type config;
 
 //需要在arduino IDE软件中---工具-->管理库-->搜索arduinojson并安装
 
@@ -26,47 +25,58 @@ char config_flag = 0;//判断是否配网
 WiFiUDP Udp;
 
 
-/*
- * 从EEPROM加载参数
-*/
-uint8_t *p = (uint8_t*)(&config);
-void loadConfig()
-{
 
-  uint8_t mac[6];
-  Serial.println(" LoadConfig.......");
-  WiFi.macAddress(mac);
-  EEPROM.begin(512);
-  for (int i = 0; i < sizeof(config); i++)
-  {
-    *(p + i) = EEPROM.read(i);
-  }
-  config.reboot = config.reboot + 1;
-  if(config.reboot>=4){
-    restoreFactory();
-  }
-  if(config.magic != 0xAA){
-    config_flag = 1;
-  }
-  EEPROM.begin(512);
-  for (int i = 0; i < sizeof(config); i++){
-    EEPROM.write(i, *(p + i));
-  }
-  EEPROM.commit();
-  delay(2000);
-  Serial.println("loadConfig Over");
-  EEPROM.begin(512);
-  config.reboot = 0;
-  for (int i = 0; i < sizeof(config); i++){
-    EEPROM.write(i, *(p + i));
-  }
-  EEPROM.commit();
+void NetworkManager::loadConfig() {
+    uint8_t mac[6];
+    Serial.println("LoadConfig.......");
+    WiFi.macAddress(mac);
+    
+    // 使用成员变量 config
+    uint8_t *p = (uint8_t*)(&this->config);
+    
+    // 动态计算 EEPROM 大小
+    size_t configSize = sizeof(config_type);
+    EEPROM.begin(configSize);
+    
+    for (int i = 0; i < configSize; i++) {
+        *(p + i) = EEPROM.read(i);
+    }
+    
+    this->config.reboot = this->config.reboot + 1;
+    
+    if(this->config.reboot >= 4) {
+        restoreFactory();
+    }
+    
+    // 验证魔术字
+    if(this->config.magic != MAGIC_NUMBER) {
+        config_flag = 1;
+    }
+    
+    // 更新 EEPROM
+    EEPROM.begin(configSize);
+    for (int i = 0; i < configSize; i++) {
+        EEPROM.write(i, *(p + i));
+    }
+    EEPROM.commit();
+    
+    Serial.println("loadConfig Over");
+    
+    // 重置重启计数
+    this->config.reboot = 0;
+    EEPROM.begin(configSize);
+    for (int i = 0; i < configSize; i++) {
+        EEPROM.write(i, *(p + i));
+    }
+    EEPROM.commit();
 }
+
+
 
 /* 
  * 恢复出厂设置
 */
-void restoreFactory()
+void NetworkManager::restoreFactory()
 {
   Serial.println("\r\n Restore Factory....... ");
   config.magic = 0x00;
@@ -86,10 +96,11 @@ void restoreFactory()
 /*
 保存WIFI信息
 */
-void saveConfig()
+void NetworkManager::saveConfig()
 {
   config.reboot = 0;
-  EEPROM.begin(2018);
+  size_t configSize = sizeof(config_type); // 动态计算大小
+  EEPROM.begin(configSize);
   uint8_t *p = (uint8_t*)(&config);
   for (int i = 0; i < sizeof(config); i++)
   {
@@ -98,7 +109,7 @@ void saveConfig()
   EEPROM.commit();
 }
 
-void apConfig(String mac) {
+void NetworkManager::apConfig(String mac) {
   if (config_flag == 1) {
       WiFi.softAP("bemfa_" + mac);
       Udp.begin(8266);
@@ -163,3 +174,14 @@ void apConfig(String mac) {
   }
 }
 
+void NetworkManager::reconnectWiFi() {
+    WiFi.disconnect();
+    WiFi.mode(WIFI_STA);
+    Serial.println("Connecting to WiFi...");
+    WiFi.begin(config.stassid, config.stapsw);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("WiFi connected");
+}
