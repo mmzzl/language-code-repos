@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>跨域请求测试</h1>
+    <button onclick="sendCorsRequest()">发送跨域请求</button>
+    <div id="response"></div>
+
+    <script>
+        function sendCorsRequest() {
+            // 替换为你的 Django API 接口（例如获取视频列表）
+            const apiUrl = "http://127.0.0.1:8000/api/videos/episodes/1";
+
+            fetch(apiUrl, {
+                method: "GET",
+                // 如需携带 Cookie（如认证场景），需取消注释以下行
+                // credentials: "include",
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP 错误！状态码：${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("response").innerHTML =
+                    `<h3>请求成功</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            })
+            .catch(error => {
+                document.getElementById("response").innerHTML =
+                    `<h3>请求失败</h3><pre>${error.message}</pre>`;
+                // 打印详细的跨域错误（查看控制台）
+                console.error("跨域错误详情：", error);
+            });
+        }
+    </script>
+</body>
+</html>

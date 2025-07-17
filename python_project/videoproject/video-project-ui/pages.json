@@ -1,0 +1,52 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "视频",
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+			"path" : "pages/detail/detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "视频详情"
+			}
+		},
+		{
+			"path" : "pages/blog/blog",
+			"style" : 
+			{
+				"navigationBarTitleText" : "文章"
+			}
+		},
+		{
+			"path" : "pages/blog/articleDetail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "文章详情"
+			}
+		},
+		{
+			"path" : "pages/wechat/wechat",
+			"style" : 
+			{
+				"navigationBarTitleText" : "聊天"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "default",
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FF9966"
+	},
+	"uniIdRouter": {},
+	
+	"easycom": {
+	    "autoscan": true,
+	    "custom": {}
+	  }
+	
+}
