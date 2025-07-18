@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hq)46wz4xm21t68^cw))4tm62t(l)0k&d!2_4=jky4)lbc!+8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1000 * 1024 * 1024
 # ALLOWED_HOSTS = ["www.369924.xyz", "369924.xyz", "121.37.47.63"]
@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'video',
     'rest_framework',
     'blog',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'lottery'
 ]
 
 MIDDLEWARE = [
